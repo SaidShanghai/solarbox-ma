@@ -210,68 +210,7 @@ const SolarResults = ({ data, loading, error, factureMad, consoKwh, city }: Sola
         ))}
       </div>
 
-      {/* Tariff breakdown */}
-      {annualConsoKwh > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="rounded-2xl border border-border bg-muted/30 p-4 space-y-3"
-        >
-          <div className="flex items-center gap-2">
-            <Receipt className="w-4 h-4 text-primary" />
-            <p className="text-xs font-semibold">Détail tarification ONEE — {tarifInfo.mode}</p>
-          </div>
-          <div className="space-y-1">
-            {tarifInfo.tranches.map((t, i) => (
-              <div key={i} className="flex items-center justify-between text-[11px]">
-                <span className="text-muted-foreground">
-                  {t.to ? `${t.from}–${t.to} kWh` : `> ${t.from} kWh`}
-                </span>
-                <span className="font-semibold">{t.priceTTC.toFixed(4)} MAD/kWh TTC</span>
-              </div>
-            ))}
-          </div>
-          <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
-            <span className="text-muted-foreground">Facture avant solaire</span>
-            <span className="font-bold">{savings.billBefore.toLocaleString("fr-FR")} MAD/an</span>
-          </div>
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-muted-foreground">Facture après solaire</span>
-            <span className="font-bold text-emerald-600">{savings.billAfter.toLocaleString("fr-FR")} MAD/an</span>
-          </div>
-        </motion.div>
-      )}
 
-      {/* Monthly production bar chart */}
-      {monthlyData.length > 0 && (
-        <div className="rounded-2xl bg-muted/50 border border-border p-4 space-y-3">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-primary" />
-            <p className="text-xs font-semibold">Production mensuelle (kWh)</p>
-          </div>
-          <div className="flex items-end gap-1 h-24">
-            {monthlyData.map((m, i) => {
-              const maxProd = Math.max(...monthlyData.map(d => d.productionKwh));
-              const height = maxProd > 0 ? (m.productionKwh / maxProd) * 100 : 0;
-              return (
-                <div key={m.month} className="flex-1 flex flex-col items-center gap-1">
-                  <span className="text-[8px] text-muted-foreground font-medium">
-                    {Math.round(m.productionKwh)}
-                  </span>
-                  <div
-                    className="w-full rounded-t-sm relative overflow-hidden bg-primary/20"
-                    style={{ height: `${height}%`, minHeight: 2 }}
-                  >
-                    <div className="absolute inset-0 bg-primary rounded-t-sm" />
-                  </div>
-                  <span className="text-[8px] text-muted-foreground">{monthNames[i]}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
     </motion.div>
   );
 };
