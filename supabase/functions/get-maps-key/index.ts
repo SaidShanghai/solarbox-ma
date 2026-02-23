@@ -19,15 +19,18 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Rate limiting by IP (10 requests per hour)
+    // Rate limiting by origin + IP (60 requests per hour)
     const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const origin = req.headers.get("origin") || req.headers.get("referer") || "unknown";
+    // Use a hash of origin+IP to differentiate users behind same proxy
+    const rateLimitKey = `maps-key:${origin}:${clientIp}`;
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
     const { data: isLimited } = await supabase.rpc("check_rate_limit", {
-      _key: `maps-key:${clientIp}`,
+      _key: rateLimitKey,
       _max_requests: 60,
       _window_seconds: 3600,
     });
