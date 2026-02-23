@@ -1,20 +1,53 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, ClipboardList, FileText, Calendar, LogOut, Sun } from "lucide-react";
+import { User, ClipboardList, FileText, Calendar, Sun, Loader2, MapPin, Zap, Home } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+type QuoteRequest = {
+  id: string;
+  created_at: string;
+  status: string;
+  city: string | null;
+  project_type: string | null;
+  annual_consumption: string | null;
+  objectif: string | null;
+  housing_type: string | null;
+  adresse_projet: string | null;
+  ville_projet: string | null;
+};
+
+const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
+  new: { label: "Nouveau", variant: "default" },
+  in_progress: { label: "En cours", variant: "secondary" },
+  completed: { label: "Traité", variant: "outline" },
+  cancelled: { label: "Annulé", variant: "destructive" },
+};
 
 const ClientProfileContent = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [diagnostics, setDiagnostics] = useState<QuoteRequest[]>([]);
+  const [loadingDiag, setLoadingDiag] = useState(true);
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
-  };
+  useEffect(() => {
+    if (!user?.email) return;
+    const fetchDiagnostics = async () => {
+      const { data } = await supabase
+        .from("quote_requests")
+        .select("id, created_at, status, city, project_type, annual_consumption, objectif, housing_type, adresse_projet, ville_projet")
+        .eq("client_email", user.email)
+        .order("created_at", { ascending: false });
+      setDiagnostics(data || []);
+      setLoadingDiag(false);
+    };
+    fetchDiagnostics();
+  }, [user?.email]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -22,15 +55,13 @@ const ClientProfileContent = () => {
       <main className="container mx-auto px-4 pt-24 pb-16">
         <div className="max-w-3xl mx-auto space-y-8">
           {/* Header */}
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium">
-                <Sun className="w-4 h-4" />
-                Mon Espace NOORIA
-              </div>
-              <h1 className="text-3xl font-bold">Mon Profil</h1>
-              <p className="text-muted-foreground text-sm">{user?.email}</p>
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium">
+              <Sun className="w-4 h-4" />
+              Mon Espace NOORIA
             </div>
+            <h1 className="text-3xl font-bold">Mon Profil</h1>
+            <p className="text-muted-foreground text-sm">{user?.email}</p>
           </div>
 
           {/* Info compte */}
@@ -49,46 +80,70 @@ const ClientProfileContent = () => {
             </CardContent>
           </Card>
 
-          {/* Actions rapides */}
-          <div className="grid sm:grid-cols-3 gap-4">
-            <Card className="cursor-pointer hover:border-primary/50 transition-colors" onClick={() => navigate("/diagnostic")}>
-              <CardContent className="pt-6 text-center space-y-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                  <ClipboardList className="w-5 h-5 text-primary" />
+          {/* Mes diagnostics */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base">
+                <ClipboardList className="w-4 h-4 text-primary" />
+                Mes diagnostics
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loadingDiag ? (
+                <div className="flex justify-center py-6">
+                  <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
                 </div>
-                <div>
-                  <p className="font-semibold text-sm">Nouveau diagnostic</p>
-                  <p className="text-xs text-muted-foreground mt-1">Lancer une nouvelle analyse solaire</p>
+              ) : diagnostics.length === 0 ? (
+                <div className="text-center py-6 space-y-3">
+                  <p className="text-sm text-muted-foreground">Aucun diagnostic pour le moment.</p>
+                  <Button size="sm" onClick={() => navigate("/diagnostic")}>
+                    Lancer mon premier diagnostic
+                  </Button>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="opacity-60 cursor-not-allowed">
-              <CardContent className="pt-6 text-center space-y-3">
-                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mx-auto">
-                  <FileText className="w-5 h-5 text-muted-foreground" />
+              ) : (
+                <div className="space-y-3">
+                  {diagnostics.map((d) => {
+                    const st = statusLabels[d.status] || statusLabels.new;
+                    return (
+                      <div key={d.id} className="flex items-start justify-between border rounded-lg p-4 gap-4">
+                        <div className="space-y-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-medium">
+                              {d.project_type === "Entreprise" ? "Entreprise" : "Résidentiel"}
+                            </span>
+                            <Badge variant={st.variant} className="text-[10px]">{st.label}</Badge>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+                            {(d.ville_projet || d.city) && (
+                              <span className="flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
+                                {d.ville_projet || d.city}
+                              </span>
+                            )}
+                            {d.annual_consumption && (
+                              <span className="flex items-center gap-1">
+                                <Zap className="w-3 h-3" />
+                                {d.annual_consumption}
+                              </span>
+                            )}
+                            {d.housing_type && (
+                              <span className="flex items-center gap-1">
+                                <Home className="w-3 h-3" />
+                                {d.housing_type}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-muted-foreground">
+                            {new Date(d.created_at).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                <div>
-                  <p className="font-semibold text-sm">Mes devis</p>
-                  <p className="text-xs text-muted-foreground mt-1">Suivi de vos demandes</p>
-                </div>
-                <span className="text-[10px] bg-muted text-muted-foreground px-2 py-0.5 rounded-full">Bientôt</span>
-              </CardContent>
-            </Card>
-
-            <Card className="opacity-60 cursor-not-allowed">
-              <CardContent className="pt-6 text-center space-y-3">
-                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mx-auto">
-                  <Calendar className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <div>
-                  <p className="font-semibold text-sm">Mes rendez-vous</p>
-                  <p className="text-xs text-muted-foreground mt-1">Gérer vos RDV installateurs</p>
-                </div>
-                <span className="text-[10px] bg-muted text-muted-foreground px-2 py-0.5 rounded-full">Bientôt</span>
-              </CardContent>
-            </Card>
-          </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* CTA diagnostic */}
           <Card className="border-primary/20 bg-primary/5">
