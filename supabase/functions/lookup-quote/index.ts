@@ -27,13 +27,9 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Search by ID prefix (first 8 chars of UUID)
+    // Use raw SQL via rpc since PostgREST can't filter UUID as text with ilike
     const { data, error } = await supabase
-      .from("quote_requests")
-      .select("id, created_at, status, city, project_type, annual_consumption, objectif, housing_type, adresse_projet, ville_projet, client_name")
-      .ilike("id", `${cleanRef}%`)
-      .limit(1)
-      .single();
+      .rpc("lookup_quote_by_ref", { ref_prefix: cleanRef });
 
     if (error || !data) {
       return new Response(
