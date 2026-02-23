@@ -28,7 +28,7 @@ Deno.serve(async (req) => {
 
     const { data: isLimited } = await supabase.rpc("check_rate_limit", {
       _key: `maps-key:${clientIp}`,
-      _max_requests: 10,
+      _max_requests: 60,
       _window_seconds: 3600,
     });
 
