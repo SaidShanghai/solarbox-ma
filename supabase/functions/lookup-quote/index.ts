@@ -40,19 +40,21 @@ Deno.serve(async (req) => {
       );
     }
 
+    // Mask name for privacy: "MORAD ELALA" → "M. E***"
+    const nameParts = String(row.client_name || "").trim().split(/\s+/);
+    const maskedName = nameParts.length > 1
+      ? `${nameParts[0][0]}. ${nameParts[1][0]}***`
+      : `${(nameParts[0] || "?")[0]}***`;
+
     // Return limited info (no email/phone for privacy)
     return new Response(
       JSON.stringify({
-        id: row.id,
         ref: String(row.id).slice(0, 12).toUpperCase(),
         created_at: row.created_at,
         status: row.status,
-        client_name: row.client_name,
+        client_name: maskedName,
         city: row.ville_projet || row.city,
-        project_type: row.project_type,
         housing_type: row.housing_type,
-        objectif: row.objectif,
-        annual_consumption: row.annual_consumption,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
