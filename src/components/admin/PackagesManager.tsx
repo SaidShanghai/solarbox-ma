@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -118,18 +118,19 @@ const MultiToggle = ({
 );
 
 const NumField = ({
-  label, unit, value, onChange, placeholder, highlighted,
+  label, unit, value, onChange, placeholder, highlighted, computed,
 }: {
-  label: string; unit?: string; value: string; onChange: (v: string) => void; placeholder?: string; highlighted?: boolean;
+  label: string; unit?: string; value: string; onChange: (v: string) => void; placeholder?: string; highlighted?: boolean; computed?: boolean;
 }) => (
   <div className="space-y-1.5">
-    <Label className={highlighted ? "text-red-600 font-semibold" : ""}>
+    <Label className={highlighted ? "text-red-600 font-semibold" : computed ? "text-blue-600 font-semibold" : ""}>
       {label}
       {unit && <span className="text-muted-foreground font-normal ml-1">({unit})</span>}
       {highlighted && <span className="ml-1 text-[10px] font-normal text-red-500">● IA</span>}
+      {computed && !highlighted && <span className="ml-1 text-[10px] font-normal text-blue-500">● calculé</span>}
     </Label>
     <Input type="number" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}
-      className={highlighted ? "border-red-400 bg-red-50/50 text-red-900" : ""} />
+      className={highlighted ? "border-red-400 bg-red-50/50 text-red-900" : computed ? "border-blue-300 bg-blue-50/30 text-blue-900" : ""} />
   </div>
 );
 
@@ -160,10 +161,86 @@ const PackagesManager = () => {
   const [ocrLoading, setOcrLoading] = useState(false);
   const [ocrFields, setOcrFields] = useState<Set<string>>(new Set());
   const { toast } = useToast();
+  const [calcFields, setCalcFields] = useState<Set<string>>(new Set());
 
   const h = (key: string) => ocrFields.has(key); // shorthand for highlighted
+  const isCalc = (key: string) => calcFields.has(key); // auto-calculated indicator
 
   useEffect(() => { fetchPackages(); }, []);
+
+  // ---- Auto-calculations based on category ----
+  useEffect(() => {
+    const s = form.specs;
+    const cat = form.category;
+    const updates: Record<string, string> = {};
+    const newCalcFields = new Set<string>();
+
+    if (cat === "panneaux") {
+      const wc = parseFloat(specStr(s, "puissance_crete_wc"));
+      const l = parseFloat(specStr(s, "longueur_mm"));
+      const w = parseFloat(specStr(s, "largeur_mm"));
+      if (wc > 0 && l > 0 && w > 0) {
+        const rend = Math.round((wc / (l * w / 1_000_000) / 10) * 100) / 100;
+        updates["rendement_module_pct"] = String(rend);
+        newCalcFields.add("specs.rendement_module_pct");
+      }
+    }
+
+    if (cat === "onduleurs") {
+      const mppt = parseFloat(specStr(s, "nb_mppt"));
+      const strPerMppt = parseFloat(specStr(s, "nb_strings_par_mppt"));
+      if (mppt > 0 && strPerMppt > 0) {
+        updates["nb_entrees_string_total"] = String(Math.round(mppt * strPerMppt));
+        newCalcFields.add("specs.nb_entrees_string_total");
+      }
+    }
+
+    if (cat === "batteries") {
+      const capTotal = parseFloat(specStr(s, "capacite_totale_kwh"));
+      const dod = parseFloat(specStr(s, "dod_pct"));
+      if (capTotal > 0 && dod > 0) {
+        updates["capacite_utilisable_kwh"] = String(Math.round(capTotal * dod / 100 * 100) / 100);
+        newCalcFields.add("specs.capacite_utilisable_kwh");
+      }
+      const cycles = parseFloat(specStr(s, "cycles_de_vie"));
+      if (cycles > 0) {
+        updates["duree_vie_ans"] = String(Math.round(cycles / 365 * 10) / 10);
+        newCalcFields.add("specs.duree_vie_ans");
+      }
+    }
+
+    if (cat === "solarbox") {
+      const capBat = parseFloat(specStr(s, "capacite_batterie_kwh"));
+      const dod = parseFloat(specStr(s, "dod_pct"));
+      if (capBat > 0 && dod > 0) {
+        updates["capacite_utilisable_kwh"] = String(Math.round(capBat * dod / 100 * 100) / 100);
+        newCalcFields.add("specs.capacite_utilisable_kwh");
+      }
+      const cycles = parseFloat(specStr(s, "cycles_de_vie"));
+      if (cycles > 0) {
+        updates["duree_vie_ans"] = String(Math.round(cycles / 365 * 10) / 10);
+        newCalcFields.add("specs.duree_vie_ans");
+      }
+    }
+
+    setCalcFields(newCalcFields);
+
+    // Only update if values actually differ to avoid infinite loop
+    const currentSpecs = form.specs;
+    let needsUpdate = false;
+    for (const [k, v] of Object.entries(updates)) {
+      if (specStr(currentSpecs, k) !== v) needsUpdate = true;
+    }
+    if (needsUpdate) {
+      setForm((f) => ({ ...f, specs: { ...f.specs, ...updates } }));
+    }
+  }, [
+    form.category,
+    form.specs.puissance_crete_wc, form.specs.longueur_mm, form.specs.largeur_mm,
+    form.specs.nb_mppt, form.specs.nb_strings_par_mppt,
+    form.specs.capacite_totale_kwh, form.specs.dod_pct, form.specs.cycles_de_vie,
+    form.specs.capacite_batterie_kwh,
+  ]);
 
   const fetchPackages = async () => {
     setLoading(true);
@@ -359,7 +436,7 @@ const PackagesManager = () => {
             <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">☀️ Caractéristiques électriques</p>
             <div className="grid grid-cols-2 gap-4">
               <NumField label="Puissance crête" unit="Wc" value={specStr(form.specs, "puissance_crete_wc")} onChange={(v) => setSpec("puissance_crete_wc", v)} placeholder="585" highlighted={h("specs.puissance_crete_wc")} />
-              <NumField label="Rendement module" unit="%" value={specStr(form.specs, "rendement_module_pct")} onChange={(v) => setSpec("rendement_module_pct", v)} placeholder="22.61" highlighted={h("specs.rendement_module_pct")} />
+              <NumField label="Rendement module" unit="%" value={specStr(form.specs, "rendement_module_pct")} onChange={(v) => setSpec("rendement_module_pct", v)} placeholder="22.61" highlighted={h("specs.rendement_module_pct")} computed={isCalc("specs.rendement_module_pct")} />
               <NumField label="Rendement cellule" unit="%" value={specStr(form.specs, "rendement_cellule_pct")} onChange={(v) => setSpec("rendement_cellule_pct", v)} placeholder="23.4" highlighted={h("specs.rendement_cellule_pct")} />
               <NumField label="Nb cellules" unit="" value={specStr(form.specs, "nb_cellules")} onChange={(v) => setSpec("nb_cellules", v)} placeholder="144" highlighted={h("specs.nb_cellules")} />
               <NumField label="Voc" unit="V" value={specStr(form.specs, "voc_v")} onChange={(v) => setSpec("voc_v", v)} placeholder="49.5" highlighted={h("specs.voc_v")} />
@@ -408,7 +485,7 @@ const PackagesManager = () => {
               <NumField label="Puissance max" unit="kW" value={specStr(form.specs, "puissance_max_kw")} onChange={(v) => setSpec("puissance_max_kw", v)} placeholder="12" highlighted={h("specs.puissance_max_kw")} />
               <NumField label="Nb MPPT" unit="" value={specStr(form.specs, "nb_mppt")} onChange={(v) => setSpec("nb_mppt", v)} placeholder="2" highlighted={h("specs.nb_mppt")} />
               <NumField label="Nb strings / MPPT" unit="" value={specStr(form.specs, "nb_strings_par_mppt")} onChange={(v) => setSpec("nb_strings_par_mppt", v)} placeholder="2" highlighted={h("specs.nb_strings_par_mppt")} />
-              <NumField label="Nb entrées string total" unit="" value={specStr(form.specs, "nb_entrees_string_total")} onChange={(v) => setSpec("nb_entrees_string_total", v)} placeholder="16" highlighted={h("specs.nb_entrees_string_total")} />
+              <NumField label="Nb entrées string total" unit="" value={specStr(form.specs, "nb_entrees_string_total")} onChange={(v) => setSpec("nb_entrees_string_total", v)} placeholder="16" highlighted={h("specs.nb_entrees_string_total")} computed={isCalc("specs.nb_entrees_string_total")} />
               <NumField label="Efficacité max" unit="%" value={specStr(form.specs, "efficacite_max_pct")} onChange={(v) => setSpec("efficacite_max_pct", v)} placeholder="98.6" highlighted={h("specs.efficacite_max_pct")} />
               <NumField label="Efficacité européenne" unit="%" value={specStr(form.specs, "efficacite_euro_pct")} onChange={(v) => setSpec("efficacite_euro_pct", v)} placeholder="98.0" highlighted={h("specs.efficacite_euro_pct")} />
               <NumField label="Tension DC max" unit="V" value={specStr(form.specs, "tension_dc_max_v")} onChange={(v) => setSpec("tension_dc_max_v", v)} placeholder="1100" highlighted={h("specs.tension_dc_max_v")} />
@@ -445,7 +522,7 @@ const PackagesManager = () => {
             <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">🔋 Énergie & Puissance</p>
             <div className="grid grid-cols-2 gap-4">
               <NumField label="Capacité totale" unit="kWh" value={specStr(form.specs, "capacite_totale_kwh")} onChange={(v) => setSpec("capacite_totale_kwh", v)} placeholder="10.24" highlighted={h("specs.capacite_totale_kwh")} />
-              <NumField label="Capacité utilisable" unit="kWh" value={specStr(form.specs, "capacite_utilisable_kwh")} onChange={(v) => setSpec("capacite_utilisable_kwh", v)} placeholder="8.19" highlighted={h("specs.capacite_utilisable_kwh")} />
+              <NumField label="Capacité utilisable" unit="kWh" value={specStr(form.specs, "capacite_utilisable_kwh")} onChange={(v) => setSpec("capacite_utilisable_kwh", v)} placeholder="8.19" highlighted={h("specs.capacite_utilisable_kwh")} computed={isCalc("specs.capacite_utilisable_kwh")} />
               <NumField label="Tension nominale" unit="V" value={specStr(form.specs, "tension_nominale_v")} onChange={(v) => setSpec("tension_nominale_v", v)} placeholder="48" highlighted={h("specs.tension_nominale_v")} />
               <NumField label="Capacité" unit="Ah" value={specStr(form.specs, "capacite_ah")} onChange={(v) => setSpec("capacite_ah", v)} placeholder="200" highlighted={h("specs.capacite_ah")} />
               <NumField label="Puissance décharge jour" unit="kW" value={specStr(form.specs, "puissance_decharge_jour_kw")} onChange={(v) => setSpec("puissance_decharge_jour_kw", v)} placeholder="4.8" highlighted={h("specs.puissance_decharge_jour_kw")} />
@@ -456,7 +533,7 @@ const PackagesManager = () => {
             <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">⏳ Durée de vie</p>
             <div className="grid grid-cols-2 gap-4">
               <NumField label="Cycles de vie" unit="cycles" value={specStr(form.specs, "cycles_de_vie")} onChange={(v) => setSpec("cycles_de_vie", v)} placeholder="6000" highlighted={h("specs.cycles_de_vie")} />
-              <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="16.4" highlighted={h("specs.duree_vie_ans")} />
+              <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="16.4" highlighted={h("specs.duree_vie_ans")} computed={isCalc("specs.duree_vie_ans")} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
@@ -510,7 +587,7 @@ const PackagesManager = () => {
           <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">🔋 Batterie intégrée</p>
           <div className="grid grid-cols-2 gap-4">
             <NumField label="Capacité batterie" unit="kWh" value={specStr(form.specs, "capacite_batterie_kwh")} onChange={(v) => setSpec("capacite_batterie_kwh", v)} placeholder="215" highlighted={h("specs.capacite_batterie_kwh")} />
-            <NumField label="Capacité utilisable" unit="kWh" value={specStr(form.specs, "capacite_utilisable_kwh")} onChange={(v) => setSpec("capacite_utilisable_kwh", v)} placeholder="193.5" highlighted={h("specs.capacite_utilisable_kwh")} />
+            <NumField label="Capacité utilisable" unit="kWh" value={specStr(form.specs, "capacite_utilisable_kwh")} onChange={(v) => setSpec("capacite_utilisable_kwh", v)} placeholder="193.5" highlighted={h("specs.capacite_utilisable_kwh")} computed={isCalc("specs.capacite_utilisable_kwh")} />
             <NumField label="Tension batterie" unit="V" value={specStr(form.specs, "tension_batterie_v")} onChange={(v) => setSpec("tension_batterie_v", v)} placeholder="614.4" highlighted={h("specs.tension_batterie_v")} />
           </div>
           <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">⚡ Puissances AC</p>
@@ -525,7 +602,7 @@ const PackagesManager = () => {
           <div className="grid grid-cols-2 gap-4">
             <NumField label="DoD" unit="%" value={specStr(form.specs, "dod_pct")} onChange={(v) => setSpec("dod_pct", v)} placeholder="90" highlighted={h("specs.dod_pct")} />
             <NumField label="Cycles de vie" unit="cycles" value={specStr(form.specs, "cycles_de_vie")} onChange={(v) => setSpec("cycles_de_vie", v)} placeholder="6000" highlighted={h("specs.cycles_de_vie")} />
-            <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="16.4" highlighted={h("specs.duree_vie_ans")} />
+            <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="16.4" highlighted={h("specs.duree_vie_ans")} computed={isCalc("specs.duree_vie_ans")} />
             <NumField label="Efficacité round-trip" unit="%" value={specStr(form.specs, "efficacite_roundtrip_pct")} onChange={(v) => setSpec("efficacite_roundtrip_pct", v)} placeholder="95" highlighted={h("specs.efficacite_roundtrip_pct")} />
           </div>
           <div className="space-y-1.5">
