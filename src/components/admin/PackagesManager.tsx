@@ -54,7 +54,7 @@ const PROFILE_LABELS: Record<string, string> = {
 const MULTI_OPTIONS: Record<string, string[]> = {
   type_systeme: ["on_grid", "off_grid", "hybride"],
   type_client: ["particulier", "pme", "entreprise", "industrie"],
-  communication: ["RS485", "Modbus-TCP", "CAN", "4G", "WiFi", "Ethernet"],
+  communication: ["RS485", "Modbus-TCP", "CAN", "4G", "WiFi", "Ethernet", "Bluetooth"],
   use_cases: ["peak_shaving", "backup", "off_grid", "autoconsommation", "recharge_ev"],
   secteurs_cibles: ["industrie", "data_center", "hotel", "commerce", "agriculture", "residentiel"],
   type_cellule: ["monocristallin", "polycristallin", "bifacial", "PERC", "TOPCon", "HJT"],
@@ -356,14 +356,16 @@ const PackagesManager = () => {
       return (
         <>
           <TabsContent value="tech1" className="space-y-4 pt-4">
-            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">☀️ Caractéristiques panneau</p>
+            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">☀️ Caractéristiques électriques</p>
             <div className="grid grid-cols-2 gap-4">
-              <NumField label="Puissance crête" unit="Wc" value={specStr(form.specs, "puissance_wc")} onChange={(v) => setSpec("puissance_wc", v)} placeholder="550" highlighted={h("specs.puissance_wc")} />
-              <NumField label="Rendement" unit="%" value={specStr(form.specs, "rendement")} onChange={(v) => setSpec("rendement", v)} placeholder="22.5" highlighted={h("specs.rendement")} />
-              <NumField label="Voc" unit="V" value={specStr(form.specs, "voc")} onChange={(v) => setSpec("voc", v)} placeholder="49.5" highlighted={h("specs.voc")} />
-              <NumField label="Isc" unit="A" value={specStr(form.specs, "isc")} onChange={(v) => setSpec("isc", v)} placeholder="14.2" highlighted={h("specs.isc")} />
-              <NumField label="Vmp" unit="V" value={specStr(form.specs, "vmp")} onChange={(v) => setSpec("vmp", v)} placeholder="41.7" highlighted={h("specs.vmp")} />
-              <NumField label="Imp" unit="A" value={specStr(form.specs, "imp")} onChange={(v) => setSpec("imp", v)} placeholder="13.2" highlighted={h("specs.imp")} />
+              <NumField label="Puissance crête" unit="Wc" value={specStr(form.specs, "puissance_crete_wc")} onChange={(v) => setSpec("puissance_crete_wc", v)} placeholder="585" highlighted={h("specs.puissance_crete_wc")} />
+              <NumField label="Rendement module" unit="%" value={specStr(form.specs, "rendement_module_pct")} onChange={(v) => setSpec("rendement_module_pct", v)} placeholder="22.61" highlighted={h("specs.rendement_module_pct")} />
+              <NumField label="Rendement cellule" unit="%" value={specStr(form.specs, "rendement_cellule_pct")} onChange={(v) => setSpec("rendement_cellule_pct", v)} placeholder="23.4" highlighted={h("specs.rendement_cellule_pct")} />
+              <NumField label="Nb cellules" unit="" value={specStr(form.specs, "nb_cellules")} onChange={(v) => setSpec("nb_cellules", v)} placeholder="144" highlighted={h("specs.nb_cellules")} />
+              <NumField label="Voc" unit="V" value={specStr(form.specs, "voc_v")} onChange={(v) => setSpec("voc_v", v)} placeholder="49.5" highlighted={h("specs.voc_v")} />
+              <NumField label="Isc" unit="A" value={specStr(form.specs, "isc_a")} onChange={(v) => setSpec("isc_a", v)} placeholder="14.2" highlighted={h("specs.isc_a")} />
+              <NumField label="Vmp" unit="V" value={specStr(form.specs, "vmp_v")} onChange={(v) => setSpec("vmp_v", v)} placeholder="41.7" highlighted={h("specs.vmp_v")} />
+              <NumField label="Imp" unit="A" value={specStr(form.specs, "imp_a")} onChange={(v) => setSpec("imp_a", v)} placeholder="13.2" highlighted={h("specs.imp_a")} />
             </div>
             <MultiToggle label="Type de cellule" options={MULTI_OPTIONS.type_cellule} selected={specArr(form.specs, "type_cellule")} onChange={(v) => setSpec("type_cellule", v)} highlighted={h("specs.type_cellule")} />
           </TabsContent>
@@ -374,16 +376,23 @@ const PackagesManager = () => {
               <NumField label="Largeur" unit="mm" value={specStr(form.specs, "largeur_mm")} onChange={(v) => setSpec("largeur_mm", v)} placeholder="1134" highlighted={h("specs.largeur_mm")} />
               <NumField label="Épaisseur" unit="mm" value={specStr(form.specs, "epaisseur_mm")} onChange={(v) => setSpec("epaisseur_mm", v)} placeholder="30" highlighted={h("specs.epaisseur_mm")} />
               <NumField label="Poids" unit="kg" value={specStr(form.specs, "poids_kg")} onChange={(v) => setSpec("poids_kg", v)} placeholder="27.5" highlighted={h("specs.poids_kg")} />
-              <NumField label="Nb cellules" unit="" value={specStr(form.specs, "nb_cellules")} onChange={(v) => setSpec("nb_cellules", v)} placeholder="144" highlighted={h("specs.nb_cellules")} />
               <NumField label="Garantie" unit="ans" value={specStr(form.specs, "garantie_ans")} onChange={(v) => setSpec("garantie_ans", v)} placeholder="25" highlighted={h("specs.garantie_ans")} />
+              <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="25" highlighted={h("specs.duree_vie_ans")} />
+            </div>
+            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">🌡️ Coefficients de température</p>
+            <div className="grid grid-cols-2 gap-4">
+              <NumField label="Coeff. temp. Pmax" unit="%/°C" value={specStr(form.specs, "coeff_temp_pmax_pct_c")} onChange={(v) => setSpec("coeff_temp_pmax_pct_c", v)} placeholder="-0.34" highlighted={h("specs.coeff_temp_pmax_pct_c")} />
+              <NumField label="Coeff. temp. Voc" unit="%/°C" value={specStr(form.specs, "coeff_temp_voc_pct_c")} onChange={(v) => setSpec("coeff_temp_voc_pct_c", v)} placeholder="-0.25" highlighted={h("specs.coeff_temp_voc_pct_c")} />
+              <NumField label="Coeff. temp. Isc" unit="%/°C" value={specStr(form.specs, "coeff_temp_isc_pct_c")} onChange={(v) => setSpec("coeff_temp_isc_pct_c", v)} placeholder="0.048" highlighted={h("specs.coeff_temp_isc_pct_c")} />
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <NumField label="Coeff. temp. Pmax" unit="%/°C" value={specStr(form.specs, "coeff_temp_pmax")} onChange={(v) => setSpec("coeff_temp_pmax", v)} placeholder="-0.34" highlighted={h("specs.coeff_temp_pmax")} />
-              <NumField label="Coeff. temp. Voc" unit="%/°C" value={specStr(form.specs, "coeff_temp_voc")} onChange={(v) => setSpec("coeff_temp_voc", v)} placeholder="-0.25" highlighted={h("specs.coeff_temp_voc")} />
-              <NumField label="Temp. min fonct." unit="°C" value={specStr(form.specs, "temp_min_celsius")} onChange={(v) => setSpec("temp_min_celsius", v)} placeholder="-40" highlighted={h("specs.temp_min_celsius")} />
-              <NumField label="Temp. max fonct." unit="°C" value={specStr(form.specs, "temp_max_celsius")} onChange={(v) => setSpec("temp_max_celsius", v)} placeholder="85" highlighted={h("specs.temp_max_celsius")} />
+              <NumField label="Temp. min" unit="°C" value={specStr(form.specs, "temp_min_c")} onChange={(v) => setSpec("temp_min_c", v)} placeholder="-40" highlighted={h("specs.temp_min_c")} />
+              <NumField label="Temp. max" unit="°C" value={specStr(form.specs, "temp_max_c")} onChange={(v) => setSpec("temp_max_c", v)} placeholder="85" highlighted={h("specs.temp_max_c")} />
+              <NumField label="Charge vent" unit="Pa" value={specStr(form.specs, "charge_vent_pa")} onChange={(v) => setSpec("charge_vent_pa", v)} placeholder="2400" highlighted={h("specs.charge_vent_pa")} />
+              <NumField label="Charge neige" unit="Pa" value={specStr(form.specs, "charge_neige_pa")} onChange={(v) => setSpec("charge_neige_pa", v)} placeholder="5400" highlighted={h("specs.charge_neige_pa")} />
             </div>
             <TextField label="IP Rating" value={specStr(form.specs, "ip_rating")} onChange={(v) => setSpec("ip_rating", v)} placeholder="IP68" highlighted={h("specs.ip_rating")} />
+            <TextField label="Certifications" value={specStr(form.specs, "certifications")} onChange={(v) => setSpec("certifications", v)} placeholder="IEC 61215, IEC 61730, CE" highlighted={h("specs.certifications")} />
           </TabsContent>
         </>
       );
@@ -398,9 +407,13 @@ const PackagesManager = () => {
               <NumField label="Puissance nominale" unit="kW" value={specStr(form.specs, "puissance_nominale_kw")} onChange={(v) => setSpec("puissance_nominale_kw", v)} placeholder="10" highlighted={h("specs.puissance_nominale_kw")} />
               <NumField label="Puissance max" unit="kW" value={specStr(form.specs, "puissance_max_kw")} onChange={(v) => setSpec("puissance_max_kw", v)} placeholder="12" highlighted={h("specs.puissance_max_kw")} />
               <NumField label="Nb MPPT" unit="" value={specStr(form.specs, "nb_mppt")} onChange={(v) => setSpec("nb_mppt", v)} placeholder="2" highlighted={h("specs.nb_mppt")} />
-              <NumField label="Nb entrées string" unit="" value={specStr(form.specs, "nb_strings")} onChange={(v) => setSpec("nb_strings", v)} placeholder="4" highlighted={h("specs.nb_strings")} />
-              <NumField label="Efficacité max" unit="%" value={specStr(form.specs, "efficacite_max")} onChange={(v) => setSpec("efficacite_max", v)} placeholder="98.6" highlighted={h("specs.efficacite_max")} />
-              <NumField label="Tension DC max" unit="V" value={specStr(form.specs, "tension_dc_max")} onChange={(v) => setSpec("tension_dc_max", v)} placeholder="1100" highlighted={h("specs.tension_dc_max")} />
+              <NumField label="Nb strings / MPPT" unit="" value={specStr(form.specs, "nb_strings_par_mppt")} onChange={(v) => setSpec("nb_strings_par_mppt", v)} placeholder="2" highlighted={h("specs.nb_strings_par_mppt")} />
+              <NumField label="Nb entrées string total" unit="" value={specStr(form.specs, "nb_entrees_string_total")} onChange={(v) => setSpec("nb_entrees_string_total", v)} placeholder="16" highlighted={h("specs.nb_entrees_string_total")} />
+              <NumField label="Efficacité max" unit="%" value={specStr(form.specs, "efficacite_max_pct")} onChange={(v) => setSpec("efficacite_max_pct", v)} placeholder="98.6" highlighted={h("specs.efficacite_max_pct")} />
+              <NumField label="Efficacité européenne" unit="%" value={specStr(form.specs, "efficacite_euro_pct")} onChange={(v) => setSpec("efficacite_euro_pct", v)} placeholder="98.0" highlighted={h("specs.efficacite_euro_pct")} />
+              <NumField label="Tension DC max" unit="V" value={specStr(form.specs, "tension_dc_max_v")} onChange={(v) => setSpec("tension_dc_max_v", v)} placeholder="1100" highlighted={h("specs.tension_dc_max_v")} />
+              <TextField label="Plage MPPT" value={specStr(form.specs, "plage_mppt_v")} onChange={(v) => setSpec("plage_mppt_v", v)} placeholder="200-850V" highlighted={h("specs.plage_mppt_v")} />
+              <NumField label="Courant max / MPPT" unit="A" value={specStr(form.specs, "courant_max_par_mppt_a")} onChange={(v) => setSpec("courant_max_par_mppt_a", v)} placeholder="15" highlighted={h("specs.courant_max_par_mppt_a")} />
             </div>
             <MultiToggle label="Type d'onduleur" options={MULTI_OPTIONS.type_onduleur} selected={specArr(form.specs, "type_onduleur")} onChange={(v) => setSpec("type_onduleur", v)} highlighted={h("specs.type_onduleur")} />
             <MultiToggle label="Phases" options={MULTI_OPTIONS.phases} selected={specArr(form.specs, "phases")} onChange={(v) => setSpec("phases", v)} highlighted={h("specs.phases")} />
@@ -410,11 +423,16 @@ const PackagesManager = () => {
             <div className="grid grid-cols-2 gap-4">
               <NumField label="Largeur" unit="mm" value={specStr(form.specs, "largeur_mm")} onChange={(v) => setSpec("largeur_mm", v)} placeholder="505" highlighted={h("specs.largeur_mm")} />
               <NumField label="Hauteur" unit="mm" value={specStr(form.specs, "hauteur_mm")} onChange={(v) => setSpec("hauteur_mm", v)} placeholder="470" highlighted={h("specs.hauteur_mm")} />
+              <NumField label="Profondeur" unit="mm" value={specStr(form.specs, "profondeur_mm")} onChange={(v) => setSpec("profondeur_mm", v)} placeholder="200" highlighted={h("specs.profondeur_mm")} />
               <NumField label="Poids" unit="kg" value={specStr(form.specs, "poids_kg")} onChange={(v) => setSpec("poids_kg", v)} placeholder="16" highlighted={h("specs.poids_kg")} />
-              <NumField label="Garantie" unit="ans" value={specStr(form.specs, "garantie_ans")} onChange={(v) => setSpec("garantie_ans", v)} placeholder="10" highlighted={h("specs.garantie_ans")} />
+              <NumField label="Garantie" unit="ans" value={specStr(form.specs, "garantie_ans")} onChange={(v) => setSpec("garantie_ans", v)} placeholder="5" highlighted={h("specs.garantie_ans")} />
+              <NumField label="Temp. min" unit="°C" value={specStr(form.specs, "temp_min_c")} onChange={(v) => setSpec("temp_min_c", v)} placeholder="-25" highlighted={h("specs.temp_min_c")} />
+              <NumField label="Temp. max" unit="°C" value={specStr(form.specs, "temp_max_c")} onChange={(v) => setSpec("temp_max_c", v)} placeholder="60" highlighted={h("specs.temp_max_c")} />
             </div>
             <TextField label="IP Rating" value={specStr(form.specs, "ip_rating")} onChange={(v) => setSpec("ip_rating", v)} placeholder="IP65" highlighted={h("specs.ip_rating")} />
+            <TextField label="Refroidissement" value={specStr(form.specs, "refroidissement")} onChange={(v) => setSpec("refroidissement", v)} placeholder="Convection naturelle" highlighted={h("specs.refroidissement")} />
             <MultiToggle label="Communication" options={MULTI_OPTIONS.communication} selected={specArr(form.specs, "communication")} onChange={(v) => setSpec("communication", v)} highlighted={h("specs.communication")} />
+            <TextField label="Certifications" value={specStr(form.specs, "certifications")} onChange={(v) => setSpec("certifications", v)} placeholder="IEC 62109, CE" highlighted={h("specs.certifications")} />
           </TabsContent>
         </>
       );
@@ -426,79 +444,89 @@ const PackagesManager = () => {
           <TabsContent value="tech1" className="space-y-4 pt-4">
             <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">🔋 Énergie & Puissance</p>
             <div className="grid grid-cols-2 gap-4">
-              <NumField label="Capacité totale" unit="kWh" value={specStr(form.specs, "capacite_kwh")} onChange={(v) => setSpec("capacite_kwh", v)} placeholder="350" highlighted={h("specs.capacite_kwh")} />
-              <NumField label="Capacité utilisable" unit="kWh" value={specStr(form.specs, "capacite_utilisable_kwh")} onChange={(v) => setSpec("capacite_utilisable_kwh", v)} placeholder="332.5" highlighted={h("specs.capacite_utilisable_kwh")} />
-              <NumField label="Puissance décharge jour" unit="kW" value={specStr(form.specs, "puissance_decharge_jour_kw")} onChange={(v) => setSpec("puissance_decharge_jour_kw", v)} placeholder="430" highlighted={h("specs.puissance_decharge_jour_kw")} />
-              <NumField label="Puissance décharge nuit" unit="kW" value={specStr(form.specs, "puissance_decharge_nuit_kw")} onChange={(v) => setSpec("puissance_decharge_nuit_kw", v)} placeholder="210" highlighted={h("specs.puissance_decharge_nuit_kw")} />
-              <NumField label="Puissance charge" unit="kW" value={specStr(form.specs, "puissance_charge_kw")} onChange={(v) => setSpec("puissance_charge_kw", v)} placeholder="160" highlighted={h("specs.puissance_charge_kw")} />
-              <NumField label="Depth of Discharge" unit="%" value={specStr(form.specs, "depth_of_discharge")} onChange={(v) => setSpec("depth_of_discharge", v)} placeholder="95" highlighted={h("specs.depth_of_discharge")} />
+              <NumField label="Capacité totale" unit="kWh" value={specStr(form.specs, "capacite_totale_kwh")} onChange={(v) => setSpec("capacite_totale_kwh", v)} placeholder="10.24" highlighted={h("specs.capacite_totale_kwh")} />
+              <NumField label="Capacité utilisable" unit="kWh" value={specStr(form.specs, "capacite_utilisable_kwh")} onChange={(v) => setSpec("capacite_utilisable_kwh", v)} placeholder="8.19" highlighted={h("specs.capacite_utilisable_kwh")} />
+              <NumField label="Tension nominale" unit="V" value={specStr(form.specs, "tension_nominale_v")} onChange={(v) => setSpec("tension_nominale_v", v)} placeholder="48" highlighted={h("specs.tension_nominale_v")} />
+              <NumField label="Capacité" unit="Ah" value={specStr(form.specs, "capacite_ah")} onChange={(v) => setSpec("capacite_ah", v)} placeholder="200" highlighted={h("specs.capacite_ah")} />
+              <NumField label="Puissance décharge jour" unit="kW" value={specStr(form.specs, "puissance_decharge_jour_kw")} onChange={(v) => setSpec("puissance_decharge_jour_kw", v)} placeholder="4.8" highlighted={h("specs.puissance_decharge_jour_kw")} />
+              <NumField label="Puissance décharge nuit" unit="kW" value={specStr(form.specs, "puissance_decharge_nuit_kw")} onChange={(v) => setSpec("puissance_decharge_nuit_kw", v)} placeholder="4.8" highlighted={h("specs.puissance_decharge_nuit_kw")} />
+              <NumField label="Puissance charge" unit="kW" value={specStr(form.specs, "puissance_charge_kw")} onChange={(v) => setSpec("puissance_charge_kw", v)} placeholder="4.8" highlighted={h("specs.puissance_charge_kw")} />
+              <NumField label="DoD" unit="%" value={specStr(form.specs, "dod_pct")} onChange={(v) => setSpec("dod_pct", v)} placeholder="80" highlighted={h("specs.dod_pct")} />
             </div>
             <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">⏳ Durée de vie</p>
             <div className="grid grid-cols-2 gap-4">
-              <NumField label="Cycles de vie" unit="cycles" value={specStr(form.specs, "cycle_vie")} onChange={(v) => setSpec("cycle_vie", v)} placeholder="6600" highlighted={h("specs.cycle_vie")} />
-              <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="10" highlighted={h("specs.duree_vie_ans")} />
+              <NumField label="Cycles de vie" unit="cycles" value={specStr(form.specs, "cycles_de_vie")} onChange={(v) => setSpec("cycles_de_vie", v)} placeholder="6000" highlighted={h("specs.cycles_de_vie")} />
+              <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="16.4" highlighted={h("specs.duree_vie_ans")} />
             </div>
-            <div className="space-y-1.5">
-              <Label className={h("specs.type_batterie") ? "text-red-600 font-semibold" : ""}>
-                Type de batterie
-                {h("specs.type_batterie") && <span className="ml-1 text-[10px] font-normal text-red-500">● IA</span>}
-              </Label>
-              <Select value={specStr(form.specs, "type_batterie")} onValueChange={(v) => setSpec("type_batterie", v)}>
-                <SelectTrigger className={h("specs.type_batterie") ? "border-red-400 bg-red-50/50 text-red-900" : ""}><SelectValue placeholder="Sélectionner..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="LFP">LFP (LiFePO4)</SelectItem>
-                  <SelectItem value="NMC">NMC</SelectItem>
-                  <SelectItem value="NCA">NCA</SelectItem>
-                  <SelectItem value="Lead-Acid">Plomb-acide</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className={h("specs.type_batterie") ? "text-red-600 font-semibold" : ""}>
+                  Type de batterie
+                  {h("specs.type_batterie") && <span className="ml-1 text-[10px] font-normal text-red-500">● IA</span>}
+                </Label>
+                <Select value={specStr(form.specs, "type_batterie")} onValueChange={(v) => setSpec("type_batterie", v)}>
+                  <SelectTrigger className={h("specs.type_batterie") ? "border-red-400 bg-red-50/50 text-red-900" : ""}><SelectValue placeholder="Sélectionner..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="LFP">LFP (LiFePO4)</SelectItem>
+                    <SelectItem value="NMC">NMC</SelectItem>
+                    <SelectItem value="NCA">NCA</SelectItem>
+                    <SelectItem value="Lead-Acid">Plomb-acide</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <NumField label="Efficacité round-trip" unit="%" value={specStr(form.specs, "efficacite_roundtrip_pct")} onChange={(v) => setSpec("efficacite_roundtrip_pct", v)} placeholder="95" highlighted={h("specs.efficacite_roundtrip_pct")} />
             </div>
           </TabsContent>
           <TabsContent value="tech2" className="space-y-4 pt-4">
-            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">📊 Performances & Dimensions</p>
+            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">📐 Dimensions & Environnement</p>
             <div className="grid grid-cols-2 gap-4">
-              <NumField label="Efficacité round-trip" unit="%" value={specStr(form.specs, "efficacite_roundtrip")} onChange={(v) => setSpec("efficacite_roundtrip", v)} placeholder="98.5" highlighted={h("specs.efficacite_roundtrip")} />
-              <TextField label="IP Rating" value={specStr(form.specs, "ip_rating")} onChange={(v) => setSpec("ip_rating", v)} placeholder="IP55" highlighted={h("specs.ip_rating")} />
-              <NumField label="Temp. min" unit="°C" value={specStr(form.specs, "temp_min_celsius")} onChange={(v) => setSpec("temp_min_celsius", v)} placeholder="-30" highlighted={h("specs.temp_min_celsius")} />
-              <NumField label="Temp. max" unit="°C" value={specStr(form.specs, "temp_max_celsius")} onChange={(v) => setSpec("temp_max_celsius", v)} placeholder="50" highlighted={h("specs.temp_max_celsius")} />
-              <NumField label="Largeur" unit="mm" value={specStr(form.specs, "largeur_mm")} onChange={(v) => setSpec("largeur_mm", v)} placeholder="2660" highlighted={h("specs.largeur_mm")} />
-              <NumField label="Hauteur" unit="mm" value={specStr(form.specs, "hauteur_mm")} onChange={(v) => setSpec("hauteur_mm", v)} placeholder="2160" highlighted={h("specs.hauteur_mm")} />
+              <NumField label="Largeur" unit="mm" value={specStr(form.specs, "largeur_mm")} onChange={(v) => setSpec("largeur_mm", v)} placeholder="440" highlighted={h("specs.largeur_mm")} />
+              <NumField label="Hauteur" unit="mm" value={specStr(form.specs, "hauteur_mm")} onChange={(v) => setSpec("hauteur_mm", v)} placeholder="500" highlighted={h("specs.hauteur_mm")} />
+              <NumField label="Profondeur" unit="mm" value={specStr(form.specs, "profondeur_mm")} onChange={(v) => setSpec("profondeur_mm", v)} placeholder="200" highlighted={h("specs.profondeur_mm")} />
+              <NumField label="Poids" unit="kg" value={specStr(form.specs, "poids_kg")} onChange={(v) => setSpec("poids_kg", v)} placeholder="45" highlighted={h("specs.poids_kg")} />
+              <NumField label="Garantie" unit="ans" value={specStr(form.specs, "garantie_ans")} onChange={(v) => setSpec("garantie_ans", v)} placeholder="5" highlighted={h("specs.garantie_ans")} />
+              <NumField label="Temp. min" unit="°C" value={specStr(form.specs, "temp_min_c")} onChange={(v) => setSpec("temp_min_c", v)} placeholder="-10" highlighted={h("specs.temp_min_c")} />
+              <NumField label="Temp. max" unit="°C" value={specStr(form.specs, "temp_max_c")} onChange={(v) => setSpec("temp_max_c", v)} placeholder="50" highlighted={h("specs.temp_max_c")} />
             </div>
-            <div className="space-y-1.5">
-              <Label className={h("specs.type_refroidissement") ? "text-red-600 font-semibold" : ""}>
-                Refroidissement
-                {h("specs.type_refroidissement") && <span className="ml-1 text-[10px] font-normal text-red-500">● IA</span>}
-              </Label>
-              <Select value={specStr(form.specs, "type_refroidissement")} onValueChange={(v) => setSpec("type_refroidissement", v)}>
-                <SelectTrigger className={h("specs.type_refroidissement") ? "border-red-400 bg-red-50/50 text-red-900" : ""}><SelectValue placeholder="Sélectionner..." /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="forced_air">Air forcé</SelectItem>
-                  <SelectItem value="natural_convection">Convection naturelle</SelectItem>
-                  <SelectItem value="liquid">Liquide</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            <TextField label="IP Rating" value={specStr(form.specs, "ip_rating")} onChange={(v) => setSpec("ip_rating", v)} placeholder="IP55" highlighted={h("specs.ip_rating")} />
+            <TextField label="Refroidissement" value={specStr(form.specs, "refroidissement")} onChange={(v) => setSpec("refroidissement", v)} placeholder="Convection naturelle" highlighted={h("specs.refroidissement")} />
             <MultiToggle label="Communication" options={MULTI_OPTIONS.communication} selected={specArr(form.specs, "communication")} onChange={(v) => setSpec("communication", v)} highlighted={h("specs.communication")} />
+            <TextField label="Certifications" value={specStr(form.specs, "certifications")} onChange={(v) => setSpec("certifications", v)} placeholder="IEC 62619, UN38.3, CE" highlighted={h("specs.certifications")} />
           </TabsContent>
         </>
       );
     }
 
-    // solarbox = onduleur + batterie combined
+    // solarbox = onduleur + batterie combined (C&I Cabinet)
     return (
       <>
         <TabsContent value="tech1" className="space-y-4 pt-4">
-          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">⚡ Onduleur intégré</p>
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">⚡ Onduleur / PCS intégré</p>
           <div className="grid grid-cols-2 gap-4">
-            <NumField label="Puissance onduleur" unit="kW" value={specStr(form.specs, "puissance_nominale_kw")} onChange={(v) => setSpec("puissance_nominale_kw", v)} placeholder="10" highlighted={h("specs.puissance_nominale_kw")} />
-            <NumField label="Nb MPPT" unit="" value={specStr(form.specs, "nb_mppt")} onChange={(v) => setSpec("nb_mppt", v)} placeholder="2" highlighted={h("specs.nb_mppt")} />
+            <NumField label="Puissance onduleur" unit="kW" value={specStr(form.specs, "puissance_onduleur_kw")} onChange={(v) => setSpec("puissance_onduleur_kw", v)} placeholder="100" highlighted={h("specs.puissance_onduleur_kw")} />
+            <NumField label="Puissance onduleur max" unit="kW" value={specStr(form.specs, "puissance_onduleur_max_kw")} onChange={(v) => setSpec("puissance_onduleur_max_kw", v)} placeholder="110" highlighted={h("specs.puissance_onduleur_max_kw")} />
+            <NumField label="Nb MPPT" unit="" value={specStr(form.specs, "nb_mppt")} onChange={(v) => setSpec("nb_mppt", v)} placeholder="" highlighted={h("specs.nb_mppt")} />
           </div>
           <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">🔋 Batterie intégrée</p>
           <div className="grid grid-cols-2 gap-4">
-            <NumField label="Capacité" unit="kWh" value={specStr(form.specs, "capacite_kwh")} onChange={(v) => setSpec("capacite_kwh", v)} placeholder="10" highlighted={h("specs.capacite_kwh")} />
-            <NumField label="Cycles de vie" unit="cycles" value={specStr(form.specs, "cycle_vie")} onChange={(v) => setSpec("cycle_vie", v)} placeholder="6000" highlighted={h("specs.cycle_vie")} />
-            <NumField label="DoD" unit="%" value={specStr(form.specs, "depth_of_discharge")} onChange={(v) => setSpec("depth_of_discharge", v)} placeholder="90" highlighted={h("specs.depth_of_discharge")} />
-            <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="10" highlighted={h("specs.duree_vie_ans")} />
+            <NumField label="Capacité batterie" unit="kWh" value={specStr(form.specs, "capacite_batterie_kwh")} onChange={(v) => setSpec("capacite_batterie_kwh", v)} placeholder="215" highlighted={h("specs.capacite_batterie_kwh")} />
+            <NumField label="Capacité utilisable" unit="kWh" value={specStr(form.specs, "capacite_utilisable_kwh")} onChange={(v) => setSpec("capacite_utilisable_kwh", v)} placeholder="193.5" highlighted={h("specs.capacite_utilisable_kwh")} />
+            <NumField label="Tension batterie" unit="V" value={specStr(form.specs, "tension_batterie_v")} onChange={(v) => setSpec("tension_batterie_v", v)} placeholder="614.4" highlighted={h("specs.tension_batterie_v")} />
+          </div>
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">⚡ Puissances AC</p>
+          <div className="grid grid-cols-2 gap-4">
+            <NumField label="Décharge jour" unit="kW" value={specStr(form.specs, "puissance_decharge_jour_kw")} onChange={(v) => setSpec("puissance_decharge_jour_kw", v)} placeholder="100" highlighted={h("specs.puissance_decharge_jour_kw")} />
+            <NumField label="Décharge jour max" unit="kW" value={specStr(form.specs, "puissance_decharge_jour_max_kw")} onChange={(v) => setSpec("puissance_decharge_jour_max_kw", v)} placeholder="110" highlighted={h("specs.puissance_decharge_jour_max_kw")} />
+            <NumField label="Décharge nuit" unit="kW" value={specStr(form.specs, "puissance_decharge_nuit_kw")} onChange={(v) => setSpec("puissance_decharge_nuit_kw", v)} placeholder="50" highlighted={h("specs.puissance_decharge_nuit_kw")} />
+            <NumField label="Décharge nuit max" unit="kW" value={specStr(form.specs, "puissance_decharge_nuit_max_kw")} onChange={(v) => setSpec("puissance_decharge_nuit_max_kw", v)} placeholder="55" highlighted={h("specs.puissance_decharge_nuit_max_kw")} />
+            <NumField label="Puissance charge" unit="kW" value={specStr(form.specs, "puissance_charge_kw")} onChange={(v) => setSpec("puissance_charge_kw", v)} placeholder="100" highlighted={h("specs.puissance_charge_kw")} />
+          </div>
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide pt-2">⏳ Durée de vie</p>
+          <div className="grid grid-cols-2 gap-4">
+            <NumField label="DoD" unit="%" value={specStr(form.specs, "dod_pct")} onChange={(v) => setSpec("dod_pct", v)} placeholder="90" highlighted={h("specs.dod_pct")} />
+            <NumField label="Cycles de vie" unit="cycles" value={specStr(form.specs, "cycles_de_vie")} onChange={(v) => setSpec("cycles_de_vie", v)} placeholder="6000" highlighted={h("specs.cycles_de_vie")} />
+            <NumField label="Durée de vie" unit="ans" value={specStr(form.specs, "duree_vie_ans")} onChange={(v) => setSpec("duree_vie_ans", v)} placeholder="16.4" highlighted={h("specs.duree_vie_ans")} />
+            <NumField label="Efficacité round-trip" unit="%" value={specStr(form.specs, "efficacite_roundtrip_pct")} onChange={(v) => setSpec("efficacite_roundtrip_pct", v)} placeholder="95" highlighted={h("specs.efficacite_roundtrip_pct")} />
           </div>
           <div className="space-y-1.5">
             <Label className={h("specs.type_batterie") ? "text-red-600 font-semibold" : ""}>
@@ -510,20 +538,25 @@ const PackagesManager = () => {
               <SelectContent>
                 <SelectItem value="LFP">LFP (LiFePO4)</SelectItem>
                 <SelectItem value="NMC">NMC</SelectItem>
+                <SelectItem value="NCA">NCA</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </TabsContent>
         <TabsContent value="tech2" className="space-y-4 pt-4">
-          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">📐 Dimensions & Connectique</p>
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">📐 Dimensions & Environnement</p>
           <div className="grid grid-cols-2 gap-4">
             <NumField label="Largeur" unit="mm" value={specStr(form.specs, "largeur_mm")} onChange={(v) => setSpec("largeur_mm", v)} highlighted={h("specs.largeur_mm")} />
             <NumField label="Hauteur" unit="mm" value={specStr(form.specs, "hauteur_mm")} onChange={(v) => setSpec("hauteur_mm", v)} highlighted={h("specs.hauteur_mm")} />
-            <NumField label="Poids" unit="kg" value={specStr(form.specs, "poids_kg")} onChange={(v) => setSpec("poids_kg", v)} highlighted={h("specs.poids_kg")} />
+            <NumField label="Profondeur" unit="mm" value={specStr(form.specs, "profondeur_mm")} onChange={(v) => setSpec("profondeur_mm", v)} highlighted={h("specs.profondeur_mm")} />
             <NumField label="Garantie" unit="ans" value={specStr(form.specs, "garantie_ans")} onChange={(v) => setSpec("garantie_ans", v)} highlighted={h("specs.garantie_ans")} />
+            <NumField label="Temp. min" unit="°C" value={specStr(form.specs, "temp_min_c")} onChange={(v) => setSpec("temp_min_c", v)} highlighted={h("specs.temp_min_c")} />
+            <NumField label="Temp. max" unit="°C" value={specStr(form.specs, "temp_max_c")} onChange={(v) => setSpec("temp_max_c", v)} highlighted={h("specs.temp_max_c")} />
           </div>
-          <TextField label="IP Rating" value={specStr(form.specs, "ip_rating")} onChange={(v) => setSpec("ip_rating", v)} placeholder="IP65" highlighted={h("specs.ip_rating")} />
+          <TextField label="IP Rating" value={specStr(form.specs, "ip_rating")} onChange={(v) => setSpec("ip_rating", v)} placeholder="IP55" highlighted={h("specs.ip_rating")} />
+          <TextField label="Refroidissement" value={specStr(form.specs, "refroidissement")} onChange={(v) => setSpec("refroidissement", v)} placeholder="Air forcé" highlighted={h("specs.refroidissement")} />
           <MultiToggle label="Communication" options={MULTI_OPTIONS.communication} selected={specArr(form.specs, "communication")} onChange={(v) => setSpec("communication", v)} highlighted={h("specs.communication")} />
+          <TextField label="Certifications" value={specStr(form.specs, "certifications")} onChange={(v) => setSpec("certifications", v)} placeholder="IEC 62619, CE" highlighted={h("specs.certifications")} />
         </TabsContent>
       </>
     );
@@ -581,9 +614,9 @@ const PackagesManager = () => {
                           </div>
                           {pkg.modele && <p className="text-xs text-muted-foreground">{pkg.modele}</p>}
                           <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-                            {s.capacite_kwh && <span className="flex items-center gap-1"><Zap className="w-3.5 h-3.5 text-primary" />{String(s.capacite_kwh)} kWh</span>}
-                            {s.puissance_wc && <span className="flex items-center gap-1"><Sun className="w-3.5 h-3.5 text-primary" />{String(s.puissance_wc)} Wc</span>}
-                            {s.puissance_nominale_kw && <span className="flex items-center gap-1"><Zap className="w-3.5 h-3.5 text-primary" />{String(s.puissance_nominale_kw)} kW</span>}
+                            {(s.capacite_totale_kwh || s.capacite_kwh || s.capacite_batterie_kwh) && <span className="flex items-center gap-1"><Zap className="w-3.5 h-3.5 text-primary" />{String(s.capacite_totale_kwh || s.capacite_kwh || s.capacite_batterie_kwh)} kWh</span>}
+                            {(s.puissance_crete_wc || s.puissance_wc) && <span className="flex items-center gap-1"><Sun className="w-3.5 h-3.5 text-primary" />{String(s.puissance_crete_wc || s.puissance_wc)} Wc</span>}
+                            {(s.puissance_nominale_kw || s.puissance_onduleur_kw) && <span className="flex items-center gap-1"><Zap className="w-3.5 h-3.5 text-primary" />{String(s.puissance_nominale_kw || s.puissance_onduleur_kw)} kW</span>}
                             <span className="font-semibold text-foreground">{pkg.price_ttc.toLocaleString("fr-MA")} MAD</span>
                           </div>
                           {pkg.applicable_aids && pkg.applicable_aids.length > 0 && (
