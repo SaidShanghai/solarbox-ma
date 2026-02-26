@@ -16,6 +16,8 @@ export type Database = {
     Tables: {
       companies: {
         Row: {
+          admin_notes: string | null
+          avg_execution_days: number | null
           certifications: string[] | null
           city: string
           created_at: string
@@ -23,13 +25,21 @@ export type Database = {
           ice: string
           id: string
           name: string
+          operational_status: string
           phone: string
           profile_id: string
+          projects_assigned: number
+          projects_completed: number
+          projects_in_progress: number
+          quality_score: number | null
           service_areas: string[] | null
+          status_changed_at: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
+          admin_notes?: string | null
+          avg_execution_days?: number | null
           certifications?: string[] | null
           city: string
           created_at?: string
@@ -37,13 +47,21 @@ export type Database = {
           ice: string
           id?: string
           name: string
+          operational_status?: string
           phone: string
           profile_id: string
+          projects_assigned?: number
+          projects_completed?: number
+          projects_in_progress?: number
+          quality_score?: number | null
           service_areas?: string[] | null
+          status_changed_at?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
+          admin_notes?: string | null
+          avg_execution_days?: number | null
           certifications?: string[] | null
           city?: string
           created_at?: string
@@ -51,9 +69,15 @@ export type Database = {
           ice?: string
           id?: string
           name?: string
+          operational_status?: string
           phone?: string
           profile_id?: string
+          projects_assigned?: number
+          projects_completed?: number
+          projects_in_progress?: number
+          quality_score?: number | null
           service_areas?: string[] | null
+          status_changed_at?: string | null
           updated_at?: string
           user_id?: string
         }
