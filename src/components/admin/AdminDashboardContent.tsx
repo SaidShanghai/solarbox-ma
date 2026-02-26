@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import {
   Loader2, ShieldCheck, LogOut, Building2, Mail, Phone, MapPin,
   FileText, Package, Users, Plus, Trash2, Edit, X, CheckCircle2,
+  Star, Clock, BarChart3, AlertCircle, Pause, Ban, Activity,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
@@ -46,6 +47,14 @@ interface CompanyRow {
   certifications: string[] | null;
   service_areas: string[] | null;
   created_at: string;
+  projects_assigned: number;
+  projects_completed: number;
+  projects_in_progress: number;
+  quality_score: number | null;
+  avg_execution_days: number | null;
+  operational_status: string;
+  status_changed_at: string | null;
+  admin_notes: string | null;
 }
 
 const AdminDashboardContent = () => {
@@ -69,6 +78,13 @@ const AdminDashboardContent = () => {
   const [formCertifications, setFormCertifications] = useState("");
   const [formServiceAreas, setFormServiceAreas] = useState<string[]>([]);
   const [selectedRegion, setSelectedRegion] = useState("");
+  const [formProjectsAssigned, setFormProjectsAssigned] = useState(0);
+  const [formProjectsCompleted, setFormProjectsCompleted] = useState(0);
+  const [formProjectsInProgress, setFormProjectsInProgress] = useState(0);
+  const [formQualityScore, setFormQualityScore] = useState("");
+  const [formAvgExecutionDays, setFormAvgExecutionDays] = useState("");
+  const [formOperationalStatus, setFormOperationalStatus] = useState("actif");
+  const [formAdminNotes, setFormAdminNotes] = useState("");
 
   useEffect(() => {
     if (adminLoading) return;
@@ -85,7 +101,7 @@ const AdminDashboardContent = () => {
     setLoadingData(true);
     const { data, error } = await supabase
       .from("companies")
-      .select("id, name, ice, city, phone, email, certifications, service_areas, created_at")
+      .select("id, name, ice, city, phone, email, certifications, service_areas, created_at, projects_assigned, projects_completed, projects_in_progress, quality_score, avg_execution_days, operational_status, status_changed_at, admin_notes")
       .order("created_at", { ascending: false });
     if (!error && data) setCompanies(data);
     setLoadingData(false);
@@ -95,6 +111,9 @@ const AdminDashboardContent = () => {
     setFormName(""); setFormIce(""); setFormCity("Casablanca");
     setFormPhone(""); setFormEmail(""); setFormCertifications("");
     setFormServiceAreas([]); setSelectedRegion(""); setEditingCompany(null);
+    setFormProjectsAssigned(0); setFormProjectsCompleted(0); setFormProjectsInProgress(0);
+    setFormQualityScore(""); setFormAvgExecutionDays(""); setFormOperationalStatus("actif");
+    setFormAdminNotes("");
   };
 
   const openAddDialog = () => {
@@ -111,6 +130,13 @@ const AdminDashboardContent = () => {
     setFormEmail(c.email);
     setFormCertifications((c.certifications || []).join(", "));
     setFormServiceAreas(c.service_areas || []);
+    setFormProjectsAssigned(c.projects_assigned);
+    setFormProjectsCompleted(c.projects_completed);
+    setFormProjectsInProgress(c.projects_in_progress);
+    setFormQualityScore(c.quality_score != null ? String(c.quality_score) : "");
+    setFormAvgExecutionDays(c.avg_execution_days != null ? String(c.avg_execution_days) : "");
+    setFormOperationalStatus(c.operational_status);
+    setFormAdminNotes(c.admin_notes || "");
     setShowAddDialog(true);
   };
 
@@ -119,7 +145,7 @@ const AdminDashboardContent = () => {
     if (!user) return;
     setSaving(true);
 
-    const payload = {
+    const payload: Record<string, any> = {
       name: formName.trim(),
       ice: formIce.trim(),
       city: formCity,
@@ -127,7 +153,18 @@ const AdminDashboardContent = () => {
       email: formEmail.trim(),
       certifications: formCertifications.split(",").map(c => c.trim()).filter(Boolean),
       service_areas: formServiceAreas,
+      projects_assigned: formProjectsAssigned,
+      projects_completed: formProjectsCompleted,
+      projects_in_progress: formProjectsInProgress,
+      quality_score: formQualityScore ? parseFloat(formQualityScore) : null,
+      avg_execution_days: formAvgExecutionDays ? parseInt(formAvgExecutionDays) : null,
+      operational_status: formOperationalStatus,
+      admin_notes: formAdminNotes.trim() || null,
     };
+    // Update status_changed_at if status changed
+    if (editingCompany && editingCompany.operational_status !== formOperationalStatus) {
+      payload.status_changed_at = new Date().toISOString();
+    }
 
     try {
       if (editingCompany) {
@@ -147,7 +184,7 @@ const AdminDashboardContent = () => {
           ...payload,
           user_id: user.id,
           profile_id: profile.id,
-        });
+        } as any);
         if (error) throw error;
         toast({ title: "Partenaire ajouté" });
       }
@@ -267,6 +304,7 @@ const AdminDashboardContent = () => {
                               <div className="flex items-center gap-3">
                                 <h3 className="font-semibold text-lg">{c.name}</h3>
                                 <Badge variant="secondary" className="text-xs">ICE: {c.ice}</Badge>
+                                <StatusBadge status={c.operational_status} />
                               </div>
                               <div className="grid sm:grid-cols-2 gap-2 text-sm text-muted-foreground">
                                 <div className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" />{c.city}</div>
@@ -277,6 +315,33 @@ const AdminDashboardContent = () => {
                                   {(c.certifications || []).length > 0 ? c.certifications!.join(", ") : "Aucune certification"}
                                 </div>
                               </div>
+                              {/* Tracking KPIs */}
+                              <div className="flex flex-wrap gap-3 mt-2 pt-2 border-t">
+                                <div className="flex items-center gap-1.5 text-xs">
+                                  <BarChart3 className="w-3.5 h-3.5 text-primary" />
+                                  <span className="font-semibold">{c.projects_assigned}</span> assigné{c.projects_assigned !== 1 ? "s" : ""}
+                                </div>
+                                <div className="flex items-center gap-1.5 text-xs">
+                                  <Activity className="w-3.5 h-3.5 text-amber-500" />
+                                  <span className="font-semibold">{c.projects_in_progress}</span> en cours
+                                </div>
+                                <div className="flex items-center gap-1.5 text-xs">
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
+                                  <span className="font-semibold">{c.projects_completed}</span> terminé{c.projects_completed !== 1 ? "s" : ""}
+                                </div>
+                                {c.quality_score != null && (
+                                  <div className="flex items-center gap-1.5 text-xs">
+                                    <Star className="w-3.5 h-3.5 text-yellow-500" />
+                                    <span className="font-semibold">{c.quality_score}</span>/5
+                                  </div>
+                                )}
+                                {c.avg_execution_days != null && (
+                                  <div className="flex items-center gap-1.5 text-xs">
+                                    <Clock className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <span className="font-semibold">{c.avg_execution_days}</span> jours moy.
+                                  </div>
+                                )}
+                              </div>
                               {(c.service_areas || []).length > 0 && (
                                 <div className="flex flex-wrap gap-1.5 mt-1">
                                   <span className="text-xs text-muted-foreground font-medium">Zones :</span>
@@ -284,6 +349,11 @@ const AdminDashboardContent = () => {
                                     <Badge key={zone} variant="outline" className="text-xs">{zone}</Badge>
                                   ))}
                                 </div>
+                              )}
+                              {c.admin_notes && (
+                                <p className="text-xs text-muted-foreground italic mt-1 bg-muted/50 rounded px-2 py-1">
+                                  📝 {c.admin_notes}
+                                </p>
                               )}
                             </div>
                             <div className="flex gap-2 shrink-0">
@@ -404,6 +474,53 @@ const AdminDashboardContent = () => {
                   )}
                 </div>
 
+                {/* Suivi opérationnel */}
+                <div className="space-y-3 pt-2 border-t">
+                  <Label className="text-sm font-semibold flex items-center gap-2"><BarChart3 className="w-4 h-4 text-primary" />Suivi opérationnel</Label>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="space-y-1">
+                      <Label className="text-xs">Projets assignés</Label>
+                      <Input type="number" min={0} value={formProjectsAssigned} onChange={e => setFormProjectsAssigned(parseInt(e.target.value) || 0)} />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">En cours</Label>
+                      <Input type="number" min={0} value={formProjectsInProgress} onChange={e => setFormProjectsInProgress(parseInt(e.target.value) || 0)} />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Terminés</Label>
+                      <Input type="number" min={0} value={formProjectsCompleted} onChange={e => setFormProjectsCompleted(parseInt(e.target.value) || 0)} />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="space-y-1">
+                      <Label className="text-xs">Score qualité (/5)</Label>
+                      <Input type="number" min={0} max={5} step={0.1} value={formQualityScore} onChange={e => setFormQualityScore(e.target.value)} placeholder="—" />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Délai moyen (jours)</Label>
+                      <Input type="number" min={0} value={formAvgExecutionDays} onChange={e => setFormAvgExecutionDays(e.target.value)} placeholder="—" />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Statut</Label>
+                      <select value={formOperationalStatus} onChange={e => setFormOperationalStatus(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm">
+                        <option value="actif">✅ Actif</option>
+                        <option value="suspendu">⏸️ Suspendu</option>
+                        <option value="en_pause">🔸 En pause</option>
+                        <option value="blackliste">🚫 Blacklisté</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-xs">Notes internes</Label>
+                    <textarea
+                      value={formAdminNotes}
+                      onChange={e => setFormAdminNotes(e.target.value)}
+                      placeholder="Remarques privées sur ce partenaire..."
+                      className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm resize-y"
+                    />
+                  </div>
+                </div>
+
                 <div className="flex gap-3 justify-end pt-2">
                   <Button type="button" variant="outline" onClick={() => setShowAddDialog(false)}>Annuler</Button>
                   <Button type="submit" disabled={!formValid || saving}>
@@ -419,6 +536,18 @@ const AdminDashboardContent = () => {
       <Footer />
     </div>
   );
+};
+
+const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
+  actif: { label: "Actif", className: "border-green-500 text-green-600 bg-green-500/10" },
+  suspendu: { label: "Suspendu", className: "border-amber-500 text-amber-600 bg-amber-500/10" },
+  en_pause: { label: "En pause", className: "border-muted-foreground text-muted-foreground bg-muted" },
+  blackliste: { label: "Blacklisté", className: "border-destructive text-destructive bg-destructive/10" },
+};
+
+const StatusBadge = ({ status }: { status: string }) => {
+  const config = STATUS_CONFIG[status] || STATUS_CONFIG.actif;
+  return <Badge variant="outline" className={`text-[10px] ${config.className}`}>{config.label}</Badge>;
 };
 
 export default AdminDashboardContent;
