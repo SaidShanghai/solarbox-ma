@@ -38,6 +38,7 @@ import QuotePanel from "@/components/QuotePanel";
 import EligibiliteScreen from "@/components/EligibiliteScreen";
 import { villesMaroc } from "@/data/moroccanCities";
 import MiniMapMockup from "@/components/MiniMapMockup";
+import JsonLd from "@/components/JsonLd";
 
 const features = [
   {
@@ -214,6 +215,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <JsonLd />
       <Header />
 
       {/* Hero */}
