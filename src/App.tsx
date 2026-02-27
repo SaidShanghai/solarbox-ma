@@ -9,6 +9,7 @@ import Results from "./pages/Results";
 import Profil from "./pages/Profil";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
+import MentionsLegales from "./pages/MentionsLegales";
 
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           {/* /admin redirige vers /profil (l'admin sera détecté automatiquement) */}
           <Route path="/admin" element={<Navigate to="/profil" replace />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         
