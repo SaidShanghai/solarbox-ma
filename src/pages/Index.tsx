@@ -1342,7 +1342,7 @@ const Index = () => {
 
               {[
                 {
-                  label: "Diagnostic IA",
+                  label: "Diagnostic",
                   sub: "3 minutes",
                   sketch: (
                     <svg viewBox="0 0 48 48" className="w-full h-full" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -1354,44 +1354,20 @@ const Index = () => {
                   ),
                 },
                 {
-                  label: "Devis personnalisé",
-                  sub: "Sous 24h",
+                  label: "Financement",
+                  sub: "Solutions adaptées",
                   sketch: (
                     <svg viewBox="0 0 48 48" className="w-full h-full" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="10" y="6" width="28" height="36" rx="2" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
-                      <line x1="16" y1="14" x2="32" y2="14" stroke="currentColor" strokeWidth="1.2" />
-                      <line x1="16" y1="20" x2="28" y2="20" stroke="currentColor" strokeWidth="1.2" />
-                      <line x1="16" y1="26" x2="30" y2="26" stroke="currentColor" strokeWidth="1.2" />
-                      <path d="M16 32h8" stroke="hsl(var(--primary))" strokeWidth="1.5" />
-                      <path d="M30 30l4 4m0-4l-4 4" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+                      <circle cx="24" cy="24" r="14" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
+                      <path d="M20 20c0-2.5 2-4 4-4s4 1.5 4 4-2 3-4 3.5v2" stroke="hsl(var(--primary))" strokeWidth="2" />
+                      <path d="M20 28c0 2.5 2 4 4 4s4-1.5 4-4" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+                      <line x1="22" y1="20" x2="26" y2="20" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+                      <line x1="22" y1="28" x2="26" y2="28" stroke="hsl(var(--primary))" strokeWidth="1.5" />
                     </svg>
                   ),
                 },
                 {
-                  label: "Visite technique",
-                  sub: "Sur site",
-                  sketch: (
-                    <svg viewBox="0 0 48 48" className="w-full h-full" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M8 40l16-24 16 24z" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
-                      <rect x="18" y="28" width="12" height="12" stroke="currentColor" strokeWidth="1.2" />
-                      <circle cx="24" cy="16" r="4" stroke="hsl(var(--primary))" strokeWidth="1.5" />
-                      <path d="M24 12v-4M20 16h-4M28 16h4" stroke="hsl(var(--primary))" strokeWidth="1.2" />
-                      <path d="M6 42h36" stroke="currentColor" strokeWidth="1.2" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: "Validation & offre",
-                  sub: "Garanties incluses",
-                  sketch: (
-                    <svg viewBox="0 0 48 48" className="w-full h-full" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M24 4l6 2 6 0 2 6 4 4-2 6 2 6-4 4-2 6-6 0-6 2-6-2-6 0-2-6-4-4 2-6-2-6 4-4 2-6 6 0z" stroke="currentColor" strokeWidth="1.3" strokeDasharray="3 2" />
-                      <path d="M17 24l5 5 10-10" stroke="hsl(var(--primary))" strokeWidth="2.5" />
-                    </svg>
-                  ),
-                },
-                {
-                  label: "Installation",
+                  label: "Chantier",
                   sub: "Clé en main",
                   sketch: (
                     <svg viewBox="0 0 48 48" className="w-full h-full" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -1408,21 +1384,17 @@ const Index = () => {
                   ),
                 },
                 {
-                  label: "Économies",
+                  label: "Suivi",
                   sub: "Jusqu'à -70%",
                   sketch: (
                     <svg viewBox="0 0 48 48" className="w-full h-full" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="24" cy="24" r="14" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
-                      <path d="M20 20c0-2.5 2-4 4-4s4 1.5 4 4-2 3-4 3.5v2" stroke="hsl(var(--primary))" strokeWidth="2" />
-                      <path d="M20 28c0 2.5 2 4 4 4s4-1.5 4-4" stroke="hsl(var(--primary))" strokeWidth="1.5" />
-                      <line x1="22" y1="20" x2="26" y2="20" stroke="hsl(var(--primary))" strokeWidth="1.5" />
-                      <line x1="22" y1="28" x2="26" y2="28" stroke="hsl(var(--primary))" strokeWidth="1.5" />
-                      <path d="M36 6l-4 6h3v4h2v-4h3z" stroke="hsl(var(--primary))" strokeWidth="1.2" fill="hsl(var(--primary))" opacity="0.2" />
+                      <path d="M24 4l6 2 6 0 2 6 4 4-2 6 2 6-4 4-2 6-6 0-6 2-6-2-6 0-2-6-4-4 2-6-2-6 4-4 2-6 6 0z" stroke="currentColor" strokeWidth="1.3" strokeDasharray="3 2" />
+                      <path d="M17 24l5 5 10-10" stroke="hsl(var(--primary))" strokeWidth="2.5" />
                     </svg>
                   ),
                 },
               ].map((step, i) => {
-                const activeStep = heroStepIndex % 6;
+                const activeStep = heroStepIndex % 4;
                 const isActive = i === activeStep;
                 const isDone = i < activeStep;
                 return (
