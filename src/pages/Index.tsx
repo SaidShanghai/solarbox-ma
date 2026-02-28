@@ -285,7 +285,7 @@ const Index = () => {
                   className="flex items-center gap-2 h-14 px-8 text-base font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
                 >
                   <span className="w-2 h-2 bg-white rounded-full shrink-0" />
-                  Aides d'état SR500, TATWIR
+                  ENTREPRISES
                 </button>
               </div>
             </motion.div>
