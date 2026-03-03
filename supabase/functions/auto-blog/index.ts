@@ -181,7 +181,7 @@ Règles :
     const slug = slugify(article.title);
 
     // Insert into blog_posts
-    const { error: insertError } = await supabase.from("blog_posts").insert({
+    const { data: insertData, error: insertError } = await supabase.from("blog_posts").insert({
       title: article.title,
       slug,
       excerpt: article.excerpt,
@@ -191,11 +191,34 @@ Règles :
       is_published: true,
       published_at: new Date().toISOString(),
       author_name: "NOORIA",
-    });
+    }).select("id").single();
 
     if (insertError) throw insertError;
 
     console.log(`✅ Auto-published: "${article.title}" [${category}]`);
+
+    // Generate cover image asynchronously (fire-and-forget)
+    const postId = insertData.id;
+    try {
+      const coverRes = await fetch(
+        `${SUPABASE_URL}/functions/v1/generate-blog-cover`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+          },
+          body: JSON.stringify({ title: article.title, slug, post_id: postId }),
+        }
+      );
+      if (!coverRes.ok) {
+        console.error("Cover generation failed:", await coverRes.text());
+      } else {
+        console.log("✅ Cover image generated for auto-blog post");
+      }
+    } catch (coverErr) {
+      console.error("Cover generation error (non-blocking):", coverErr);
+    }
 
     return new Response(
       JSON.stringify({ success: true, title: article.title, category }),

@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import {
-  Plus, Edit, Trash2, Loader2, Eye, EyeOff, Calendar,
+  Plus, Edit, Trash2, Loader2, Eye, EyeOff, Calendar, ImagePlus, Sparkles,
 } from "lucide-react";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -53,6 +53,7 @@ export default function BlogManager() {
   const [editing, setEditing] = useState<BlogPost | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [generatingCover, setGeneratingCover] = useState<string | null>(null);
   const { toast } = useToast();
 
   // Form state
@@ -153,6 +154,32 @@ export default function BlogManager() {
     setDeleting(null);
   };
 
+  const handleGenerateCover = async (post: BlogPost) => {
+    setGeneratingCover(post.id);
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-blog-cover`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+          },
+          body: JSON.stringify({ title: post.title, slug: post.slug, post_id: post.id }),
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erreur de génération");
+      toast({ title: "Image générée ✓", description: "L'image de couverture a été créée avec l'IA." });
+      await fetchPosts();
+    } catch (err: any) {
+      toast({ title: "Erreur", description: err.message, variant: "destructive" });
+    } finally {
+      setGeneratingCover(null);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center py-12">
@@ -220,6 +247,19 @@ export default function BlogManager() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex gap-2 justify-end">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleGenerateCover(post)}
+                        disabled={generatingCover === post.id}
+                        title="Générer une image IA"
+                      >
+                        {generatingCover === post.id ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Sparkles className="w-4 h-4" />
+                        )}
+                      </Button>
                       <Button size="sm" variant="outline" onClick={() => openEdit(post)}>
                         <Edit className="w-4 h-4 mr-1" /> Modifier
                       </Button>
