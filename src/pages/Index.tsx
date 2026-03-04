@@ -250,9 +250,7 @@ const Index = () => {
               <HeroRotatingTitle entreprise={selectedType === "Entreprise"} activeIndex={heroStepIndex} />
 
               <p className="text-xl text-foreground/80 max-w-lg font-medium">
-                Uploadez votre facture. Notre IA analyse votre consommation,
-                <br />calcule votre installation idéale et vous connecte
-                <br />aux meilleurs installateurs certifiés près de chez vous.
+                Uploadez votre facture. Notre IA analyse votre consommation, calcule votre installation idéale et vous connecte aux meilleurs installateurs certifiés près de chez vous.
                 <br /><strong>Gratuit. Sans engagement.</strong>
               </p>
 
