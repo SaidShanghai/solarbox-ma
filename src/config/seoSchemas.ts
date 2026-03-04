@@ -7,7 +7,7 @@ export const homepageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness"],
       "@id": "https://sungpt.ma/#organization",
       name: "NOORIA",
       alternateName: "SunGPT",
@@ -18,24 +18,40 @@ export const homepageSchema = {
         width: 200,
         height: 60,
       },
+      image: "https://sungpt.ma/og-image.png",
       description:
         "Première plateforme IA de diagnostic solaire au Maroc. Analysez votre facture ONEE, obtenez un devis personnalisé en 2 minutes et connectez-vous à des installateurs certifiés RGE partout au Maroc.",
       foundingDate: "2024",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "CasaNearshore Park, Sidi Maarouf",
+        addressLocality: "Casablanca",
+        postalCode: "20270",
+        addressRegion: "Casablanca-Settat",
+        addressCountry: "MA",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 33.5311,
+        longitude: -7.6476,
+      },
+      priceRange: "35000-120000 MAD",
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "09:00",
+          closes: "18:00",
+        },
+      ],
       areaServed: {
         "@type": "Country",
         name: "Maroc",
         sameAs: "https://www.wikidata.org/wiki/Q1028",
       },
       serviceArea: [
-        "Casablanca",
-        "Rabat",
-        "Marrakech",
-        "Agadir",
-        "Fès",
-        "Tanger",
-        "Meknès",
-        "Oujda",
-        "Kénitra",
+        "Casablanca", "Rabat", "Marrakech", "Agadir",
+        "Fès", "Tanger", "Meknès", "Oujda", "Kénitra",
       ],
       aggregateRating: {
         "@type": "AggregateRating",
