@@ -1,10 +1,20 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version",
-};
+const ALLOWED_ORIGINS = [
+  "https://sungpt.ma",
+  "https://www.sungpt.ma",
+  "https://sun-match-pro.lovable.app",
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+  };
+}
 
 /** Escape HTML special characters to prevent XSS in email templates */
 function escapeHtml(str: string): string {
@@ -16,16 +26,16 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#39;");
 }
 
-// Max file size: 2 MB
 const MAX_FILE_SIZE_BYTES = 2 * 1024 * 1024;
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   try {
-    // Rate limiting by IP (persistent, DB-backed)
     const clientIp =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       req.headers.get("x-real-ip") ||
@@ -51,7 +61,6 @@ Deno.serve(async (req) => {
 
     const { fileBase64, fileType, fileName, quoteRef, clientName, clientEmail } = await req.json();
 
-    // Validate required fields
     if (!fileBase64 || !fileName || !quoteRef || !clientName || !clientEmail) {
       return new Response(
         JSON.stringify({ error: "Champs obligatoires manquants." }),
@@ -59,7 +68,6 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Validate file type: PDF only
     const ext = String(fileName).split(".").pop()?.toLowerCase();
     if (ext !== "pdf" || (fileType && !fileType.includes("pdf"))) {
       return new Response(
@@ -68,7 +76,6 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Decode base64 and validate file size
     const base64Data = String(fileBase64).split(",")[1] ?? String(fileBase64);
     const fileBytes = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
 
@@ -79,22 +86,19 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Validate PDF magic bytes (%PDF-)
     if (
       fileBytes.length < 5 ||
-      fileBytes[0] !== 0x25 || // %
-      fileBytes[1] !== 0x50 || // P
-      fileBytes[2] !== 0x44 || // D
-      fileBytes[3] !== 0x46 || // F
-      fileBytes[4] !== 0x2d    // -
+      fileBytes[0] !== 0x25 ||
+      fileBytes[1] !== 0x50 ||
+      fileBytes[2] !== 0x44 ||
+      fileBytes[3] !== 0x46 ||
+      fileBytes[4] !== 0x2d
     ) {
       return new Response(
         JSON.stringify({ error: "Le fichier n'est pas un PDF valide." }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-
-    // supabaseAdmin already created above for rate limiting
 
     const sanitizedRef = String(quoteRef).replace(/[^a-zA-Z0-9-]/g, "").slice(0, 20);
     const filePath = `${sanitizedRef}-${Date.now()}.pdf`;
@@ -103,18 +107,28 @@ Deno.serve(async (req) => {
       .from("client-invoices")
       .upload(filePath, fileBytes, { contentType: "application/pdf", upsert: true });
 
-    if (uploadError) throw uploadError;
+    if (uploadError) {
+      console.error("Upload error:", uploadError);
+      return new Response(JSON.stringify({ error: "Internal server error" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
-    // Generate a signed URL valid for 7 days
     const { data: signedData, error: signedError } = await supabaseAdmin.storage
       .from("client-invoices")
       .createSignedUrl(filePath, 60 * 60 * 24 * 7);
 
-    if (signedError) throw signedError;
+    if (signedError) {
+      console.error("Signed URL error:", signedError);
+      return new Response(JSON.stringify({ error: "Internal server error" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const signedUrl = signedData.signedUrl;
 
-    // Send email via Resend (best-effort)
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     if (RESEND_API_KEY) {
       const safeName = escapeHtml(String(clientName).trim().slice(0, 100));

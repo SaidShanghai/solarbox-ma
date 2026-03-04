@@ -1,10 +1,20 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-};
+const ALLOWED_ORIGINS = [
+  "https://sungpt.ma",
+  "https://www.sungpt.ma",
+  "https://sun-match-pro.lovable.app",
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+  };
+}
 
 const SYSTEM_PROMPT = `Tu es un expert en analyse de factures d'électricité marocaines (ONEE, Lydec, Redal, Amendis).
 
@@ -35,6 +45,8 @@ Retourne UNIQUEMENT le JSON, sans commentaire ni explication.
 }`;
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -45,12 +57,10 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Rate limiting by IP (no auth required for better UX)
+    // Rate limiting by IP
     const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    const rateLimitKey = `ocr-facture:${clientIp}`;
-
     const { data: isLimited } = await supabase.rpc("check_rate_limit", {
-      _key: rateLimitKey,
+      _key: `ocr-facture:${clientIp}`,
       _max_requests: 10,
       _window_seconds: 3600,
     });
@@ -73,8 +83,9 @@ Deno.serve(async (req) => {
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
+      console.error("LOVABLE_API_KEY is not configured");
       return new Response(
-        JSON.stringify({ error: "LOVABLE_API_KEY is not configured" }),
+        JSON.stringify({ error: "Service unavailable" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -123,8 +134,7 @@ Deno.serve(async (req) => {
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      const errText = await response.text();
-      console.error("AI gateway error:", response.status, errText);
+      console.error("AI gateway error:", response.status);
       return new Response(
         JSON.stringify({ error: "ai_error", message: "Erreur d'analyse IA" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -149,9 +159,9 @@ Deno.serve(async (req) => {
         if (!fixed.endsWith('}')) fixed += '}';
         parsed = JSON.parse(fixed);
       } catch {
-        console.error("Failed to parse AI response as JSON:", content);
+        console.error("Failed to parse AI response as JSON");
         return new Response(
-          JSON.stringify({ error: "parse_error", message: "Impossible de lire la facture. Essayez avec une photo plus nette.", raw: content }),
+          JSON.stringify({ error: "parse_error", message: "Impossible de lire la facture. Essayez avec une photo plus nette." }),
           { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }

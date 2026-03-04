@@ -1,33 +1,57 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-};
+const ALLOWED_ORIGINS = [
+  "https://sungpt.ma",
+  "https://www.sungpt.ma",
+  "https://sun-match-pro.lovable.app",
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+  };
+}
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   try {
+    // Rate limiting
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+    const { data: isLimited } = await supabase.rpc("check_rate_limit", {
+      _key: `lookup-quote:${clientIp}`,
+      _max_requests: 20,
+      _window_seconds: 3600,
+    });
+    if (isLimited) {
+      return new Response(JSON.stringify({ error: "Trop de requêtes. Réessayez plus tard." }), {
+        status: 429,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const { ref } = await req.json();
     if (!ref || typeof ref !== "string" || ref.trim().length < 10) {
       return new Response(
-        JSON.stringify({ error: "Référence invalide (min 6 caractères)" }),
+        JSON.stringify({ error: "Référence invalide (min 10 caractères)" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     const cleanRef = ref.replace(/^#/, "").trim().toLowerCase();
 
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
-    );
-
-    // Use raw SQL via rpc since PostgREST can't filter UUID as text with ilike
     const { data, error } = await supabase
       .rpc("lookup_quote_by_ref", { ref_prefix: cleanRef });
 
@@ -40,7 +64,6 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Return limited info only (no client_name for privacy)
     return new Response(
       JSON.stringify({
         ref: String(row.id).slice(0, 12).toUpperCase(),

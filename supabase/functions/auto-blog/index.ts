@@ -1,4 +1,3 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
@@ -52,24 +51,34 @@ const ACTUALITE_TOPICS = [
   "Hydrogène vert et solaire au Maroc : une combinaison gagnante",
 ];
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+    if (!LOVABLE_API_KEY) {
+      console.error("LOVABLE_API_KEY is not configured");
+      return new Response(JSON.stringify({ error: "Service unavailable" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      throw new Error("Missing Supabase env vars");
+      console.error("Missing Supabase env vars");
+      return new Response(JSON.stringify({ error: "Service unavailable" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    // Alternate category: check last post category
+    // Alternate category
     const { data: lastPost } = await supabase
       .from("blog_posts")
       .select("category")
@@ -79,11 +88,8 @@ serve(async (req) => {
 
     const category = lastPost?.category === "guide" ? "actualite" : "guide";
     const topics = category === "guide" ? GUIDE_TOPICS : ACTUALITE_TOPICS;
-
-    // Pick a random topic
     const topic = topics[Math.floor(Math.random() * topics.length)];
 
-    // Generate article via Lovable AI
     const aiResponse = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
       {
@@ -118,27 +124,14 @@ Règles :
               type: "function",
               function: {
                 name: "create_blog_post",
-                description:
-                  "Structure the blog post with title, excerpt, meta_description, and content",
+                description: "Structure the blog post with title, excerpt, meta_description, and content",
                 parameters: {
                   type: "object",
                   properties: {
-                    title: {
-                      type: "string",
-                      description: "Titre accrocheur de l'article (max 80 caractères)",
-                    },
-                    excerpt: {
-                      type: "string",
-                      description: "Résumé court (1-2 phrases, max 200 caractères)",
-                    },
-                    meta_description: {
-                      type: "string",
-                      description: "Description SEO (max 160 caractères)",
-                    },
-                    content: {
-                      type: "string",
-                      description: "Contenu complet en Markdown",
-                    },
+                    title: { type: "string", description: "Titre accrocheur (max 80 caractères)" },
+                    excerpt: { type: "string", description: "Résumé court (max 200 caractères)" },
+                    meta_description: { type: "string", description: "Description SEO (max 160 caractères)" },
+                    content: { type: "string", description: "Contenu complet en Markdown" },
                   },
                   required: ["title", "excerpt", "meta_description", "content"],
                   additionalProperties: false,
@@ -146,10 +139,7 @@ Règles :
               },
             },
           ],
-          tool_choice: {
-            type: "function",
-            function: { name: "create_blog_post" },
-          },
+          tool_choice: { type: "function", function: { name: "create_blog_post" } },
         }),
       }
     );
@@ -157,30 +147,37 @@ Règles :
     if (!aiResponse.ok) {
       const errText = await aiResponse.text();
       console.error("AI error:", aiResponse.status, errText);
-
       if (aiResponse.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limited, retry later" }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "Rate limited" }), {
+          status: 429,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
       if (aiResponse.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Credits exhausted" }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "Credits exhausted" }), {
+          status: 402,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
-      throw new Error(`AI gateway error: ${aiResponse.status}`);
+      return new Response(JSON.stringify({ error: "AI generation failed" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const aiData = await aiResponse.json();
     const toolCall = aiData.choices?.[0]?.message?.tool_calls?.[0];
-    if (!toolCall) throw new Error("No tool call in AI response");
+    if (!toolCall) {
+      console.error("No tool call in AI response");
+      return new Response(JSON.stringify({ error: "AI generation failed" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const article = JSON.parse(toolCall.function.arguments);
     const slug = slugify(article.title);
 
-    // Insert into blog_posts
     const { data: insertData, error: insertError } = await supabase.from("blog_posts").insert({
       title: article.title,
       slug,
@@ -193,11 +190,17 @@ Règles :
       author_name: "NOORIA",
     }).select("id").single();
 
-    if (insertError) throw insertError;
+    if (insertError) {
+      console.error("Insert error:", insertError);
+      return new Response(JSON.stringify({ error: "Database error" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     console.log(`✅ Auto-published: "${article.title}" [${category}]`);
 
-    // Generate cover image asynchronously (fire-and-forget)
+    // Generate cover image (fire-and-forget, using service role key for internal call)
     const postId = insertData.id;
     try {
       const coverRes = await fetch(
@@ -212,7 +215,7 @@ Règles :
         }
       );
       if (!coverRes.ok) {
-        console.error("Cover generation failed:", await coverRes.text());
+        console.error("Cover generation failed:", coverRes.status);
       } else {
         console.log("✅ Cover image generated for auto-blog post");
       }
@@ -227,7 +230,7 @@ Règles :
   } catch (e) {
     console.error("auto-blog error:", e);
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
