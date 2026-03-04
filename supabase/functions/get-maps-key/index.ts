@@ -1,11 +1,24 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-};
+const ALLOWED_ORIGINS = [
+  "https://sungpt.ma",
+  "https://www.sungpt.ma",
+  "https://sun-match-pro.lovable.app",
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+  };
+}
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -13,16 +26,15 @@ Deno.serve(async (req) => {
   try {
     const key = Deno.env.get("GOOGLE_MAPS_API_KEY");
     if (!key) {
-      return new Response(JSON.stringify({ error: "API key not configured" }), {
+      console.error("GOOGLE_MAPS_API_KEY not configured");
+      return new Response(JSON.stringify({ error: "Service unavailable" }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Rate limiting by origin + IP (60 requests per hour)
     const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    const origin = req.headers.get("origin") || req.headers.get("referer") || "unknown";
-    // Use a hash of origin+IP to differentiate users behind same proxy
+    const origin = req.headers.get("origin") || "unknown";
     const rateLimitKey = `maps-key:${origin}:${clientIp}`;
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,

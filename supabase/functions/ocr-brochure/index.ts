@@ -1,10 +1,20 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-};
+const ALLOWED_ORIGINS = [
+  "https://sungpt.ma",
+  "https://www.sungpt.ma",
+  "https://sun-match-pro.lovable.app",
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+  };
+}
 
 const SYSTEM_PROMPT = `Tu es un expert en systèmes solaires et stockage d'énergie.
 Analyse cette brochure produit et extrais les spécifications techniques.
@@ -88,6 +98,8 @@ Règles :
 - profile_type: panneaux <400Wc ou batteries <10kWh = residential, >100kWh = industrial, sinon commercial`;
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -95,7 +107,7 @@ Deno.serve(async (req) => {
   try {
     // Authentication check
     const authHeader = req.headers.get("authorization");
-    if (!authHeader) {
+    if (!authHeader?.startsWith("Bearer ")) {
       return new Response(
         JSON.stringify({ error: "Authentication required" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -104,23 +116,28 @@ Deno.serve(async (req) => {
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("SUPABASE_PUBLISHABLE_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
     );
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser(
-      authHeader.replace("Bearer ", "")
-    );
-
-    if (authError || !user) {
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
       return new Response(
         JSON.stringify({ error: "Invalid authentication" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
+    const userId = claimsData.claims.sub as string;
+
     // Rate limiting: 10 OCR requests per user per hour
-    const { data: isLimited } = await supabase.rpc("check_rate_limit", {
-      _key: `ocr-brochure:${user.id}`,
+    const adminClient = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+    const { data: isLimited } = await adminClient.rpc("check_rate_limit", {
+      _key: `ocr-brochure:${userId}`,
       _max_requests: 10,
       _window_seconds: 3600,
     });
@@ -143,8 +160,9 @@ Deno.serve(async (req) => {
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
+      console.error("LOVABLE_API_KEY is not configured");
       return new Response(
-        JSON.stringify({ error: "LOVABLE_API_KEY is not configured" }),
+        JSON.stringify({ error: "Service unavailable" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -187,8 +205,7 @@ Deno.serve(async (req) => {
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      const errText = await response.text();
-      console.error("AI gateway error:", response.status, errText);
+      console.error("AI gateway error:", response.status);
       return new Response(
         JSON.stringify({ error: "ai_error", message: "Erreur d'analyse IA" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -198,13 +215,11 @@ Deno.serve(async (req) => {
     const aiData = await response.json();
     const content = aiData.choices?.[0]?.message?.content || "";
 
-    // Strip markdown code fences (even if truncated / no closing fence)
     let jsonStr = content;
     const fencedMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
     if (fencedMatch) {
       jsonStr = fencedMatch[1].trim();
     } else {
-      // Handle truncated response: opening fence but no closing fence
       const openFence = content.match(/```(?:json)?\s*([\s\S]*)/);
       if (openFence) {
         jsonStr = openFence[1].trim();
@@ -215,26 +230,22 @@ Deno.serve(async (req) => {
     try {
       parsed = JSON.parse(jsonStr);
     } catch {
-      // Try to fix truncated JSON by closing open braces/brackets
       try {
         let fixed = jsonStr.replace(/,\s*$/, "");
-        // Count open vs close braces/brackets
         const openBraces = (fixed.match(/{/g) || []).length;
         const closeBraces = (fixed.match(/}/g) || []).length;
         const openBrackets = (fixed.match(/\[/g) || []).length;
         const closeBrackets = (fixed.match(/\]/g) || []).length;
-        // Remove trailing incomplete string/value
         fixed = fixed.replace(/,?\s*"[^"]*$/, "");
         fixed = fixed.replace(/,?\s*"[^"]*":\s*"?[^",}]*$/, "");
         fixed = fixed.replace(/,\s*$/, "");
-        // Close remaining open brackets then braces
         for (let i = 0; i < openBrackets - closeBrackets; i++) fixed += "]";
         for (let i = 0; i < openBraces - closeBraces; i++) fixed += "}";
         parsed = JSON.parse(fixed);
       } catch {
-        console.error("Failed to parse AI response:", content.substring(0, 500));
+        console.error("Failed to parse AI response");
         return new Response(
-          JSON.stringify({ error: "parse_error", message: "Impossible d'extraire les données de la brochure.", raw: content }),
+          JSON.stringify({ error: "parse_error", message: "Impossible d'extraire les données de la brochure." }),
           { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }

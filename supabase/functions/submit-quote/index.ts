@@ -1,10 +1,20 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version",
-};
+const ALLOWED_ORIGINS = [
+  "https://sungpt.ma",
+  "https://www.sungpt.ma",
+  "https://sun-match-pro.lovable.app",
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+  };
+}
 
 /** Escape HTML special characters to prevent XSS in email templates */
 function escapeHtml(str: string): string {
@@ -16,15 +26,15 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#39;");
 }
 
-// In-memory rate limiter removed — now using persistent DB-based rate limiting
-
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   try {
-    // Rate limiting by IP (persistent, DB-backed)
+    // Rate limiting by IP
     const clientIp =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       req.headers.get("x-real-ip") ||
@@ -44,10 +54,7 @@ Deno.serve(async (req) => {
     if (isLimited) {
       return new Response(
         JSON.stringify({ error: "Trop de demandes. Veuillez réessayer dans une heure." }),
-        {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -60,7 +67,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Basic email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(String(client_email).trim())) {
       return new Response(JSON.stringify({ error: "Invalid email address" }), {
@@ -68,8 +74,6 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
-
-    // Use service role client (already created above for rate limiting)
 
     // Anti-spam: max 2 submissions per email per hour
     const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
@@ -81,13 +85,8 @@ Deno.serve(async (req) => {
 
     if (existing && existing.length >= 2) {
       return new Response(
-        JSON.stringify({
-          error: "Vous avez déjà soumis 2 demandes cette heure. Veuillez réessayer plus tard.",
-        }),
-        {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
+        JSON.stringify({ error: "Vous avez déjà soumis 2 demandes cette heure. Veuillez réessayer plus tard." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -125,9 +124,15 @@ Deno.serve(async (req) => {
       .select("id")
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error("Insert error:", error);
+      return new Response(JSON.stringify({ error: "Internal server error" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
-    // Send confirmation email to client (best-effort)
+    // Send confirmation email (best-effort)
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     if (RESEND_API_KEY) {
       const firstName = escapeHtml(String(client_name).trim().split(" ")[0]);
@@ -149,31 +154,24 @@ Deno.serve(async (req) => {
                 <img src="https://sungpt.ma/logo.png" alt="NOORIA" style="height:48px;" onerror="this.style.display='none'" />
                 <h1 style="color:#f97316;font-size:22px;margin-top:12px;">NOORIA – Énergie Solaire</h1>
               </div>
-
               <p style="font-size:16px;color:#333;">Bonjour <strong>${firstName}</strong>,</p>
-
               <p style="font-size:15px;color:#444;line-height:1.6;">
                 Nous avons bien reçu votre demande et notre équipe est en train d'analyser votre profil pour vous proposer la solution solaire la mieux adaptée à vos besoins.
               </p>
-
               <div style="background:#fff7ed;border-left:4px solid #f97316;padding:16px 20px;border-radius:8px;margin:24px 0;">
                 <p style="margin:0;font-size:14px;color:#92400e;font-weight:600;">⏱ Délai de traitement</p>
                 <p style="margin:4px 0 0;font-size:14px;color:#78350f;">Un conseiller vous contactera sous <strong>24h</strong> pour vous présenter votre devis personnalisé.</p>
               </div>
-
               <div style="background:#f0fdf4;border:2px solid #22c55e;border-radius:12px;padding:20px;margin:24px 0;text-align:center;">
                 <p style="margin:0 0 6px;font-size:13px;color:#166534;font-weight:600;">📋 Votre numéro de référence dossier</p>
                 <p style="margin:0;font-size:28px;font-weight:900;color:#15803d;letter-spacing:4px;font-family:monospace;">#${refShort}</p>
                 <p style="margin:8px 0 0;font-size:12px;color:#166534;">Conservez ce numéro pour suivre votre dossier et le retrouver dans votre espace client sur <a href="https://sungpt.ma/profil" style="color:#f97316;">sungpt.ma/profil</a></p>
               </div>
-
               <p style="font-size:14px;color:#666;line-height:1.6;">
                 En attendant, si vous avez des questions, n'hésitez pas à nous contacter à 
                 <a href="mailto:contact@sungpt.ma" style="color:#f97316;">contact@sungpt.ma</a>.
               </p>
-
               <hr style="border:none;border-top:1px solid #eee;margin:28px 0;" />
-
               <p style="font-size:12px;color:#aaa;text-align:center;">
                 NOORIA – Votre partenaire solaire au Maroc<br/>
                 <a href="https://sungpt.ma" style="color:#f97316;">sungpt.ma</a>
@@ -231,7 +229,6 @@ Deno.serve(async (req) => {
             <div style="font-family:sans-serif;max-width:650px;margin:auto;padding:32px;background:#fff;border-radius:12px;">
               <h1 style="color:#f97316;font-size:20px;margin:0 0 4px;">🆕 Nouveau diagnostic reçu</h1>
               <p style="font-size:13px;color:#999;margin:0 0 24px;">Réf. #${refShort} — ${new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" })}</p>
-
               <div style="background:#fff7ed;border-radius:8px;padding:16px;margin-bottom:24px;">
                 <h2 style="margin:0 0 8px;font-size:15px;color:#92400e;">👤 Contact client</h2>
                 <p style="margin:2px 0;font-size:14px;color:#333;"><strong>Nom :</strong> ${escapeHtml(String(client_name).trim())}</p>
@@ -239,20 +236,16 @@ Deno.serve(async (req) => {
                 ${client_phone ? `<p style="margin:2px 0;font-size:14px;color:#333;"><strong>Tél :</strong> ${escapeHtml(String(client_phone).trim())}</p>` : ""}
                 ${city ? `<p style="margin:2px 0;font-size:14px;color:#333;"><strong>Ville :</strong> ${escapeHtml(String(city).trim())}</p>` : ""}
               </div>
-
               <h2 style="font-size:15px;color:#333;margin:0 0 8px;">📋 Diagnostic complet</h2>
               <table style="width:100%;border-collapse:collapse;border:1px solid #eee;border-radius:8px;overflow:hidden;">
                 ${diagHtml}
               </table>
-
               ${eligRows ? `
               <div style="margin-top:16px;">
                 <h3 style="font-size:14px;color:#333;margin:0 0 6px;">✅ Éligibilité</h3>
                 <p style="font-size:13px;color:#444;">${eligRows}</p>
               </div>` : ""}
-
               ${mapsLink ? `<p style="margin-top:16px;font-size:13px;">📍 ${mapsLink}</p>` : ""}
-
               <hr style="border:none;border-top:1px solid #eee;margin:28px 0;" />
               <p style="font-size:12px;color:#aaa;text-align:center;">Email généré automatiquement par NOORIA</p>
             </div>
