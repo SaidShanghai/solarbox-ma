@@ -1,9 +1,3 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import type { FAQItem } from "@/data/faq";
 
 interface FAQSectionProps {
@@ -20,29 +14,46 @@ export default function FAQSection({
   return (
     <section className="py-20 px-4">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            {title}
-          </h2>
-          <p className="text-muted-foreground text-lg">{subtitle}</p>
-        </div>
+        {(title || subtitle) && (
+          <div className="text-center mb-12">
+            {title && (
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p className="text-muted-foreground text-lg">{subtitle}</p>
+            )}
+          </div>
+        )}
 
-        <Accordion type="single" collapsible className="space-y-3">
+        <div className="space-y-3">
           {items.map((item, i) => (
-            <AccordionItem
+            <details
               key={i}
-              value={`faq-${i}`}
-              className="border border-border rounded-xl px-5 data-[state=open]:shadow-md transition-shadow"
+              className="group border border-border rounded-xl px-5 open:shadow-md transition-shadow"
             >
-              <AccordionTrigger className="text-left text-base font-medium py-5 hover:no-underline">
-                {item.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+              <summary className="flex items-center justify-between cursor-pointer py-5 text-left text-base font-medium text-foreground list-none [&::-webkit-details-marker]:hidden">
+                <span>{item.question}</span>
+                <svg
+                  className="w-4 h-4 shrink-0 ml-4 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </summary>
+              <div className="text-muted-foreground leading-relaxed pb-5">
                 {item.answer}
-              </AccordionContent>
-            </AccordionItem>
+              </div>
+            </details>
           ))}
-        </Accordion>
+        </div>
       </div>
     </section>
   );
