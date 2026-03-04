@@ -1403,7 +1403,7 @@ const Index = () => {
                   animate={{
                     opacity: 1,
                     y: 0,
-                    scale: isActive ? 1.12 : 1,
+                    scale: isActive ? 1.3 : 1,
                     zIndex: isActive ? 20 : 1,
                   }}
                   transition={isActive
@@ -1414,7 +1414,7 @@ const Index = () => {
                 >
                   <div className={`w-[54px] h-[54px] shrink-0 z-10 rounded-xl p-1.5 transition-all duration-500 ${
                     isActive
-                      ? "text-primary bg-primary/10 ring-2 ring-primary/30 shadow-lg shadow-primary/20 scale-125"
+                      ? "text-primary bg-primary/10 ring-2 ring-primary/30 shadow-lg shadow-primary/20 scale-150"
                       : isDone
                         ? "text-primary/60 bg-primary/5 border border-primary/30"
                         : "text-muted-foreground bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
