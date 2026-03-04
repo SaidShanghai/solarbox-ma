@@ -42,6 +42,9 @@ import MiniMapMockup from "@/components/MiniMapMockup";
 
 import AnimatedCounter from "@/components/AnimatedCounter";
 import BeforeAfterBill from "@/components/BeforeAfterBill";
+import FAQSection from "@/components/FAQSection";
+import JsonLd from "@/components/seo/JsonLd";
+import { faqData, buildFaqSchema } from "@/data/faq";
 
 const features = [
   {
@@ -1540,6 +1543,14 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section – top 6 */}
+      <FAQSection items={faqData.slice(0, 6)} />
+      <div className="text-center pb-12">
+        <Button asChild variant="outline" size="lg">
+          <Link to="/faq">Voir toutes les questions →</Link>
+        </Button>
+      </div>
 
       <Footer />
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />

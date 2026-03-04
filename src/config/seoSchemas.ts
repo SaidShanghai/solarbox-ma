@@ -1,4 +1,5 @@
 import { STATS } from "./stats";
+import { faqData, buildFaqSchema } from "@/data/faq";
 
 export const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -41,51 +42,7 @@ export const localBusinessSchema = {
   "sameAs": ["https://solarcompare.ma"],
 };
 
-export const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Comment fonctionne le diagnostic solaire NOORIA ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "En 2 minutes, répondez à quelques questions sur votre logement et votre consommation. Notre IA analyse votre potentiel solaire et vous propose un dimensionnement personnalisé avec les meilleures offres d'installateurs certifiés près de chez vous.",
-      },
-    },
-    {
-      "@type": "Question",
-      "name": "Quelles sont les aides disponibles pour le solaire au Maroc ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le Maroc propose plusieurs programmes d'aides : SR500 pour les particuliers, TATWIR pour les entreprises industrielles, et le GEFF (Green Economy Financing Facility) pour le financement vert. NOORIA vous guide dans l'éligibilité et les démarches.",
-      },
-    },
-    {
-      "@type": "Question",
-      "name": "Combien coûte une installation solaire au Maroc ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le coût varie selon la puissance installée. Pour un particulier, comptez entre 30 000 et 80 000 MAD pour un kit de 3 à 6 kWc. Avec les aides d'état, le retour sur investissement est généralement de 4 à 6 ans, avec jusqu'à 70% d'économies sur votre facture.",
-      },
-    },
-    {
-      "@type": "Question",
-      "name": "Les installateurs NOORIA sont-ils certifiés ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, tous les installateurs partenaires NOORIA sont certifiés et vérifiés. Ils disposent de garanties décennales et d'un suivi post-installation.",
-      },
-    },
-    {
-      "@type": "Question",
-      "name": "Le diagnostic solaire est-il gratuit ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, le diagnostic solaire NOORIA est 100% gratuit et sans engagement. Vous recevez une estimation personnalisée de votre potentiel solaire, des économies réalisables et un devis sous 24h.",
-      },
-    },
-  ],
-};
+/** FAQ schema built from the single source of truth in faq.ts */
+export const faqSchema = buildFaqSchema(faqData.slice(0, 6));
 
 export const defaultSchemas = [localBusinessSchema, faqSchema];
