@@ -94,8 +94,6 @@ export default function BlogPost() {
               <ArrowLeft className="w-4 h-4 mr-2" /> Retour au blog
             </Link>
           </Button>
-        </div>
-        <Footer />
       </div>
     );
   }
