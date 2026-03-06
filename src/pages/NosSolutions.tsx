@@ -1,5 +1,3 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sun, Battery, Zap, Shield, ArrowRight, CheckCircle2 } from "lucide-react";
