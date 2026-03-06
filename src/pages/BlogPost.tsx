@@ -71,9 +71,7 @@ export default function BlogPost() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1 pt-24 pb-16">
+      <main className="flex-1 pt-24 pb-16">
           <div className="container mx-auto px-4 max-w-3xl space-y-6">
             <Skeleton className="h-4 w-48" />
             <Skeleton className="h-[400px] w-full rounded-2xl" />
