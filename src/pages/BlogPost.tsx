@@ -103,9 +103,8 @@ export default function BlogPost() {
   const articleSchema = buildArticleSchema(post);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
       <JsonLd schema={articleSchema} />
-      <Header />
       <main className="flex-1 pt-24 pb-16">
         <article className="container mx-auto px-4 max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
