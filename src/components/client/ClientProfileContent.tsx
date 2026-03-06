@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, ClipboardList, FileText, Calendar, Sun, Loader2, MapPin, Zap, Home } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 type QuoteRequest = {
   id: string;
