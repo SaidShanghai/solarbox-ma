@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sun, Shield, Brain, Users, CheckCircle, ArrowRight, Zap, Lock, Award, Newspaper } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import JsonLd from "@/components/seo/JsonLd";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { STATS } from "@/config/stats";
