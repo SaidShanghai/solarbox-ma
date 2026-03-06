@@ -8,8 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, CheckCircle2, XCircle, Clock, ShieldCheck, LogOut, Building2, Mail, Phone, MapPin, FileText, FileCheck, CreditCard, Package, Truck, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 interface DocDetail {
   id: string;
