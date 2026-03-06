@@ -1,8 +1,7 @@
 
 const MentionsLegales = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <>
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-3xl">
           <h1 className="text-3xl font-bold mb-8">Mentions Légales</h1>
