@@ -1,5 +1,3 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import FAQSection from "@/components/FAQSection";
 import JsonLd from "@/components/seo/JsonLd";
 import { faqData } from "@/data/faq";
