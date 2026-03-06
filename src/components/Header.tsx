@@ -12,7 +12,6 @@ const Header = () => {
   const { user } = useAuth();
   const { isAdmin } = useAdmin();
   const navigate = useNavigate();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [showLogout, setShowLogout] = useState(false);
 
   const NAV_LINKS = useMemo(() => {
