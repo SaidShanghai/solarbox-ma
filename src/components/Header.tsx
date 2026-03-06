@@ -27,10 +27,6 @@ const Header = () => {
     return links;
   }, [isAdmin]);
 
-  const getScale = (i: number) => {
-    if (hoveredIndex === null) return 1;
-    return i === hoveredIndex ? 1.35 : 1;
-  };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
