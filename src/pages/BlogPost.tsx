@@ -86,9 +86,7 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <div className="flex-1 flex flex-col items-center justify-center gap-4">
+      <div className="flex-1 flex flex-col items-center justify-center gap-4">
           <BookOpen className="w-12 h-12 text-muted-foreground/40" />
           <p className="text-lg text-muted-foreground">Article introuvable</p>
           <Button asChild variant="outline">
