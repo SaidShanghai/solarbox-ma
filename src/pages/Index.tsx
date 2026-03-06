@@ -224,9 +224,8 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
       <JsonLd schema={homepageSchema} />
-      <Header />
 
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-16">
