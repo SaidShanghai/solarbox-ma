@@ -15,8 +15,6 @@ import {
   Star, Clock, BarChart3, AlertCircle, Pause, Ban, Activity,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import PackagesManager from "@/components/admin/PackagesManager";
 import QuoteRequestsManager from "@/components/admin/QuoteRequestsManager";
 import BlogManager from "@/components/admin/BlogManager";
