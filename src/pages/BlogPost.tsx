@@ -65,7 +65,7 @@ export default function BlogPost() {
       }
     }
     return () => {
-      document.title = "NOORIA – Énergie Solaire au Maroc";
+      document.title = "SOLARBOX – Énergie Solaire au Maroc";
     };
   }, [post]);
 
