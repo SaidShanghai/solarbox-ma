@@ -81,7 +81,7 @@ export default function About() {
                 Le Maroc bénéficie de l'un des meilleurs ensoleillements au monde — plus de <strong className="text-foreground">3 000 heures par an</strong>. Pourtant, l'énergie solaire reste sous-exploitée chez les particuliers, freinée par le manque d'information, la complexité des démarches et la difficulté à trouver un installateur fiable.
               </p>
               <p>
-                <strong className="text-foreground">NOORIA</strong> a été créée pour lever ces barrières. Notre plateforme combine intelligence artificielle et expertise terrain pour permettre à chaque Marocain d'évaluer son potentiel solaire, comprendre les aides disponibles (SR500, TATWIR, GEFF) et se connecter aux meilleurs installateurs certifiés de sa région.
+                <strong className="text-foreground">SOLARBOX</strong> a été créée pour lever ces barrières. Notre plateforme combine intelligence artificielle et expertise terrain pour permettre à chaque Marocain d'évaluer son potentiel solaire, comprendre les aides disponibles (SR500, TATWIR, GEFF) et se connecter aux meilleurs installateurs certifiés de sa région.
               </p>
               <p>
                 Notre ambition : faire du Maroc un leader de l'autoconsommation solaire en Afrique, en démocratisant l'accès à une énergie propre, économique et souveraine.
