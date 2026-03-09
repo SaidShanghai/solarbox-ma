@@ -1310,7 +1310,7 @@ const Index = () => {
                             Prochaine étape :<br />
                             vérification technique et<br />
                             estimation préliminaire.<br />
-                            Un expert NOORIA vous contacte<br />
+                            Un expert SOLARBOX vous contacte<br />
                             sous <span className="font-semibold text-foreground">24h</span> (WhatsApp ou appel).
                           </p>
                           {quoteRef && (
