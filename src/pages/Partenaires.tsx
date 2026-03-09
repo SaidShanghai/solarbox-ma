@@ -304,7 +304,7 @@ const Partenaires = () => {
                 </div>
                 <h2 className="text-2xl font-bold">Inscription en attente de validation</h2>
                 <p className="text-muted-foreground max-w-md mx-auto">
-                  Votre demande d'inscription a bien été reçue. Un administrateur NOORIA va examiner votre candidature et vous recevrez un email de confirmation une fois approuvé.
+                  Votre demande d'inscription a bien été reçue. Un administrateur SOLARBOX va examiner votre candidature et vous recevrez un email de confirmation une fois approuvé.
                 </p>
                 <div className="bg-muted/50 rounded-xl p-4 max-w-sm mx-auto">
                   <p className="text-xs text-muted-foreground">Délai de traitement habituel : <strong>24 à 48h</strong></p>
