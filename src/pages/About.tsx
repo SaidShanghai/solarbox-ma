@@ -160,7 +160,7 @@ export default function About() {
         <motion.div {...fadeUp} className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold text-foreground mb-4">Nos partenaires & certifications</h2>
           <p className="text-muted-foreground mb-12 max-w-xl mx-auto">
-            NOORIA collabore avec les institutions de référence du secteur énergétique marocain.
+            SOLARBOX collabore avec les institutions de référence du secteur énergétique marocain.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {PARTNERS.map((partner) => (
