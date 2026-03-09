@@ -43,8 +43,8 @@ const TRUST_POINTS = [
 
 export default function About() {
   usePageMeta({
-    title: "À Propos de NOORIA – Experts Solaire IA au Maroc | sungpt.ma",
-    description: "NOORIA est la première plateforme IA dédiée au solaire au Maroc. Notre mission : rendre l'énergie solaire accessible à chaque Marocain.",
+    title: "À Propos de SOLARBOX – Experts Solaire au Maroc | sungpt.ma",
+    description: "SOLARBOX est la première plateforme dédiée au solaire au Maroc. Notre mission : rendre l'énergie solaire accessible à chaque Marocain.",
   });
 
   return (
