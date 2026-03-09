@@ -340,7 +340,7 @@ const Index = () => {
                             : ""}
                         </span>
                     </div>
-                    <span className="text-[9px] text-muted-foreground">SOLARBOX</span>
+                    
                   </div>
 
                   <div className={`flex-1 min-h-0 relative ${phoneScreen === "analyse" ? "overflow-hidden" : "overflow-y-auto"}`}>
@@ -359,7 +359,7 @@ const Index = () => {
                         </div>
                         <div>
                          <h3 className="text-base font-bold">SOLARBOX</h3>
-                          <p className="text-[10px] text-muted-foreground">par SOLARBOX</p>
+                          <p className="text-[10px] text-muted-foreground">Votre diagnostic solaire</p>
                           <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">
                             Analysez votre consommation, découvrez<br />la solution solaire optimale
                           </p>
