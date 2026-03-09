@@ -65,7 +65,7 @@ const MentionsLegales = () => {
             <section>
               <h2 className="text-xl font-semibold text-foreground">6. Limitation de responsabilité</h2>
               <p>
-                NOORIA agit en tant que plateforme de mise en relation. Les devis, installations et prestations sont réalisés par les installateurs partenaires, qui sont seuls responsables de la qualité de leurs services. NOORIA ne saurait être tenue responsable des dommages directs ou indirects liés à l'utilisation du site ou aux prestations des installateurs.
+                SOLARBOX agit en tant que plateforme de mise en relation. Les devis, installations et prestations sont réalisés par les installateurs partenaires, qui sont seuls responsables de la qualité de leurs services. SOLARBOX ne saurait être tenue responsable des dommages directs ou indirects liés à l'utilisation du site ou aux prestations des installateurs.
               </p>
             </section>
           </div>

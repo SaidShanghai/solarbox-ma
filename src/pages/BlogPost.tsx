@@ -169,7 +169,7 @@ export default function BlogPost() {
                 Prêt à passer au solaire ?
               </h2>
               <p className="text-white/90 mb-6 max-w-lg mx-auto">
-                Calculez gratuitement la rentabilité de votre projet avec SunGPT.
+                Calculez gratuitement la rentabilité de votre projet avec SOLARBOX.
               </p>
               <Button
                 asChild

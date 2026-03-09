@@ -194,7 +194,7 @@ const QuotePanel = ({ open, onOpenChange, installerName, onSuccess, diagnosticDa
                       <h3 className="text-2xl font-bold mb-2">Demande envoyée !</h3>
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         Merci <span className="font-semibold text-foreground">{nom.trim()}</span> !<br />
-                        Un conseiller NOORIA vous contactera sous 24h<br />
+                        Un conseiller SOLARBOX vous contactera sous 24h<br />
                         à <span className="font-semibold text-foreground">{email.trim()}</span> ou au{" "}
                         <span className="font-semibold text-foreground">{telephone}</span>.
                       </p>

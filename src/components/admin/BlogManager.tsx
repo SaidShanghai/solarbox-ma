@@ -120,7 +120,7 @@ export default function BlogManager() {
       published_at: isPublished
         ? (editing?.published_at || new Date().toISOString())
         : null,
-      author_name: "NOORIA",
+      author_name: "SOLARBOX",
     };
 
     try {

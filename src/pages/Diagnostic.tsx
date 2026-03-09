@@ -930,13 +930,16 @@ const Diagnostic = () => {
               {/* ── ANALYSE ── */}
               {screen === "analyse" && (
                 <motion.div key="analyse" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="flex flex-col items-center justify-center min-h-[50vh] gap-8">
-                  <motion.img
-                    src={nooriaLogo}
-                    alt="NOORIA"
+                  <motion.div
                     animate={{ opacity: [1, 0.1, 1] }}
                     transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-48 object-contain select-none"
-                  />
+                    className="select-none"
+                  >
+                    <span className="font-black text-4xl tracking-tight">
+                      <span className="text-foreground">SOLAR</span>
+                      <span className="text-[hsl(24,95%,53%)]">BOX</span>
+                    </span>
+                  </motion.div>
                   <div className="text-center space-y-2">
                     <p className="text-xl font-bold">Analyse en cours…</p>
                     <p className="text-muted-foreground">
