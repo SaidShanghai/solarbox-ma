@@ -60,7 +60,7 @@ export default function About() {
             À propos de SOLARBOX
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-            NOORIA – Pionniers du <span className="text-primary">diagnostic solaire IA</span> au Maroc
+            SOLARBOX – Pionniers du <span className="text-primary">diagnostic solaire</span> au Maroc
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Fondée à Casablanca, nous aidons les Marocains à passer au solaire avec des données fiables, une technologie de pointe et un réseau d'installateurs certifiés.
