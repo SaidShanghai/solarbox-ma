@@ -10,7 +10,7 @@ const MentionsLegales = () => {
             <section>
               <h2 className="text-xl font-semibold text-foreground">1. Éditeur du site</h2>
               <p>
-                Le site <strong>sungpt.ma</strong> est édité par <strong>NOORIA</strong>, plateforme de mise en relation entre particuliers/entreprises et installateurs solaires certifiés au Maroc.
+                Le site <strong>sungpt.ma</strong> est édité par <strong>SOLARBOX</strong>, plateforme de mise en relation entre particuliers/entreprises et installateurs solaires certifiés au Maroc.
               </p>
               <p>Siège social : Casablanca, Maroc</p>
               <p>Email de contact : contact@sungpt.ma</p>
