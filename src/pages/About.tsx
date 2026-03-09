@@ -32,12 +32,12 @@ const TRUST_POINTS = [
   {
     icon: Shield,
     title: "Conformité CNDP",
-    desc: "NOORIA respecte la loi 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.",
+    desc: "SOLARBOX respecte la loi 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.",
   },
   {
     icon: Zap,
     title: "Diagnostic 100% gratuit",
-    desc: "Le diagnostic SunGPT est et restera toujours gratuit pour les particuliers. NOORIA se rémunère uniquement auprès des installateurs partenaires.",
+    desc: "Le diagnostic SOLARBOX est et restera toujours gratuit pour les particuliers. SOLARBOX se rémunère uniquement auprès des installateurs partenaires.",
   },
 ];
 
