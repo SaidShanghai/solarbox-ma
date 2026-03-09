@@ -45,7 +45,7 @@ const specs = [
 
 const NosSolutions = () => {
   usePageMeta({
-    title: "SolarBox NOORIA – Installation Solaire Clé en Main au Maroc",
+    title: "SolarBox SOLARBOX – Installation Solaire Clé en Main au Maroc",
     description: "Système solaire complet avec batterie LFP, onduleur hybride et garantie 10 ans. Installation par des techniciens certifiés RGE au Maroc.",
   });
 

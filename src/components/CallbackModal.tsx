@@ -116,7 +116,7 @@ const CallbackModal = ({ open, onOpenChange }: CallbackModalProps) => {
                   >
                     <h2 className="text-2xl font-bold mb-2">Vous préférez qu'on vous appelle ?</h2>
                     <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
-                      Laissez votre numéro — un conseiller NOORIA vous rappelle gratuitement sous 24h.
+                      Laissez votre numéro — un conseiller SOLARBOX vous rappelle gratuitement sous 24h.
                     </p>
 
                     <form onSubmit={handleSubmit} className="space-y-4">

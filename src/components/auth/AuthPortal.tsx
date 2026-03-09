@@ -142,8 +142,8 @@ const AuthPortal = () => {
               {forgotPassword
                 ? "Entrez votre email pour recevoir un lien de réinitialisation"
                 : isLogin
-                  ? "Accédez à votre espace NOORIA"
-                  : "Rejoignez NOORIA et gérez vos projets solaires"}
+                   ? "Accédez à votre espace SOLARBOX"
+                   : "Rejoignez SOLARBOX et gérez vos projets solaires"}
             </CardDescription>
           </CardHeader>
           <CardContent>

@@ -8,6 +8,13 @@ import { LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import nooriaLogo from "@/assets/nooria-logo.jpg";
 
+const SolarboxLogo = ({ className = "h-10" }: { className?: string }) => (
+  <span className={`font-black text-2xl tracking-tight ${className}`} style={{ lineHeight: 1 }}>
+    <span className="text-foreground">SOLAR</span>
+    <span className="text-[hsl(24,95%,53%)]">BOX</span>
+  </span>
+);
+
 const Header = () => {
   const { user } = useAuth();
   const { isAdmin } = useAdmin();
@@ -40,7 +47,7 @@ const Header = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center">
-              <img src={nooriaLogo} alt="NOORIA" className="h-10 w-auto object-contain" />
+              <SolarboxLogo />
             </Link>
             <nav className="hidden md:flex items-center gap-6">
               {NAV_LINKS.map((link) => (

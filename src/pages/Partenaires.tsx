@@ -279,7 +279,7 @@ const Partenaires = () => {
                 <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 text-center">
                   <p className="text-sm font-medium text-green-700 flex items-center justify-center gap-2">
                     <CheckCircle2 className="w-4 h-4" />
-                    Votre profil est complet ! Vous apparaissez dans les résultats de recherche des clients NOORIA.
+                    Votre profil est complet ! Vous apparaissez dans les résultats de recherche des clients SOLARBOX.
                   </p>
                 </div>
               ) : (
@@ -304,7 +304,7 @@ const Partenaires = () => {
                 </div>
                 <h2 className="text-2xl font-bold">Inscription en attente de validation</h2>
                 <p className="text-muted-foreground max-w-md mx-auto">
-                  Votre demande d'inscription a bien été reçue. Un administrateur NOORIA va examiner votre candidature et vous recevrez un email de confirmation une fois approuvé.
+                  Votre demande d'inscription a bien été reçue. Un administrateur SOLARBOX va examiner votre candidature et vous recevrez un email de confirmation une fois approuvé.
                 </p>
                 <div className="bg-muted/50 rounded-xl p-4 max-w-sm mx-auto">
                   <p className="text-xs text-muted-foreground">Délai de traitement habituel : <strong>24 à 48h</strong></p>
@@ -319,7 +319,7 @@ const Partenaires = () => {
                 </div>
                 <h2 className="text-2xl font-bold">Inscription refusée</h2>
                 <p className="text-muted-foreground max-w-md mx-auto">
-                  Votre demande d'inscription n'a pas été approuvée. Veuillez contacter l'équipe NOORIA pour plus d'informations.
+                  Votre demande d'inscription n'a pas été approuvée. Veuillez contacter l'équipe SOLARBOX pour plus d'informations.
                 </p>
               </CardContent>
             </Card>
@@ -553,7 +553,7 @@ const Partenaires = () => {
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
               Pour accéder aux <strong>Kits Solaires</strong> et à la <strong>Tarification</strong>,
-              vous devez d'abord enregistrer votre entreprise en tant que partenaire NOORIA.
+              vous devez d'abord enregistrer votre entreprise en tant que partenaire SOLARBOX.
             </p>
             <div className="bg-muted/50 rounded-xl p-4 space-y-2">
               <p className="text-xs font-semibold text-foreground">Pourquoi cette étape ?</p>

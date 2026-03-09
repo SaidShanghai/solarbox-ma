@@ -99,7 +99,7 @@ const HeroRotatingTitle = ({ entreprise = false, activeIndex }: { entreprise?: b
 
 const Index = () => {
   usePageMeta({
-    title: "NOORIA – 1ère IA Solaire du Maroc | Diagnostic Gratuit en 2 min",
+    title: "SOLARBOX – Diagnostic Solaire Gratuit en 2 min au Maroc",
     description: "Diagnostic solaire IA gratuit en 2 minutes. Économisez jusqu'à 70% sur votre facture ONEE. Installateurs certifiés RGE partout au Maroc.",
   });
   const [heroStepIndex, setHeroStepIndex] = useState(0);
@@ -333,14 +333,14 @@ const Index = () => {
                           <ChevronLeft className="w-4 h-4 text-foreground" />
                         </button>
                       )}
-                      <img src={nooriaLogo} alt="NOORIA" className="h-5 w-auto object-contain" />
+                      <img src={nooriaLogo} alt="SOLARBOX" className="h-5 w-auto object-contain" />
                       <span className="text-[8px] text-muted-foreground font-normal leading-none">
                           {selectedType && phoneScreen !== "intro" && phoneScreen !== "type"
                             ? (selectedType === "Maison" || selectedType === "Appartement" ? "Particulier" : selectedType === "Ferme" ? "Agriculteur" : selectedType)
                             : ""}
                         </span>
                     </div>
-                    <span className="text-[9px] text-muted-foreground">SunStone Finance</span>
+                    <span className="text-[9px] text-muted-foreground">SOLARBOX</span>
                   </div>
 
                   <div className={`flex-1 min-h-0 relative ${phoneScreen === "analyse" ? "overflow-hidden" : "overflow-y-auto"}`}>
@@ -358,8 +358,8 @@ const Index = () => {
                           <Sun className="w-7 h-7 text-primary-foreground" />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold">SUN_GPT</h3>
-                          <p className="text-[10px] text-muted-foreground">par SunStone Finance</p>
+                         <h3 className="text-base font-bold">SOLARBOX</h3>
+                          <p className="text-[10px] text-muted-foreground">par SOLARBOX</p>
                           <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">
                             Analysez votre consommation, découvrez<br />la solution solaire optimale
                           </p>
@@ -1211,14 +1211,17 @@ const Index = () => {
                         transition={{ duration: 0.25 }}
                         className="absolute inset-0 flex items-center justify-center"
                       >
-                        {/* Analyse animation - NOORIA logo clignotant centré */}
-                        <motion.img
-                          src={nooriaLogo}
-                          alt="NOORIA"
+                        {/* Analyse animation - SOLARBOX logo clignotant centré */}
+                        <motion.div
                           animate={{ opacity: [1, 0.1, 1] }}
                           transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
-                          className="w-44 object-contain select-none"
-                        />
+                          className="select-none"
+                        >
+                          <span className="font-black text-4xl tracking-tight">
+                            <span className="text-foreground">SOLAR</span>
+                            <span className="text-[hsl(24,95%,53%)]">BOX</span>
+                          </span>
+                        </motion.div>
                       </motion.div>
                     ) : phoneScreen === "solutions" ? (
                        /* Solutions screen */
@@ -1307,7 +1310,7 @@ const Index = () => {
                             Prochaine étape :<br />
                             vérification technique et<br />
                             estimation préliminaire.<br />
-                            Un expert NOORIA vous contacte<br />
+                            Un expert SOLARBOX vous contacte<br />
                             sous <span className="font-semibold text-foreground">24h</span> (WhatsApp ou appel).
                           </p>
                           {quoteRef && (
@@ -1457,7 +1460,7 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Pourquoi NOORIA ?</h2>
+            <h2 className="text-4xl font-bold mb-4">Pourquoi SOLARBOX ?</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Le comparateur solaire pensé pour simplifier votre transition énergétique.
             </p>
@@ -1502,7 +1505,7 @@ const Index = () => {
               </h2>
               <p className="text-xl text-background/70 max-w-lg">
                 Rejoignez des milliers de Marocains qui ont réduit leur facture
-                d'énergie grâce à NOORIA.
+                d'énergie grâce à SOLARBOX.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 h-14 px-8 text-base">

@@ -10,7 +10,7 @@ const MentionsLegales = () => {
             <section>
               <h2 className="text-xl font-semibold text-foreground">1. Éditeur du site</h2>
               <p>
-                Le site <strong>sungpt.ma</strong> est édité par <strong>NOORIA</strong>, plateforme de mise en relation entre particuliers/entreprises et installateurs solaires certifiés au Maroc.
+                Le site <strong>sungpt.ma</strong> est édité par <strong>SOLARBOX</strong>, plateforme de mise en relation entre particuliers/entreprises et installateurs solaires certifiés au Maroc.
               </p>
               <p>Siège social : Casablanca, Maroc</p>
               <p>Email de contact : contact@sungpt.ma</p>
@@ -26,7 +26,7 @@ const MentionsLegales = () => {
             <section>
               <h2 className="text-xl font-semibold text-foreground">3. Protection des données personnelles</h2>
               <p>
-                Conformément à la <strong>loi marocaine n° 09-08</strong> relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel, NOORIA s'engage à protéger la vie privée de ses utilisateurs.
+                Conformément à la <strong>loi marocaine n° 09-08</strong> relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel, SOLARBOX s'engage à protéger la vie privée de ses utilisateurs.
               </p>
               <h3 className="text-lg font-medium text-foreground mt-4">Données collectées</h3>
               <ul className="list-disc pl-6 space-y-1">
@@ -58,14 +58,14 @@ const MentionsLegales = () => {
             <section>
               <h2 className="text-xl font-semibold text-foreground">5. Propriété intellectuelle</h2>
               <p>
-                L'ensemble du contenu du site (textes, images, logos, marques) est protégé par le droit de la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable de NOORIA.
+                L'ensemble du contenu du site (textes, images, logos, marques) est protégé par le droit de la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable de SOLARBOX.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-foreground">6. Limitation de responsabilité</h2>
               <p>
-                NOORIA agit en tant que plateforme de mise en relation. Les devis, installations et prestations sont réalisés par les installateurs partenaires, qui sont seuls responsables de la qualité de leurs services. NOORIA ne saurait être tenue responsable des dommages directs ou indirects liés à l'utilisation du site ou aux prestations des installateurs.
+                SOLARBOX agit en tant que plateforme de mise en relation. Les devis, installations et prestations sont réalisés par les installateurs partenaires, qui sont seuls responsables de la qualité de leurs services. SOLARBOX ne saurait être tenue responsable des dommages directs ou indirects liés à l'utilisation du site ou aux prestations des installateurs.
               </p>
             </section>
           </div>

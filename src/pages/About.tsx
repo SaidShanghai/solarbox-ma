@@ -32,19 +32,19 @@ const TRUST_POINTS = [
   {
     icon: Shield,
     title: "Conformité CNDP",
-    desc: "NOORIA respecte la loi 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.",
+    desc: "SOLARBOX respecte la loi 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.",
   },
   {
     icon: Zap,
     title: "Diagnostic 100% gratuit",
-    desc: "Le diagnostic SunGPT est et restera toujours gratuit pour les particuliers. NOORIA se rémunère uniquement auprès des installateurs partenaires.",
+    desc: "Le diagnostic SOLARBOX est et restera toujours gratuit pour les particuliers. SOLARBOX se rémunère uniquement auprès des installateurs partenaires.",
   },
 ];
 
 export default function About() {
   usePageMeta({
-    title: "À Propos de NOORIA – Experts Solaire IA au Maroc | sungpt.ma",
-    description: "NOORIA est la première plateforme IA dédiée au solaire au Maroc. Notre mission : rendre l'énergie solaire accessible à chaque Marocain.",
+    title: "À Propos de SOLARBOX – Experts Solaire au Maroc | sungpt.ma",
+    description: "SOLARBOX est la première plateforme dédiée au solaire au Maroc. Notre mission : rendre l'énergie solaire accessible à chaque Marocain.",
   });
 
   return (
@@ -57,10 +57,10 @@ export default function About() {
         <motion.div {...fadeUp} className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
             <Sun className="w-4 h-4" />
-            À propos de NOORIA
+            À propos de SOLARBOX
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-            NOORIA – Pionniers du <span className="text-primary">diagnostic solaire IA</span> au Maroc
+            SOLARBOX – Pionniers du <span className="text-primary">diagnostic solaire</span> au Maroc
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Fondée à Casablanca, nous aidons les Marocains à passer au solaire avec des données fiables, une technologie de pointe et un réseau d'installateurs certifiés.
@@ -81,7 +81,7 @@ export default function About() {
                 Le Maroc bénéficie de l'un des meilleurs ensoleillements au monde — plus de <strong className="text-foreground">3 000 heures par an</strong>. Pourtant, l'énergie solaire reste sous-exploitée chez les particuliers, freinée par le manque d'information, la complexité des démarches et la difficulté à trouver un installateur fiable.
               </p>
               <p>
-                <strong className="text-foreground">NOORIA</strong> a été créée pour lever ces barrières. Notre plateforme combine intelligence artificielle et expertise terrain pour permettre à chaque Marocain d'évaluer son potentiel solaire, comprendre les aides disponibles (SR500, TATWIR, GEFF) et se connecter aux meilleurs installateurs certifiés de sa région.
+                <strong className="text-foreground">SOLARBOX</strong> a été créée pour lever ces barrières. Notre plateforme combine intelligence artificielle et expertise terrain pour permettre à chaque Marocain d'évaluer son potentiel solaire, comprendre les aides disponibles (SR500, TATWIR, GEFF) et se connecter aux meilleurs installateurs certifiés de sa région.
               </p>
               <p>
                 Notre ambition : faire du Maroc un leader de l'autoconsommation solaire en Afrique, en démocratisant l'accès à une énergie propre, économique et souveraine.
@@ -132,10 +132,10 @@ export default function About() {
               <h2 className="text-3xl font-bold text-foreground mb-6">Notre technologie</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  <strong className="text-foreground">SunGPT</strong> est le moteur d'intelligence artificielle propriétaire au cœur de NOORIA. Il combine trois technologies : l'OCR (reconnaissance optique de caractères) pour analyser automatiquement votre facture ONEE, un algorithme de dimensionnement solaire alimenté par les données d'ensoleillement PVGIS, et un système de matching intelligent avec les installateurs certifiés RGE.
+                  <strong className="text-foreground">SOLARBOX</strong> est le moteur d'intelligence artificielle propriétaire au cœur de la plateforme. Il combine trois technologies : l'OCR (reconnaissance optique de caractères) pour analyser automatiquement votre facture ONEE, un algorithme de dimensionnement solaire alimenté par les données d'ensoleillement PVGIS, et un système de matching intelligent avec les installateurs certifiés RGE.
                 </p>
                 <p>
-                  En moins de 2 minutes, SunGPT génère un diagnostic personnalisé incluant la puissance optimale en kWc, les économies prévisionnelles en dirhams (MAD), le retour sur investissement et les aides d'état applicables (SR500, TATWIR, GEFF, exonérations AMEE).
+                  En moins de 2 minutes, SOLARBOX génère un diagnostic personnalisé incluant la puissance optimale en kWc, les économies prévisionnelles en dirhams (MAD), le retour sur investissement et les aides d'état applicables (SR500, TATWIR, GEFF, exonérations AMEE).
                 </p>
                 <p>
                   Notre algorithme s'améliore continuellement grâce aux retours terrain de nos installateurs partenaires et aux données de production réelles des installations déjà en service.
@@ -160,7 +160,7 @@ export default function About() {
         <motion.div {...fadeUp} className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold text-foreground mb-4">Nos partenaires & certifications</h2>
           <p className="text-muted-foreground mb-12 max-w-xl mx-auto">
-            NOORIA collabore avec les institutions de référence du secteur énergétique marocain.
+            SOLARBOX collabore avec les institutions de référence du secteur énergétique marocain.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {PARTNERS.map((partner) => (
@@ -207,7 +207,7 @@ export default function About() {
             Presse
           </div>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            NOORIA est en cours de référencement dans les médias spécialisés.
+            SOLARBOX est en cours de référencement dans les médias spécialisés.
             <br />
             Vous êtes journaliste ?{" "}
             <a href="mailto:presse@sungpt.ma" className="text-primary font-medium hover:underline">
@@ -225,7 +225,7 @@ export default function About() {
               Prêt à découvrir votre potentiel solaire ?
             </h2>
             <p className="text-primary-foreground/90 mb-8 max-w-lg mx-auto">
-              En 2 minutes, SunGPT analyse votre profil et vous recommande la solution idéale.
+              En 2 minutes, SOLARBOX analyse votre profil et vous recommande la solution idéale.
             </p>
             <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90 font-semibold h-14 px-8">
               <Link to="/diagnostic">

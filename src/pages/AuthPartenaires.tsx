@@ -80,8 +80,8 @@ const AuthPartenaires = () => {
               {forgotPassword
                 ? "Entrez votre email pour recevoir un lien de réinitialisation"
                 : isLogin
-                  ? "Accédez à votre espace partenaire NOORIA"
-                  : "Créez votre compte pour rejoindre le réseau NOORIA"}
+                   ? "Accédez à votre espace partenaire SOLARBOX"
+                   : "Créez votre compte pour rejoindre le réseau SOLARBOX"}
             </CardDescription>
           </CardHeader>
           <CardContent>

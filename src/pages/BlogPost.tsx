@@ -58,14 +58,14 @@ export default function BlogPost() {
   // Set document title and meta description for SEO
   useEffect(() => {
     if (post) {
-      document.title = `${post.title} | NOORIA`;
+      document.title = `${post.title} | SOLARBOX`;
       const metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
       if (metaDesc) {
         metaDesc.content = post.meta_description || (post.content?.substring(0, 155) + "…") || "";
       }
     }
     return () => {
-      document.title = "NOORIA – Énergie Solaire au Maroc";
+      document.title = "SOLARBOX – Énergie Solaire au Maroc";
     };
   }, [post]);
 
@@ -169,7 +169,7 @@ export default function BlogPost() {
                 Prêt à passer au solaire ?
               </h2>
               <p className="text-white/90 mb-6 max-w-lg mx-auto">
-                Calculez gratuitement la rentabilité de votre projet avec SunGPT.
+                Calculez gratuitement la rentabilité de votre projet avec SOLARBOX.
               </p>
               <Button
                 asChild

@@ -234,10 +234,10 @@ function drawLogo(doc: jsPDF, x: number, y: number) {
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(...BLACK);
-  doc.text("NOOR", x, y);
-  const noorW = doc.getTextWidth("NOOR");
+  doc.text("SOLAR", x, y);
+  const noorW = doc.getTextWidth("SOLAR");
   doc.setTextColor(...ORANGE);
-  doc.text("IA", x + noorW, y);
+  doc.text("BOX", x + noorW, y);
 }
 
 function drawSectionTitle(doc: jsPDF, title: string, y: number, margin: number): number {
@@ -745,9 +745,9 @@ export function generateQuotePdf(
     doc.setFont("helvetica", "normal");
     doc.setFontSize(6.5);
     doc.setTextColor(...GREY);
-    doc.text("NOORIA — sungpt.ma — contact@sungpt.ma", margin, pageH - 7);
+    doc.text("SOLARBOX — sungpt.ma — contact@sungpt.ma", margin, pageH - 7);
     doc.text(`${p} / ${totalPages}`, pageW - margin, pageH - 7, { align: "right" });
   }
 
-  doc.save(`NOORIA-Devis-${ref}.pdf`);
+  doc.save(`SOLARBOX-Devis-${ref}.pdf`);
 }
