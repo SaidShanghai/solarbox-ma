@@ -25,7 +25,7 @@ export default function BeforeAfterBill() {
     tarif: 1.10,
     total: 550,
     emoji: "😎",
-    title: "Après NOORIA",
+    title: "Après SOLARBOX",
     desc: (
       <>
         Facture réduite à <span className="font-bold text-primary">550 dirhams (MAD)/mois</span>. Autoconsommation solaire, retour sur investissement en 4-5 ans.
