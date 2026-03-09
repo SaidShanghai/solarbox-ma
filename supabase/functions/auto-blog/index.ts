@@ -187,7 +187,7 @@ Règles :
       category,
       is_published: true,
       published_at: new Date().toISOString(),
-      author_name: "NOORIA",
+      author_name: "SOLARBOX",
     }).select("id").single();
 
     if (insertError) {
