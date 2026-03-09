@@ -58,7 +58,7 @@ const MentionsLegales = () => {
             <section>
               <h2 className="text-xl font-semibold text-foreground">5. Propriété intellectuelle</h2>
               <p>
-                L'ensemble du contenu du site (textes, images, logos, marques) est protégé par le droit de la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable de NOORIA.
+                L'ensemble du contenu du site (textes, images, logos, marques) est protégé par le droit de la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable de SOLARBOX.
               </p>
             </section>
 
