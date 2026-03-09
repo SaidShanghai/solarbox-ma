@@ -49,7 +49,7 @@ const MiniMapMockup = ({ city, fullscreen = false, onValidate }: MiniMapMockupPr
           center: coords,
           zoom: fullscreen ? 17 : 15,
           mapTypeId: "satellite",
-          mapId: "NOORIA_MAP",
+          mapId: "SOLARBOX_MAP",
           disableDefaultUI: true,
           zoomControl: false,
           gestureHandling: "greedy",
