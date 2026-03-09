@@ -135,7 +135,7 @@ export default function About() {
                   <strong className="text-foreground">SOLARBOX</strong> est le moteur d'intelligence artificielle propriétaire au cœur de la plateforme. Il combine trois technologies : l'OCR (reconnaissance optique de caractères) pour analyser automatiquement votre facture ONEE, un algorithme de dimensionnement solaire alimenté par les données d'ensoleillement PVGIS, et un système de matching intelligent avec les installateurs certifiés RGE.
                 </p>
                 <p>
-                  En moins de 2 minutes, SunGPT génère un diagnostic personnalisé incluant la puissance optimale en kWc, les économies prévisionnelles en dirhams (MAD), le retour sur investissement et les aides d'état applicables (SR500, TATWIR, GEFF, exonérations AMEE).
+                  En moins de 2 minutes, SOLARBOX génère un diagnostic personnalisé incluant la puissance optimale en kWc, les économies prévisionnelles en dirhams (MAD), le retour sur investissement et les aides d'état applicables (SR500, TATWIR, GEFF, exonérations AMEE).
                 </p>
                 <p>
                   Notre algorithme s'améliore continuellement grâce aux retours terrain de nos installateurs partenaires et aux données de production réelles des installations déjà en service.
