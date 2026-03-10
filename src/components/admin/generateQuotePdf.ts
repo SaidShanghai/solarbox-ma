@@ -37,6 +37,7 @@ interface PackageInfo {
   power_kwc: number;
   price_ttc: number;
   specs: Record<string, any> | null;
+  category?: string;
 }
 
 /* ── Helpers ─────────────────────────────────────── */
@@ -89,9 +90,17 @@ function getMonthlyConsumption(annualKwh: number, usages: string[]): number[] {
 
 const MONTH_LABELS = ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"];
 
+interface BomLine {
+  label: string;
+  qty: number;
+  unitPrice: number;
+  totalPrice: number;
+}
+
 function getRecommendation(req: QuoteData, packages: PackageInfo[]) {
   const warnings: string[] = [];
   const reasoning: string[] = [];
+  const bom: BomLine[] = [];
 
   const consoKwh = parseConsoKwh(req.annual_consumption);
 
@@ -107,44 +116,52 @@ function getRecommendation(req: QuoteData, packages: PackageInfo[]) {
   if (isHauteTension) reasoning.push("Abonnement Haute Tension — profil Commercial & Industriel.");
   if (isTriphase) reasoning.push("Configuration triphasée détectée.");
 
-  // ── C&I path: large consumption (> 100 kWc needed) or Haute Tension ──
   const isCI = neededKwc > 100 || isHauteTension;
 
   if (isCI) {
-    // Look for AIO BOX (industrial batteries) and BCT onduleurs
     const aioBoxes = packages
       .filter(p => p.name.toLowerCase().includes("aio box"))
-      .sort((a, b) => a.power_kwc - b.power_kwc);
-    const bctOnduleurs = packages
-      .filter(p => p.name.toLowerCase().includes("bct"))
-      .sort((a, b) => a.power_kwc - b.power_kwc);
+      .sort((a, b) => (a.specs?.capacite_batterie_kwh || 0) - (b.specs?.capacite_batterie_kwh || 0));
+    const bctOnduleur = packages.find(p => p.name.toLowerCase().includes("bct-110"));
+    const panneau = packages.find(p => p.category === "panneaux");
 
     let recommended: PackageInfo | null = null;
 
-    if (aioBoxes.length > 0) {
-      // Pick the AIO BOX that covers the needed power, or the largest one
-      recommended = aioBoxes.find(p => p.power_kwc >= neededKwc) || aioBoxes[aioBoxes.length - 1];
+    if (aioBoxes.length > 0 && bctOnduleur) {
+      const largestAio = aioBoxes[aioBoxes.length - 1];
+      recommended = largestAio;
 
-      // Calculate how many units needed if largest is still too small
-      const nbUnits = Math.ceil(neededKwc / (recommended.power_kwc || 1));
-      if (nbUnits > 1) {
-        reasoning.push(`${nbUnits}× ${recommended.name} nécessaires pour couvrir ${neededKwc} kWc.`);
-        warnings.push(`Dimensionnement important : ${nbUnits} unités AIO BOX requises. Étude sur mesure recommandée.`);
-      }
+      const aioCapKwh = largestAio.specs?.capacite_batterie_kwh || 350;
+      const nbAio = Math.ceil(neededKwc > 200 ? neededKwc / (largestAio.power_kwc || 430) : 1);
 
-      // Add BCT onduleur info
-      if (bctOnduleurs.length > 0) {
-        const onduleur = bctOnduleurs[bctOnduleurs.length - 1];
-        const nbOnduleurs = Math.ceil(neededKwc / (onduleur.power_kwc || 110));
-        reasoning.push(`Onduleurs : ${nbOnduleurs}× ${onduleur.name} (${onduleur.power_kwc} kW)`);
-      }
+      // Onduleurs per AIO from combo spec (e.g. "2x BCT-110kW-PRO")
+      const comboStr = String(largestAio.specs?.onduleur_combo || "1x");
+      const ondPerAio = parseInt(comboStr) || 1;
+      const nbOnduleurs = nbAio * ondPerAio;
 
-      // Panel count
-      const panelWc = 585;
-      const nbPanneaux = Math.ceil((neededKwc * 1000) / panelWc);
-      reasoning.push(`Panneaux : ~${nbPanneaux} × PVS ${panelWc}W (ratio DC/AC ~1.2)`);
+      // Total inverter power → DC/AC 1.2 → panels
+      const totalInvKw = nbOnduleurs * (bctOnduleur.power_kwc || 110);
+      const pvKwc = Math.round(totalInvKw * 1.2);
+      const panelWc = panneau?.specs?.puissance_crete_wc || 585;
+      const nbPanneaux = Math.ceil((pvKwc * 1000) / panelWc);
+      const panelUnitPrice = panneau?.price_ttc || 1000;
+
+      bom.push({ label: largestAio.name, qty: nbAio, unitPrice: largestAio.price_ttc, totalPrice: nbAio * largestAio.price_ttc });
+      bom.push({ label: bctOnduleur.name, qty: nbOnduleurs, unitPrice: bctOnduleur.price_ttc, totalPrice: nbOnduleurs * bctOnduleur.price_ttc });
+      bom.push({ label: `Panneau PVS ${panelWc}W`, qty: nbPanneaux, unitPrice: panelUnitPrice, totalPrice: nbPanneaux * panelUnitPrice });
+
+      const totalBom = bom.reduce((s, l) => s + l.totalPrice, 0);
+
+      reasoning.push(`Stockage : ${nbAio}× ${largestAio.name} (${aioCapKwh} kWh)`);
+      reasoning.push(`Onduleurs : ${nbOnduleurs}× ${bctOnduleur.name} (${bctOnduleur.power_kwc} kW)`);
+      reasoning.push(`Panneaux : ${nbPanneaux}× PVS ${panelWc}W (~${pvKwc} kWc, ratio DC/AC 1.2)`);
+      reasoning.push(`Total système C&I : ${fmtNum(totalBom)} DH TTC`);
+
+      if (nbAio > 1) warnings.push(`Dimensionnement important : ${nbAio} unités AIO BOX. Étude sur mesure recommandée.`);
+
+      const battSpecs = largestAio.specs || {};
+      if (battSpecs.cycles_de_vie) reasoning.push(`Batterie LFP : ${battSpecs.cycles_de_vie} cycles (${battSpecs.dod_pct || 95}% DoD)`);
     } else {
-      // Fallback to largest SolarBox 380V
       const tri380 = packages
         .filter(p => p.name.toLowerCase().includes("solarbox") && p.name.includes("380V"))
         .sort((a, b) => a.power_kwc - b.power_kwc);
@@ -156,20 +173,14 @@ function getRecommendation(req: QuoteData, packages: PackageInfo[]) {
         warnings.push("Solution sous-dimensionnée pour ce profil C&I. Étude sur mesure requise.");
       } else {
         warnings.push("Aucun système C&I disponible dans le catalogue. Étude sur mesure requise.");
-        return { recommended: null, reasoning, warnings };
+        return { recommended: null, reasoning, warnings, bom };
       }
-    }
-
-    if (recommended) {
-      const specs = recommended.specs || {};
-      const battKwh = specs.capacite_batterie_kwh || specs.capacite_utilisable_kwh;
-      if (battKwh) reasoning.push(`Stockage : ${battKwh} kWh LFP (${specs.cycles_de_vie || 6000} cycles)`);
     }
 
     if (wantAutonomy) reasoning.push("Objectif autonomie — stockage dimensionné en conséquence.");
     if (wantReduceFact) reasoning.push("Objectif réduction facture — injection réseau prioritaire.");
 
-    return { recommended, reasoning, warnings };
+    return { recommended, reasoning, warnings, bom };
   }
 
   // ── Residential / Small Commercial path (SolarBox) ──
@@ -178,7 +189,7 @@ function getRecommendation(req: QuoteData, packages: PackageInfo[]) {
     .sort((a, b) => a.power_kwc - b.power_kwc);
 
   if (solarBoxes.length === 0) {
-    return { recommended: null, reasoning: ["Aucun package SolarBox disponible."], warnings: [] };
+    return { recommended: null, reasoning: ["Aucun package SolarBox disponible."], warnings: [], bom };
   }
 
   let recommended: PackageInfo | null = null;
@@ -215,7 +226,7 @@ function getRecommendation(req: QuoteData, packages: PackageInfo[]) {
     if (nbPanneaux) reasoning.push(`Config. : ${nbPanneaux} panneaux PVS 585W`);
   }
 
-  return { recommended, reasoning, warnings };
+  return { recommended, reasoning, warnings, bom };
 }
 
 /* ── Colours ─────────────────────────────────────── */
@@ -486,7 +497,7 @@ export function generateQuotePdf(
   }
 
   // ─── RECOMMENDATION ───────────────────────────
-  const { recommended, reasoning, warnings } = getRecommendation(req, packages);
+  const { recommended, reasoning, warnings, bom } = getRecommendation(req, packages);
 
   y = drawSectionTitle(doc, "Analyse & Recommandation", y, margin);
 
@@ -517,7 +528,58 @@ export function generateQuotePdf(
     y += 2;
   }
 
-  // ─── PACKAGE SPECS ─────────────────────────────
+  // ─── BOM TABLE (C&I) ──────────────────────────
+  if (bom.length > 0) {
+    y += 2;
+    y = drawSectionTitle(doc, "Nomenclature du système", y, margin);
+
+    const bomRows = bom.map(line => [
+      line.label,
+      String(line.qty),
+      `${fmtNum(line.unitPrice)} DH`,
+      `${fmtNum(line.totalPrice)} DH`,
+    ]);
+    const totalBom = bom.reduce((s, l) => s + l.totalPrice, 0);
+    bomRows.push(["TOTAL TTC", "", "", `${fmtNum(totalBom)} DH`]);
+
+    autoTable(doc, {
+      startY: y,
+      head: [["Composant", "Qté", "Prix unitaire", "Total"]],
+      body: bomRows,
+      theme: "grid",
+      margin: { left: margin, right: margin },
+      styles: {
+        fontSize: 7.5,
+        cellPadding: 2,
+        lineColor: [240, 240, 240],
+        lineWidth: 0.15,
+      },
+      headStyles: {
+        fillColor: BLACK,
+        textColor: 255,
+        fontStyle: "bold",
+        fontSize: 7.5,
+      },
+      alternateRowStyles: { fillColor: [252, 250, 248] },
+      columnStyles: {
+        0: { cellWidth: 65 },
+        1: { halign: "center", cellWidth: 20 },
+        2: { halign: "right", cellWidth: 35 },
+        3: { halign: "right", cellWidth: 35, fontStyle: "bold" },
+      },
+      didParseCell: (data: any) => {
+        // Bold the total row
+        if (data.section === "body" && data.row.index === bomRows.length - 1) {
+          data.cell.styles.fontStyle = "bold";
+          data.cell.styles.fillColor = [249, 115, 22];
+          data.cell.styles.textColor = [255, 255, 255];
+        }
+      },
+    });
+    y = (doc as any).lastAutoTable.finalY + 4;
+  }
+
+  // ─── PACKAGE SPECS TABLE ─────────────────────────
   if (recommended && recommended.specs) {
     y += 2;
 
@@ -528,7 +590,10 @@ export function generateQuotePdf(
     doc.setTextColor(255, 255, 255);
     doc.text(recommended.name, margin + 3, y);
     doc.setFontSize(8);
-    doc.text(`${fmtNum(recommended.price_ttc)} DH TTC`, pageW - margin - 3, y, { align: "right" });
+    const priceLabel = bom.length > 0
+      ? `${fmtNum(bom.reduce((s, l) => s + l.totalPrice, 0))} DH TTC (système complet)`
+      : `${fmtNum(recommended.price_ttc)} DH TTC`;
+    doc.text(priceLabel, pageW - margin - 3, y, { align: "right" });
     y += 8;
 
     const specs = recommended.specs;
