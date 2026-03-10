@@ -579,6 +579,23 @@ export function generateQuotePdf(
     y = (doc as any).lastAutoTable.finalY + 4;
   }
 
+  // ─── PACKAGE SPECS TABLE ─────────────────────────
+  if (recommended && recommended.specs) {
+    y += 2;
+
+    doc.setFillColor(...BLACK);
+    doc.roundedRect(margin, y - 4, contentW, 8, 1.5, 1.5, "F");
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(255, 255, 255);
+    doc.text(recommended.name, margin + 3, y);
+    doc.setFontSize(8);
+    const priceLabel = bom.length > 0
+      ? `${fmtNum(bom.reduce((s, l) => s + l.totalPrice, 0))} DH TTC (système complet)`
+      : `${fmtNum(recommended.price_ttc)} DH TTC`;
+    doc.text(priceLabel, pageW - margin - 3, y, { align: "right" });
+    y += 8;
+
     const specs = recommended.specs;
     const specLabels: Record<string, string> = {
       puissance_onduleur_kw: "Onduleur",
