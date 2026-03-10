@@ -707,6 +707,7 @@ const PackagesManager = () => {
                             <h4 className="font-semibold">{pkg.name}</h4>
                             {pkg.fabricant && <Badge variant="outline" className="text-[10px]">{pkg.fabricant}</Badge>}
                             <Badge variant="secondary" className="text-[10px]">{PROFILE_LABELS[pkg.profile_type] || pkg.profile_type}</Badge>
+                            {s.format && <Badge className="text-[10px] bg-emerald-100 text-emerald-800 border-emerald-300">{String(s.format).charAt(0).toUpperCase() + String(s.format).slice(1)}</Badge>}
                             {!pkg.is_active && <Badge variant="outline" className="text-[10px]">Inactif</Badge>}
                           </div>
                           {pkg.modele && <p className="text-xs text-muted-foreground">{pkg.modele}</p>}
