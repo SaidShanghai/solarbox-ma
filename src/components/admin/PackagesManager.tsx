@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Pencil, Trash2, Package, Loader2, Zap, Sun, Upload } from "lucide-react";
+import { Plus, Pencil, Trash2, Package, Loader2, Zap, Sun, Upload, Battery } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface PackageRow {
@@ -712,7 +712,7 @@ const PackagesManager = () => {
                           </div>
                           {pkg.modele && <p className="text-xs text-muted-foreground">{pkg.modele}</p>}
                           <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-                            {(s.capacite_totale_kwh || s.capacite_kwh || s.capacite_batterie_kwh) && <span className="flex items-center gap-1"><Zap className="w-3.5 h-3.5 text-primary" />{String(s.capacite_totale_kwh || s.capacite_kwh || s.capacite_batterie_kwh)} kWh</span>}
+                            {(s.capacite_totale_kwh || s.capacite_kwh || s.capacite_batterie_kwh) && <span className="flex items-center gap-1"><Battery className="w-3.5 h-3.5 text-emerald-500" />{String(s.capacite_totale_kwh || s.capacite_kwh || s.capacite_batterie_kwh)} kWh</span>}
                             {(s.puissance_crete_wc || s.puissance_wc) && <span className="flex items-center gap-1"><Sun className="w-3.5 h-3.5 text-primary" />{String(s.puissance_crete_wc || s.puissance_wc)} Wc</span>}
                             {(s.puissance_nominale_kw || s.puissance_onduleur_kw) && <span className="flex items-center gap-1"><Zap className="w-3.5 h-3.5 text-primary" />{String(s.puissance_nominale_kw || s.puissance_onduleur_kw)} kW</span>}
                             <span className="font-semibold text-foreground">{pkg.price_ttc.toLocaleString("fr-MA")} MAD</span>
