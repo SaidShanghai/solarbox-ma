@@ -353,9 +353,9 @@ const Index = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.25 }}
-                        className="px-5 py-6 flex flex-col items-center text-center gap-4"
+                        className="px-5 py-2 flex flex-col items-center text-center gap-2"
                       >
-                        <img src={solarboxLogoFull} alt="SOLARBOX" className="w-44 h-44 object-contain" />
+                        <img src={solarboxLogoFull} alt="SOLARBOX" className="w-44 h-44 object-contain -mb-2" />
                         <div>
                          
                           <p className="text-[10px] text-muted-foreground">Votre diagnostic solaire</p>
