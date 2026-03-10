@@ -705,8 +705,8 @@ const PackagesManager = () => {
                         <div className="space-y-1 flex-1">
                           <div className="flex items-center gap-2 flex-wrap">
                             <h4 className="font-semibold">{pkg.name}</h4>
-                            {pkg.fabricant && <Badge variant="outline" className="text-[10px]">{pkg.fabricant}</Badge>}
-                            <Badge variant="secondary" className="text-[10px]">{PROFILE_LABELS[pkg.profile_type] || pkg.profile_type}</Badge>
+                            {pkg.fabricant && <Badge variant="outline" className={`text-[10px] ${pkg.fabricant.toLowerCase().includes('blue carbon') ? 'bg-blue-100 text-blue-800 border-blue-300' : ''}`}>{pkg.fabricant}</Badge>}
+                            <Badge variant="secondary" className={`text-[10px] ${pkg.profile_type === 'residential' ? 'bg-red-100 text-red-800 border-red-300' : pkg.profile_type === 'commercial' ? 'bg-amber-100 text-amber-800 border-amber-300' : ''}`}>{PROFILE_LABELS[pkg.profile_type] || pkg.profile_type}</Badge>
                             {s.format && <Badge className="text-[10px] bg-emerald-100 text-emerald-800 border-emerald-300">{String(s.format).charAt(0).toUpperCase() + String(s.format).slice(1)}</Badge>}
                             {!pkg.is_active && <Badge variant="outline" className="text-[10px]">Inactif</Badge>}
                           </div>
