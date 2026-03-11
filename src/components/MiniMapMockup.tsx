@@ -16,6 +16,7 @@ const MiniMapMockup = ({ city, fullscreen = false, onValidate }: MiniMapMockupPr
   const initedRef = useRef(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [geoStatus, setGeoStatus] = useState<"pending" | "granted" | "denied">("pending");
 
   useEffect(() => {
     if (initedRef.current || !mapRef.current) return;
