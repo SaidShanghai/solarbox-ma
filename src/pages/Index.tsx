@@ -517,8 +517,8 @@ const Index = () => {
                               setMockupOcrState("loading");
                               setMockupOcrFields([]);
                               try {
-                                const base64 = await new Promise<string>((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result as string); r.onerror = rej; r.readAsDataURL(file); });
-                                const { data, error } = await supabase.functions.invoke("ocr-facture", { body: { imageBase64: base64, mimeType: file.type } });
+                                const { base64, mimeType } = await compressImageToBase64(file, 1600, 0.75);
+                                const { data, error } = await supabase.functions.invoke("ocr-facture", { body: { imageBase64: base64, mimeType } });
                                 if (error) throw error;
                                 if (data?.success && data.data) {
                                   const d = data.data;
