@@ -340,13 +340,19 @@ const QuoteRequestsManager = () => {
                         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Données du diagnostic</p>
                         <div className="grid sm:grid-cols-2 gap-2">
                           {Object.entries(DIAGNOSTIC_LABELS).map(([key, label]) => {
-                            const val = req[key as keyof QuoteRequest] as string | null;
-                            return val ? (
+                            let val = req[key as keyof QuoteRequest] as string | null;
+                            if (!val) return null;
+                            // Human-readable objectif
+                            if (key === "objectif") {
+                              const objMap: Record<string, string> = { facture: "📉 Réduire la facture", autonomie: "🔋 Autonomie totale" };
+                              val = objMap[val.toLowerCase()] || val;
+                            }
+                            return (
                               <div key={key} className="text-sm">
                                 <span className="text-muted-foreground">{label} :</span>{" "}
                                 <span className="font-medium">{val}</span>
                               </div>
-                            ) : null;
+                            );
                           })}
                           {req.selected_usages && req.selected_usages.length > 0 && (
                             <div className="text-sm sm:col-span-2">
