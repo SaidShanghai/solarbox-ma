@@ -16,6 +16,7 @@ const MiniMapMockup = ({ city, fullscreen = false, onValidate }: MiniMapMockupPr
   const initedRef = useRef(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [geoStatus, setGeoStatus] = useState<"pending" | "granted" | "denied">("pending");
 
   useEffect(() => {
     if (initedRef.current || !mapRef.current) return;
@@ -71,8 +72,11 @@ const MiniMapMockup = ({ city, fullscreen = false, onValidate }: MiniMapMockupPr
               new AdvancedMarkerElement({ map, position: geoPos, content: dot, title: "Votre position" });
               map.setCenter(geoPos);
               redMarker.position = geoPos;
+              setGeoStatus("granted");
             },
-            () => {},
+            () => {
+              setGeoStatus("denied");
+            },
             { enableHighAccuracy: true, timeout: 8000 }
           );
         }
@@ -127,7 +131,11 @@ const MiniMapMockup = ({ city, fullscreen = false, onValidate }: MiniMapMockupPr
 
         {/* Instruction overlay */}
         <div className="absolute top-10 left-1/2 -translate-x-1/2 z-30 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm">
-          <p className="text-[8px] text-white font-medium">Déplacez le marqueur rouge sur votre toit</p>
+          <p className="text-[8px] text-white font-medium">
+            {geoStatus === "denied"
+              ? "📍 Géolocalisation refusée — positionnez manuellement le marqueur"
+              : "Déplacez le marqueur rouge sur votre toit"}
+          </p>
         </div>
 
         {/* Zoom controls */}
