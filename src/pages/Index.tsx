@@ -462,26 +462,36 @@ const Index = () => {
                         {/* Objectif principal */}
                         <div className="space-y-1.5">
                           <label className="text-[9px] font-semibold text-foreground">Objectif principal</label>
-                          <div className="flex gap-1.5">
+                          <div className="flex flex-col gap-1.5">
                             <button
                               onClick={() => setObjectif("facture")}
-                              className={`flex-1 flex items-center gap-1 px-2 py-2 rounded-full text-[10px] font-medium border transition-colors ${objectif === "facture" ? "bg-primary text-primary-foreground border-primary" : "border-border text-foreground hover:border-primary/50"}`}
+                              className={`w-full flex items-start gap-2 px-2.5 py-2 rounded-xl text-left text-[10px] font-medium border-2 transition-all ${objectif === "facture" ? "bg-primary/10 border-primary" : "border-border bg-card hover:border-primary/50"}`}
                             >
-                              <TrendingDown className="w-2.5 h-2.5 shrink-0" />
-                              <span className="flex flex-col items-start leading-tight">
-                                <span>Réduire la facture</span>
-                                <span className="text-[7px] font-normal opacity-75">Sans stockage</span>
-                              </span>
+                              <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${objectif === "facture" ? "bg-primary text-primary-foreground" : "bg-amber-500/10"}`}>
+                                <TrendingDown className={`w-3 h-3 ${objectif === "facture" ? "" : "text-amber-500"}`} />
+                              </div>
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-bold text-[10px]">Réduire la facture</span>
+                                <span className={`inline-flex items-center gap-0.5 text-[7px] font-semibold px-1.5 py-0.5 rounded-full w-fit ${objectif === "facture" ? "bg-amber-500/20 text-amber-700" : "bg-amber-500/10 text-amber-600"}`}>
+                                  📉 Sans batteries — coût réduit
+                                </span>
+                                <span className="text-[7px] text-muted-foreground leading-snug">Onduleur seul, injection directe. Idéal pour réduire votre facture ONEE en journée.</span>
+                              </div>
                             </button>
                             <button
                               onClick={() => setObjectif("autonomie")}
-                              className={`flex-1 flex items-center gap-1 px-2 py-2 rounded-full text-[10px] font-medium border transition-colors ${objectif === "autonomie" ? "bg-primary text-primary-foreground border-primary" : "border-border text-foreground hover:border-primary/50"}`}
+                              className={`w-full flex items-start gap-2 px-2.5 py-2 rounded-xl text-left text-[10px] font-medium border-2 transition-all ${objectif === "autonomie" ? "bg-primary/10 border-primary" : "border-border bg-card hover:border-primary/50"}`}
                             >
-                              <Battery className="w-2.5 h-2.5 shrink-0" />
-                              <span className="flex flex-col items-start leading-tight">
-                                <span>Autonomie totale</span>
-                                <span className="text-[7px] font-normal opacity-75">Avec stockage</span>
-                              </span>
+                              <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${objectif === "autonomie" ? "bg-primary text-primary-foreground" : "bg-emerald-500/10"}`}>
+                                <Battery className={`w-3 h-3 ${objectif === "autonomie" ? "" : "text-emerald-500"}`} />
+                              </div>
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-bold text-[10px]">Autonomie totale</span>
+                                <span className={`inline-flex items-center gap-0.5 text-[7px] font-semibold px-1.5 py-0.5 rounded-full w-fit ${objectif === "autonomie" ? "bg-emerald-500/20 text-emerald-700" : "bg-emerald-500/10 text-emerald-600"}`}>
+                                  🔋 Avec batteries — indépendance
+                                </span>
+                                <span className="text-[7px] text-muted-foreground leading-snug">Stockage intégré (SolarBox). Consommez votre énergie jour et nuit, même en cas de coupure.</span>
+                              </div>
                             </button>
                           </div>
                         </div>
