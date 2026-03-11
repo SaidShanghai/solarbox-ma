@@ -3,6 +3,7 @@ import { STATS } from "@/config/stats";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { compressImageToBase64 } from "@/lib/compressImage";
 import nooriaLogo from "@/assets/nooria-logo.jpg";
 import heroBg from "@/assets/hero-bg.png";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
