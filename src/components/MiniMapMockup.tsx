@@ -131,7 +131,11 @@ const MiniMapMockup = ({ city, fullscreen = false, onValidate }: MiniMapMockupPr
 
         {/* Instruction overlay */}
         <div className="absolute top-10 left-1/2 -translate-x-1/2 z-30 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm">
-          <p className="text-[8px] text-white font-medium">Déplacez le marqueur rouge sur votre toit</p>
+          <p className="text-[8px] text-white font-medium">
+            {geoStatus === "denied"
+              ? "📍 Géolocalisation refusée — positionnez manuellement le marqueur"
+              : "Déplacez le marqueur rouge sur votre toit"}
+          </p>
         </div>
 
         {/* Zoom controls */}
