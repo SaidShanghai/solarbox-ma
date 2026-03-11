@@ -162,6 +162,7 @@ const PackagesManager = () => {
   const [ocrFields, setOcrFields] = useState<Set<string>>(new Set());
   const { toast } = useToast();
   const [calcFields, setCalcFields] = useState<Set<string>>(new Set());
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
   const h = (key: string) => ocrFields.has(key); // shorthand for highlighted
   const isCalc = (key: string) => calcFields.has(key); // auto-calculated indicator
