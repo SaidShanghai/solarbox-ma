@@ -196,35 +196,58 @@ function getRecommendation(req: QuoteData, packages: PackageInfo[]) {
     return { recommended, reasoning, warnings, bom };
   }
 
-  // ── Residential / Small Commercial path (SolarBox) ──
+  // ── Residential / Small Commercial path ──
   const solarBoxes = packages
     .filter(p => p.name.toLowerCase().includes("solarbox"))
     .sort((a, b) => a.power_kwc - b.power_kwc);
 
-  if (solarBoxes.length === 0) {
-    return { recommended: null, reasoning: ["Aucun package SolarBox disponible."], warnings: [], bom };
-  }
+  // Standalone inverters (no battery) — e.g. BCT-HP
+  const standaloneInverters = packages
+    .filter(p => p.category === "onduleurs" || (p.name.toLowerCase().includes("bct-hp") && !p.name.toLowerCase().includes("solarbox")))
+    .sort((a, b) => a.power_kwc - b.power_kwc);
 
   let recommended: PackageInfo | null = null;
 
-  if (isTriphase) {
-    const tri = solarBoxes.filter(p => p.name.includes("380V"));
-    if (tri.length > 0) {
-      recommended = tri.find(p => p.power_kwc >= neededKwc) || tri[tri.length - 1];
-      reasoning.push("Triphasé — systèmes 380V privilégiés.");
+  if (wantReduceFact && standaloneInverters.length > 0) {
+    // ── "Réduire la facture" → onduleur(s) seul(s) SANS batterie ──
+    reasoning.push("Objectif réduction facture — système sans batterie.");
+    if (isTriphase) {
+      const tri = standaloneInverters.filter(p => p.name.includes("380V") || p.name.toLowerCase().includes("triphasé"));
+      recommended = tri.length > 0
+        ? (tri.find(p => p.power_kwc >= neededKwc) || tri[tri.length - 1])
+        : (standaloneInverters.find(p => p.power_kwc >= neededKwc) || standaloneInverters[standaloneInverters.length - 1]);
+      if (tri.length > 0) reasoning.push("Triphasé — onduleur tri privilégié.");
+      else warnings.push("Triphasé détecté mais pas d'onduleur tri standalone. Compatibilité à vérifier.");
     } else {
-      recommended = solarBoxes.find(p => p.power_kwc >= neededKwc) || solarBoxes[solarBoxes.length - 1];
-      warnings.push("Triphasé détecté, aucun 380V dispo. Compatibilité à vérifier.");
+      const mono = standaloneInverters.filter(p => p.name.includes("220V") || !p.name.includes("380V"));
+      recommended = mono.length > 0
+        ? (mono.find(p => p.power_kwc >= neededKwc) || mono[mono.length - 1])
+        : standaloneInverters[0];
     }
   } else {
-    const mono = solarBoxes.filter(p => p.name.includes("220V"));
-    recommended = (mono.length > 0
-      ? mono.find(p => p.power_kwc >= neededKwc) || mono[mono.length - 1]
-      : solarBoxes.find(p => p.power_kwc >= neededKwc) || solarBoxes[solarBoxes.length - 1]);
-  }
+    // ── "Autonomie totale" ou pas de standalone → SolarBox avec batterie ──
+    if (solarBoxes.length === 0) {
+      return { recommended: null, reasoning: ["Aucun package SolarBox disponible."], warnings: [], bom };
+    }
 
-  if (wantAutonomy) reasoning.push("Objectif autonomie — hybride + stockage recommandé.");
-  if (wantReduceFact) reasoning.push("Objectif réduction facture — stockage optionnel.");
+    if (wantAutonomy) reasoning.push("Objectif autonomie — hybride + stockage recommandé.");
+
+    if (isTriphase) {
+      const tri = solarBoxes.filter(p => p.name.includes("380V"));
+      if (tri.length > 0) {
+        recommended = tri.find(p => p.power_kwc >= neededKwc) || tri[tri.length - 1];
+        reasoning.push("Triphasé — systèmes 380V privilégiés.");
+      } else {
+        recommended = solarBoxes.find(p => p.power_kwc >= neededKwc) || solarBoxes[solarBoxes.length - 1];
+        warnings.push("Triphasé détecté, aucun 380V dispo. Compatibilité à vérifier.");
+      }
+    } else {
+      const mono = solarBoxes.filter(p => p.name.includes("220V"));
+      recommended = (mono.length > 0
+        ? mono.find(p => p.power_kwc >= neededKwc) || mono[mono.length - 1]
+        : solarBoxes.find(p => p.power_kwc >= neededKwc) || solarBoxes[solarBoxes.length - 1]);
+    }
+  }
 
   if (req.roof_orientation && !req.roof_orientation.toLowerCase().includes("sud")) {
     const loss = req.roof_orientation.toLowerCase().includes("ouest") || req.roof_orientation.toLowerCase().includes("est") ? "15-20%" : "25-30%";
