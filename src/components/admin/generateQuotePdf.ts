@@ -472,6 +472,15 @@ export function generateQuotePdf(
   packages: PackageInfo[]
 ) {
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+  // Monkey-patch doc.text to auto-sanitize all strings for helvetica
+  const _origText = doc.text.bind(doc);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (doc as any).text = (text: any, ...rest: any[]) => {
+    if (typeof text === "string") text = pdfSafe(text);
+    else if (Array.isArray(text)) text = text.map((t: any) => typeof t === "string" ? pdfSafe(t) : t);
+    return _origText(text, ...rest);
+  };
   const ref = req.id.slice(0, 8).toUpperCase();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
