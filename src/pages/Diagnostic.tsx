@@ -1051,7 +1051,7 @@ const Diagnostic = () => {
         onOpenChange={setQuoteOpen}
         diagnosticData={{
           housing_type: selectedType || undefined,
-          objectif: objectif || undefined,
+          objectif: objectif === "facture" ? "Réduire la facture" : objectif === "autonomie" ? "Autonomie totale" : undefined,
           roof_type: typeBatiment || undefined,
           roof_orientation: panelAccess.length > 0 ? panelAccess.join(", ") : undefined,
           roof_surface: selectedSurface || undefined,
