@@ -419,7 +419,9 @@ const PackagesManager = () => {
       applicable_aids: f.applicable_aids.includes(aid) ? f.applicable_aids.filter((a) => a !== aid) : [...f.applicable_aids, aid],
     }));
 
-  const grouped = packages.reduce<Record<string, PackageRow[]>>((acc, p) => {
+  const filteredPackages = activeFilter ? packages.filter(p => (p.category || "panneaux") === activeFilter) : packages;
+
+  const grouped = filteredPackages.reduce<Record<string, PackageRow[]>>((acc, p) => {
     const key = p.category || "panneaux";
     if (!acc[key]) acc[key] = [];
     acc[key].push(p);
