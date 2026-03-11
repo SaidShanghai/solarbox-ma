@@ -2,6 +2,11 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { scaleSolar, parseConsoKwh, neededKwc as calcNeededKwc } from "@/lib/solarScaling";
 
+/** Strip accents & emojis so jsPDF helvetica can render cleanly */
+const pdfSafe = (s: string): string =>
+  s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+   .replace(/[^\x20-\x7E\n]/g, "");
+
 interface QuoteData {
   id: string;
   client_name: string;
@@ -467,6 +472,15 @@ export function generateQuotePdf(
   packages: PackageInfo[]
 ) {
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+  // Monkey-patch doc.text to auto-sanitize all strings for helvetica
+  const _origText = doc.text.bind(doc);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (doc as any).text = (text: any, ...rest: any[]) => {
+    if (typeof text === "string") text = pdfSafe(text);
+    else if (Array.isArray(text)) text = text.map((t: any) => typeof t === "string" ? pdfSafe(t) : t);
+    return _origText(text, ...rest);
+  };
   const ref = req.id.slice(0, 8).toUpperCase();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
@@ -537,7 +551,7 @@ export function generateQuotePdf(
       while (doc.getTextWidth(displayVal) > maxW && displayVal.length > 3) {
         displayVal = displayVal.slice(0, -1);
       }
-      if (displayVal !== val) displayVal += "…";
+      if (displayVal !== val) displayVal += "...";
       doc.text(displayVal, startX + 26, cy);
       cy += lineH;
     }
@@ -590,18 +604,17 @@ export function generateQuotePdf(
 
   // ─── OBJECTIF EXPLANATION BOX ─────────────────
   const wantAutonomyObj = req.objectif?.toLowerCase().includes("autonomie");
-  const objLabel = wantAutonomyObj ? "Autonomie totale" : "Réduire la facture";
-  const objIcon = wantAutonomyObj ? "🔋" : "📉";
+  const objLabel = wantAutonomyObj ? "Autonomie totale" : "Reduire la facture";
   const objDesc = wantAutonomyObj
-    ? "Votre système inclut des batteries de stockage. L'énergie produite en journée est stockée pour une utilisation jour et nuit, garantissant une indépendance énergétique même en cas de coupure réseau."
-    : "Votre système fonctionne sans batteries. L'électricité solaire est consommée en temps réel pendant la journée. Le surplus est injecté dans le réseau, réduisant votre facture ONEE.";
+    ? "Votre systeme inclut des batteries de stockage. L'energie produite en journee est stockee pour une utilisation jour et nuit, garantissant une independance energetique meme en cas de coupure reseau."
+    : "Votre systeme fonctionne sans batteries. L'electricite solaire est consommee en temps reel pendant la journee. Le surplus est injecte dans le reseau, reduisant votre facture ONEE.";
 
   doc.setFillColor(wantAutonomyObj ? 236 : 254, wantAutonomyObj ? 253 : 252, wantAutonomyObj ? 245 : 232);
   doc.roundedRect(margin, y - 2, contentW, 18, 2, 2, "F");
   doc.setFontSize(9);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(...DARK);
-  doc.text(`${objIcon}  ${objLabel}`, margin + 3, y + 3);
+  doc.text(`OBJECTIF : ${objLabel}`, margin + 3, y + 3);
   doc.setFontSize(7);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(...GREY);
@@ -632,7 +645,7 @@ export function generateQuotePdf(
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7);
     for (const w of warnings) {
-      doc.text(`▸ ${w}`, margin + 2, y);
+      doc.text(`- ${w}`, margin + 2, y);
       y += 3.5;
     }
     y += 2;
