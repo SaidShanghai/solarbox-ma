@@ -63,6 +63,26 @@
 - **Résultat** : ❌ Pas d'onduleur triphasé standalone < 110 kW au catalogue
 - **Statut** : ⚠ Gap catalogue identifié
 
+#### Test 8 — Résidentiel mono : Objectif "Réduire la facture" (sans batterie)
+- **Réf.** : E074E17F
+- **Besoin** : Maison, BT mono, 8 473 kWh/an, objectif = réduire la facture
+- **Config** : 1× Onduleur Hybride BCT-HP (6 kW) + 13× PVS 585W
+- **Prix BDD** : 5 000 + 13 000 = **18 000 DH TTC**
+- **Bug trouvé** : ❌ Le moteur envoyait `"facture"` mais matchait `includes("rédu")` → jamais détecté. Toujours proposé SolarBox (avec batterie).
+- **Fix** : Match corrigé sur `"facture"` + branche résidentielle sans batterie (BCT-HP standalone).
+- **Statut** : ✅ Corrigé — vérifié manuellement
+
+---
+
+## Bugs corrigés
+
+| Bug | Impact | Fix |
+|-----|--------|-----|
+| `objectif` envoyé comme `"facture"` / `"autonomie"` mais matché sur `includes("rédu")` | Objectif jamais détecté → batterie proposée par défaut | Match sur `"facture"` + `"rédu"` |
+| Pas de branche résidentielle sans batterie | Impossible de proposer onduleur seul même si objectif = réduire facture | Branche `standaloneInverters` ajoutée dans `getRecommendation()` |
+| Objectif affiché en brut dans le dashboard admin | Affiche `"facture"` au lieu de `"📉 Réduire la facture"` | Mapping humain ajouté dans `QuoteRequestsManager` |
+| Objectif stocké en code (`"facture"`) au lieu du label lisible | Données ambiguës en BDD | Diagnostic envoie désormais `"Réduire la facture"` / `"Autonomie totale"` |
+
 ---
 
 ## Gaps identifiés
@@ -79,4 +99,6 @@
 - [ ] Empilement > 350 kWh (ex: 700 kWh = 2× AIO BOX 350kWh + 4× BCT-110kW-PRO)
 - [ ] Résidentiel onduleur + batteries séparées (quand prix dispo)
 - [ ] PDF généré avec BOM C&I complet
-- [ ] BOM résidentiel SolarBox + panneaux dans le PDF
+- [x] BOM résidentiel SolarBox + panneaux dans le PDF
+- [x] Objectif "Réduire la facture" → onduleur seul sans batterie
+- [ ] Objectif "Autonomie totale" → SolarBox avec batterie (PDF complet)
