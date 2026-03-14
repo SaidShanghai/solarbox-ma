@@ -482,8 +482,8 @@ const Diagnostic = () => {
                     </div>
                   </div>
 
-                  {/* Consent checkbox */}
-                  <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-muted/30">
+                  {/* Consent checkbox – must be checked before upload */}
+                  <div className={`flex items-start gap-3 p-4 rounded-xl border ${consentAccepted ? 'border-primary/40 bg-primary/5' : 'border-destructive/40 bg-destructive/5'} transition-colors`}>
                     <Checkbox
                       id="consent"
                       checked={consentAccepted}
@@ -492,14 +492,15 @@ const Diagnostic = () => {
                     />
                     <label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
                       J'ai lu et j'accepte les{" "}
-                      <Link to="/cgv" target="_blank" className="text-primary underline font-medium">CGV</Link>
+                      <Link to="/cgv" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium" onClick={(e) => e.stopPropagation()}>CGV</Link>
                       {" "}et la{" "}
-                      <Link to="/privacy" target="_blank" className="text-primary underline font-medium">Politique de Confidentialité</Link>.
+                      <Link to="/privacy" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium" onClick={(e) => e.stopPropagation()}>Politique de Confidentialité</Link>.
+                      {!consentAccepted && <span className="block text-xs text-destructive mt-1">* Requis pour continuer</span>}
                     </label>
                   </div>
 
-                  {/* Facture upload with AI OCR */}
-                  {consentAccepted && (
+                  {/* Facture upload with AI OCR – blocked until consent */}
+                  <div className={!consentAccepted ? "opacity-50 pointer-events-none select-none" : ""}>
                     <FactureUpload
                       onDataExtracted={(ocrData) => {
                         setOcrRawData(ocrData as OcrFactureData);
@@ -532,7 +533,7 @@ const Diagnostic = () => {
                         }
                       }}
                     />
-                  )}
+                  </div>
 
                   {selectedType === "Entreprise" ? (
                     <>
