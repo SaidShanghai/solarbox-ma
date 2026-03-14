@@ -13,6 +13,8 @@ import Profil from "./pages/Profil";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import MentionsLegales from "./pages/MentionsLegales";
+import Privacy from "./pages/Privacy";
+import CGV from "./pages/CGV";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NosSolutions from "./pages/NosSolutions";
