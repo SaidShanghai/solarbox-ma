@@ -13,6 +13,8 @@ import {
   Home, Building2, Store, Warehouse,
 } from "lucide-react";
 import FactureUpload from "@/components/FactureUpload";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "react-router-dom";
 import QuotePanel from "@/components/QuotePanel";
 import EligibiliteScreen from "@/components/EligibiliteScreen";
 import GoogleMapPicker from "@/components/GoogleMapPicker";
