@@ -533,7 +533,7 @@ const Diagnostic = () => {
                         }
                       }}
                     />
-                  )}
+                  </div>
 
                   {selectedType === "Entreprise" ? (
                     <>
