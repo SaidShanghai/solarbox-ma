@@ -80,7 +80,7 @@ const HeroRotatingTitle = ({ entreprise = false, activeIndex }: { entreprise?: b
   const index = activeIndex % words.length;
 
   return (
-    <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+    <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
       <span className="block h-[1.2em] relative overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.span
@@ -232,11 +232,11 @@ const Index = () => {
       <JsonLd schema={homepageSchema} />
 
       {/* Hero */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
+      <section className="relative flex items-center overflow-hidden py-10 lg:py-14 min-h-[760px] lg:min-h-[min(92vh,980px)]">
          <div className="absolute inset-0 bg-background" />
 
-        <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
-          <div className="grid lg:grid-cols-[1.2fr_auto_0.8fr] gap-10 items-center">
+        <div className="w-full max-w-[1800px] mx-auto px-6 lg:px-16 relative z-10">
+          <div className="grid lg:grid-cols-[1.15fr_auto_0.85fr] gap-10 lg:gap-14 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -322,8 +322,8 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="hidden lg:block"
             >
-              <div className="relative mx-auto w-[360px] bg-foreground rounded-[3rem] p-3 shadow-2xl">
-                <div className="w-full bg-background rounded-[2.5rem] overflow-hidden flex flex-col h-[696px]">
+              <div className="relative mx-auto w-[380px] 2xl:w-[410px] bg-foreground rounded-[3rem] p-3 shadow-2xl">
+                <div className="w-full bg-background rounded-[2.5rem] overflow-hidden flex flex-col h-[730px] 2xl:h-[770px]">
                   {/* Notch */}
                   <div className="flex justify-center pt-3 pb-1">
                     <div className="w-24 h-4 bg-muted rounded-full" />
