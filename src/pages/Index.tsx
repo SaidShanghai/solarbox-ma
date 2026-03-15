@@ -232,7 +232,7 @@ const Index = () => {
       <JsonLd schema={homepageSchema} />
 
       {/* Hero */}
-      <section className="relative flex items-start overflow-hidden pt-28 pb-12">
+      <section className="relative flex items-start overflow-hidden pt-24 pb-10">
          <div className="absolute inset-0 bg-background" />
 
         <div className="container mx-auto px-4 relative z-10">
@@ -241,20 +241,20 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-8"
+              className="space-y-5"
             >
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary/10 rounded-full">
-                <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
-                <span className="text-xl md:text-2xl font-semibold">Vous payez trop cher votre électricité ONEE ?</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+                <div className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse" />
+                <span className="text-sm md:text-base font-semibold">Vous payez trop cher votre électricité ONEE ?</span>
               </div>
 
               <HeroRotatingTitle entreprise={selectedType === "Entreprise"} activeIndex={heroStepIndex} />
 
-              <div className="max-w-xl text-center space-y-3">
-                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
+              <div className="max-w-xl space-y-2">
+                <p className="text-base md:text-lg text-foreground/80 leading-relaxed">
                   Uploadez votre facture. Notre IA analyse votre consommation et génère votre plan solaire personnalisé&nbsp;: puissance idéale, économies estimées et retour sur investissement.
                 </p>
-                <p className="text-lg md:text-xl font-bold text-foreground">
+                <p className="text-base md:text-lg font-bold text-foreground">
                   En moins de 2 minutes. Gratuit. Sans engagement.
                 </p>
               </div>
@@ -278,7 +278,7 @@ const Index = () => {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex items-center gap-8 pt-8 border-t border-border">
+              <div className="flex items-center gap-6 pt-4 border-t border-border">
                 <div className="text-center">
                   <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold" />
                   <div className="text-sm text-muted-foreground">{STATS.diagnostics.label}</div>
