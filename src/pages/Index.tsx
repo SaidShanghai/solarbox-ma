@@ -241,20 +241,20 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-8"
+              className="space-y-5"
             >
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary/10 rounded-full">
-                <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
-                <span className="text-xl md:text-2xl font-semibold">Vous payez trop cher votre électricité ONEE ?</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+                <div className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse" />
+                <span className="text-sm md:text-base font-semibold">Vous payez trop cher votre électricité ONEE ?</span>
               </div>
 
               <HeroRotatingTitle entreprise={selectedType === "Entreprise"} activeIndex={heroStepIndex} />
 
-              <div className="max-w-xl text-center space-y-3">
-                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
+              <div className="max-w-xl space-y-2">
+                <p className="text-base md:text-lg text-foreground/80 leading-relaxed">
                   Uploadez votre facture. Notre IA analyse votre consommation et génère votre plan solaire personnalisé&nbsp;: puissance idéale, économies estimées et retour sur investissement.
                 </p>
-                <p className="text-lg md:text-xl font-bold text-foreground">
+                <p className="text-base md:text-lg font-bold text-foreground">
                   En moins de 2 minutes. Gratuit. Sans engagement.
                 </p>
               </div>
