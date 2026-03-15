@@ -80,7 +80,7 @@ const HeroRotatingTitle = ({ entreprise = false, activeIndex }: { entreprise?: b
   const index = activeIndex % words.length;
 
   return (
-    <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
+    <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
       <span className="block h-[1.2em] relative overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.span
@@ -232,29 +232,29 @@ const Index = () => {
       <JsonLd schema={homepageSchema} />
 
       {/* Hero */}
-      <section className="relative flex items-center overflow-hidden pt-24 pb-10 lg:pt-28 lg:pb-14">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-16">
          <div className="absolute inset-0 bg-background" />
 
-        <div className="w-full px-4 sm:px-6 lg:px-10 2xl:px-14 relative z-10 max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-[1fr_auto_auto] gap-8 lg:gap-10 2xl:gap-14 items-center">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-[1.2fr_auto_0.8fr] gap-6 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-5"
+              className="space-y-8"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
-                <div className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse" />
-                <span className="text-sm md:text-base font-semibold">Vous payez trop cher votre électricité ONEE ?</span>
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary/10 rounded-full">
+                <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
+                <span className="text-xl md:text-2xl font-semibold">Vous payez trop cher votre électricité ONEE ?</span>
               </div>
 
               <HeroRotatingTitle entreprise={selectedType === "Entreprise"} activeIndex={heroStepIndex} />
 
-              <div className="max-w-2xl space-y-2">
-                <p className="text-base md:text-lg text-foreground/80 leading-relaxed">
+              <div className="max-w-xl text-center space-y-3">
+                <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
                   Uploadez votre facture. Notre IA analyse votre consommation et génère votre plan solaire personnalisé&nbsp;: puissance idéale, économies estimées et retour sur investissement.
                 </p>
-                <p className="text-base md:text-lg font-bold text-foreground">
+                <p className="text-lg md:text-xl font-bold text-foreground">
                   En moins de 2 minutes. Gratuit. Sans engagement.
                 </p>
               </div>
@@ -278,7 +278,7 @@ const Index = () => {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex items-center gap-6 pt-4 border-t border-border">
+              <div className="flex items-center gap-8 pt-8 border-t border-border">
                 <div className="text-center">
                   <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold" />
                   <div className="text-sm text-muted-foreground">{STATS.diagnostics.label}</div>
@@ -322,8 +322,8 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="hidden lg:block"
             >
-              <div className="relative mx-auto w-[380px] 2xl:w-[410px] bg-foreground rounded-[3rem] p-3 shadow-2xl">
-                <div className="w-full bg-background rounded-[2.5rem] overflow-hidden flex flex-col h-[730px] 2xl:h-[770px]">
+              <div className="relative mx-auto w-[360px] bg-foreground rounded-[3rem] p-3 shadow-2xl">
+                <div className="w-full bg-background rounded-[2.5rem] overflow-hidden flex flex-col h-[696px]">
                   {/* Notch */}
                   <div className="flex justify-center pt-3 pb-1">
                     <div className="w-24 h-4 bg-muted rounded-full" />
