@@ -232,7 +232,7 @@ const Index = () => {
       <JsonLd schema={homepageSchema} />
 
       {/* Hero */}
-      <section className="relative flex items-center overflow-hidden py-10 lg:py-14 min-h-[760px] lg:min-h-[min(92vh,980px)]">
+      <section className="relative flex items-center overflow-hidden pt-24 pb-10 lg:pt-28 lg:pb-14">
          <div className="absolute inset-0 bg-background" />
 
         <div className="w-full px-4 sm:px-6 lg:px-10 2xl:px-14 relative z-10">
