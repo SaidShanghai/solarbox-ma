@@ -278,37 +278,37 @@ const Index = () => {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex items-center gap-8 pt-8 border-t border-border">
+              <div className="flex items-center gap-4 lg:gap-8 pt-6 lg:pt-8 border-t border-border">
                 <div className="text-center">
-                  <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold" />
-                  <div className="text-sm text-muted-foreground">{STATS.diagnostics.label}</div>
+                  <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-2xl lg:text-3xl font-bold" />
+                  <div className="text-xs lg:text-sm text-muted-foreground">{STATS.diagnostics.label}</div>
                 </div>
                 <div className="text-center">
-                  <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold" />
-                  <div className="text-sm text-muted-foreground">{STATS.installateurs.label}</div>
+                  <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-2xl lg:text-3xl font-bold" />
+                  <div className="text-xs lg:text-sm text-muted-foreground">{STATS.installateurs.label}</div>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Star className="w-5 h-5 text-warning fill-warning" />
-                  <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold" />
+                  <Star className="w-4 lg:w-5 h-4 lg:h-5 text-warning fill-warning" />
+                  <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-2xl lg:text-3xl font-bold" />
                 </div>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-2 lg:gap-3">
                 <button
                   onClick={() => {
                     const el = document.getElementById("diagnostic");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="flex items-center gap-2 h-14 px-8 text-base font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                  className="flex items-center gap-2 h-11 lg:h-14 px-5 lg:px-8 text-sm lg:text-base font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform"
                 >
-                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  <span className="w-2 h-2 bg-background rounded-full shrink-0" />
                   PARTICULIERS
                 </button>
                 <button
                   onClick={handleAideCTA}
-                  className="flex items-center gap-2 h-14 px-8 text-base font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                  className="flex items-center gap-2 h-11 lg:h-14 px-5 lg:px-8 text-sm lg:text-base font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform"
                 >
-                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  <span className="w-2 h-2 bg-background rounded-full shrink-0" />
                   ENTREPRISES
                 </button>
               </div>
