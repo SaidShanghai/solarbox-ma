@@ -235,8 +235,8 @@ const Index = () => {
       <section className="relative flex items-center overflow-hidden py-10 lg:py-14 min-h-[760px] lg:min-h-[min(92vh,980px)]">
          <div className="absolute inset-0 bg-background" />
 
-        <div className="w-full max-w-[1800px] mx-auto px-6 lg:px-16 relative z-10">
-          <div className="grid lg:grid-cols-[1.15fr_auto_0.85fr] gap-10 lg:gap-14 items-center">
+        <div className="w-full px-4 sm:px-6 lg:px-10 2xl:px-14 relative z-10">
+          <div className="grid lg:grid-cols-[minmax(0,1.2fr)_minmax(360px,430px)_minmax(240px,0.95fr)] gap-8 lg:gap-10 2xl:gap-14 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -250,7 +250,7 @@ const Index = () => {
 
               <HeroRotatingTitle entreprise={selectedType === "Entreprise"} activeIndex={heroStepIndex} />
 
-              <div className="max-w-xl space-y-2">
+              <div className="max-w-2xl space-y-2">
                 <p className="text-base md:text-lg text-foreground/80 leading-relaxed">
                   Uploadez votre facture. Notre IA analyse votre consommation et génère votre plan solaire personnalisé&nbsp;: puissance idéale, économies estimées et retour sur investissement.
                 </p>
