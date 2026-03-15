@@ -278,7 +278,7 @@ const Index = () => {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex items-center gap-8 pt-8 border-t border-border">
+              <div className="flex items-center gap-6 pt-4 border-t border-border">
                 <div className="text-center">
                   <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold" />
                   <div className="text-sm text-muted-foreground">{STATS.diagnostics.label}</div>
