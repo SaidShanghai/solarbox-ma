@@ -23,11 +23,7 @@ export const useAdmin = () => {
         .eq("role", "admin")
         .maybeSingle();
 
-      // Admin must use Google OAuth — block email/password login for admins
-      const provider = user.app_metadata?.provider;
-      const isGoogleProvider = provider === "google";
-      
-      setIsAdmin(!!data && isGoogleProvider);
+      setIsAdmin(!!data);
       setLoading(false);
     };
 
