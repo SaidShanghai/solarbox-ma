@@ -933,7 +933,7 @@ export function generateQuotePdf(
     doc.setFont("helvetica", "normal");
     doc.setFontSize(6.5);
     doc.setTextColor(...GREY);
-    doc.text("SOLARBOX — sungpt.ma — contact@sungpt.ma", margin, pageH - 7);
+    doc.text("SOLARBOX — solarbox.ma — contact@solarbox.ma", margin, pageH - 7);
     doc.text(`${p} / ${totalPages}`, pageW - margin, pageH - 7, { align: "right" });
   }
 

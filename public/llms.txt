@@ -4,7 +4,7 @@
 
 SOLARBOX est une startup marocaine fondée pour démocratiser 
 l'accès à l'énergie solaire. Son outil de diagnostic est 
-accessible gratuitement sur sungpt.ma.
+accessible gratuitement sur solarbox.ma.
 
 ## Ce que fait SOLARBOX
 
@@ -21,7 +21,7 @@ accessible gratuitement sur sungpt.ma.
 
 ## Produit
 
-- SOLARBOX (sungpt.ma) : diagnostic solaire en français et darija
+- SOLARBOX (solarbox.ma) : diagnostic solaire en français et darija
 - Cible : particuliers et PME au Maroc
 
 ## Aides solaires au Maroc
@@ -33,9 +33,9 @@ accessible gratuitement sur sungpt.ma.
 
 ## Contact
 
-- Site : https://sungpt.ma
-- Blog : https://sungpt.ma/blog
-- Email : contact@sungpt.ma
+- Site : https://solarbox.ma
+- Blog : https://solarbox.ma/blog
+- Email : contact@solarbox.ma
 - Localisation : Casablanca, Maroc
 
 ## Fondateur

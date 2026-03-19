@@ -1,8 +1,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const ALLOWED_ORIGINS = [
-  "https://sungpt.ma",
-  "https://www.sungpt.ma",
+  "https://solarbox.ma",
+  "https://www.solarbox.ma",
   "https://sun-match-pro.lovable.app",
 ];
 
@@ -147,8 +147,8 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "NOORIA <noreply@sungpt.ma>",
-          to: ["contact@sungpt.ma"],
+          from: "NOORIA <noreply@solarbox.ma>",
+          to: ["contact@solarbox.ma"],
           subject: `📄 Nouvelle facture — ${safeName} (Réf. #${safeRef})`,
           html: `
             <h2>Nouvelle facture téléversée</h2>

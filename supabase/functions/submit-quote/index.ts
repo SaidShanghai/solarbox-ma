@@ -1,8 +1,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const ALLOWED_ORIGINS = [
-  "https://sungpt.ma",
-  "https://www.sungpt.ma",
+  "https://solarbox.ma",
+  "https://www.solarbox.ma",
   "https://sun-match-pro.lovable.app",
 ];
 
@@ -149,13 +149,13 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "NOORIA <noreply@sungpt.ma>",
+          from: "NOORIA <noreply@solarbox.ma>",
           to: [String(client_email).trim()],
           subject: `✅ Votre demande NOORIA a bien été reçue – Réf. #${refShort}`,
           html: `
             <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:32px;background:#fff;border-radius:12px;">
               <div style="text-align:center;margin-bottom:24px;">
-                <img src="https://sungpt.ma/logo.png" alt="NOORIA" style="height:48px;" onerror="this.style.display='none'" />
+                <img src="https://solarbox.ma/logo.png" alt="NOORIA" style="height:48px;" onerror="this.style.display='none'" />
                 <h1 style="color:#f97316;font-size:22px;margin-top:12px;">NOORIA – Énergie Solaire</h1>
               </div>
               <p style="font-size:16px;color:#333;">Bonjour <strong>${firstName}</strong>,</p>
@@ -169,16 +169,16 @@ Deno.serve(async (req) => {
               <div style="background:#f0fdf4;border:2px solid #22c55e;border-radius:12px;padding:20px;margin:24px 0;text-align:center;">
                 <p style="margin:0 0 6px;font-size:13px;color:#166534;font-weight:600;">📋 Votre numéro de référence dossier</p>
                 <p style="margin:0;font-size:28px;font-weight:900;color:#15803d;letter-spacing:4px;font-family:monospace;">#${refShort}</p>
-                <p style="margin:8px 0 0;font-size:12px;color:#166534;">Conservez ce numéro pour suivre votre dossier et le retrouver dans votre espace client sur <a href="https://sungpt.ma/profil" style="color:#f97316;">sungpt.ma/profil</a></p>
+                <p style="margin:8px 0 0;font-size:12px;color:#166534;">Conservez ce numéro pour suivre votre dossier et le retrouver dans votre espace client sur <a href="https://solarbox.ma/profil" style="color:#f97316;">solarbox.ma/profil</a></p>
               </div>
               <p style="font-size:14px;color:#666;line-height:1.6;">
                 En attendant, si vous avez des questions, n'hésitez pas à nous contacter à 
-                <a href="mailto:contact@sungpt.ma" style="color:#f97316;">contact@sungpt.ma</a>.
+                <a href="mailto:contact@solarbox.ma" style="color:#f97316;">contact@solarbox.ma</a>.
               </p>
               <hr style="border:none;border-top:1px solid #eee;margin:28px 0;" />
               <p style="font-size:12px;color:#aaa;text-align:center;">
                 NOORIA – Votre partenaire solaire au Maroc<br/>
-                <a href="https://sungpt.ma" style="color:#f97316;">sungpt.ma</a>
+                <a href="https://solarbox.ma" style="color:#f97316;">solarbox.ma</a>
               </p>
             </div>
           `,
@@ -226,8 +226,8 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "NOORIA <noreply@sungpt.ma>",
-          to: ["contact@sungpt.ma"],
+          from: "NOORIA <noreply@solarbox.ma>",
+          to: ["contact@solarbox.ma"],
           subject: `🆕 Nouveau diagnostic – ${escapeHtml(String(client_name).trim())} – Réf. #${refShort}`,
           html: `
             <div style="font-family:sans-serif;max-width:650px;margin:auto;padding:32px;background:#fff;border-radius:12px;">

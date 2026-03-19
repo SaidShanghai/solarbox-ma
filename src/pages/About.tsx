@@ -43,7 +43,7 @@ const TRUST_POINTS = [
 
 export default function About() {
   usePageMeta({
-    title: "À Propos de SOLARBOX – Experts Solaire au Maroc | sungpt.ma",
+    title: "À Propos de SOLARBOX – Experts Solaire au Maroc | solarbox.ma",
     description: "SOLARBOX est la première plateforme dédiée au solaire au Maroc. Notre mission : rendre l'énergie solaire accessible à chaque Marocain.",
   });
 
@@ -210,8 +210,8 @@ export default function About() {
             SOLARBOX est en cours de référencement dans les médias spécialisés.
             <br />
             Vous êtes journaliste ?{" "}
-            <a href="mailto:presse@sungpt.ma" className="text-primary font-medium hover:underline">
-              Contactez-nous&nbsp;: presse@sungpt.ma
+            <a href="mailto:presse@solarbox.ma" className="text-primary font-medium hover:underline">
+              Contactez-nous&nbsp;: presse@solarbox.ma
             </a>
           </p>
         </motion.div>
