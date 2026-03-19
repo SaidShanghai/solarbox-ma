@@ -147,8 +147,8 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "NOORIA <noreply@sungpt.ma>",
-          to: ["contact@sungpt.ma"],
+          from: "NOORIA <noreply@solarbox.ma>",
+          to: ["contact@solarbox.ma"],
           subject: `📄 Nouvelle facture — ${safeName} (Réf. #${safeRef})`,
           html: `
             <h2>Nouvelle facture téléversée</h2>

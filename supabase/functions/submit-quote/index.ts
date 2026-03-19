@@ -149,13 +149,13 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "NOORIA <noreply@sungpt.ma>",
+          from: "NOORIA <noreply@solarbox.ma>",
           to: [String(client_email).trim()],
           subject: `✅ Votre demande NOORIA a bien été reçue – Réf. #${refShort}`,
           html: `
             <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:32px;background:#fff;border-radius:12px;">
               <div style="text-align:center;margin-bottom:24px;">
-                <img src="https://sungpt.ma/logo.png" alt="NOORIA" style="height:48px;" onerror="this.style.display='none'" />
+                <img src="https://solarbox.ma/logo.png" alt="NOORIA" style="height:48px;" onerror="this.style.display='none'" />
                 <h1 style="color:#f97316;font-size:22px;margin-top:12px;">NOORIA – Énergie Solaire</h1>
               </div>
               <p style="font-size:16px;color:#333;">Bonjour <strong>${firstName}</strong>,</p>
@@ -226,8 +226,8 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "NOORIA <noreply@sungpt.ma>",
-          to: ["contact@sungpt.ma"],
+          from: "NOORIA <noreply@solarbox.ma>",
+          to: ["contact@solarbox.ma"],
           subject: `🆕 Nouveau diagnostic – ${escapeHtml(String(client_name).trim())} – Réf. #${refShort}`,
           html: `
             <div style="font-family:sans-serif;max-width:650px;margin:auto;padding:32px;background:#fff;border-radius:12px;">
