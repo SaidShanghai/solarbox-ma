@@ -22,10 +22,10 @@ const sections = [
 const schema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  url: "https://sungpt.ma/privacy",
+  url: "https://solarbox.ma/privacy",
   name: "Politique de Confidentialité – SOLARBOX",
   description: "Politique de confidentialité de SOLARBOX (AFRICACOM SARL). Traitement des données personnelles conformément à la loi marocaine n°09-08.",
-  isPartOf: { "@id": "https://sungpt.ma/#website" },
+  isPartOf: { "@id": "https://solarbox.ma/#website" },
   inLanguage: "fr-MA",
 };
 
@@ -42,7 +42,7 @@ const Privacy = () => {
 
         <section id="objet">
           <h2>Article 1 – Objet et portée</h2>
-          <p>La présente Politique de Confidentialité (ci-après « la Politique ») a pour objet de définir les conditions dans lesquelles la société AFRICACOM SARL, société à responsabilité limitée de droit marocain, exploitant la marque commerciale SOLARBOX via le site internet sungpt.ma (ci-après « le Site »), collecte, traite, utilise, conserve et protège les données à caractère personnel de ses utilisateurs (ci-après « l'Utilisateur » ou « les Utilisateurs »).</p>
+          <p>La présente Politique de Confidentialité (ci-après « la Politique ») a pour objet de définir les conditions dans lesquelles la société AFRICACOM SARL, société à responsabilité limitée de droit marocain, exploitant la marque commerciale SOLARBOX via le site internet solarbox.ma (ci-après « le Site »), collecte, traite, utilise, conserve et protège les données à caractère personnel de ses utilisateurs (ci-après « l'Utilisateur » ou « les Utilisateurs »).</p>
           <p>La présente Politique s'applique à l'ensemble des traitements de données à caractère personnel réalisés dans le cadre de l'utilisation du Site, y compris mais sans s'y limiter :</p>
           <ul>
             <li>La navigation sur le Site et l'accès aux pages d'information ;</li>
@@ -62,7 +62,7 @@ const Privacy = () => {
             <strong>AFRICACOM SARL</strong><br />
             Forme juridique : Société à Responsabilité Limitée (SARL)<br />
             Siège social : 10, rue Liberté, Casablanca, Maroc<br />
-            Email du Délégué à la Protection des Données : privacy@sungpt.ma
+            Email du Délégué à la Protection des Données : privacy@solarbox.ma
           </p>
           <p>AFRICACOM SARL agit en qualité de responsable du traitement au sens de l'article 1er de la loi marocaine n°09-08 du 18 février 2009 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel. À ce titre, elle détermine les finalités et les moyens du traitement des données personnelles des Utilisateurs.</p>
           <p>Le traitement des données est effectué sous le contrôle de la Commission Nationale de Contrôle de la Protection des Données à Caractère Personnel (CNDP), autorité indépendante instituée par la loi n°09-08, habilitée à recevoir les déclarations et à exercer un contrôle sur les traitements de données à caractère personnel réalisés sur le territoire marocain.</p>
@@ -198,7 +198,7 @@ const Privacy = () => {
 
         <section id="cookies">
           <h2>Article 11 – Cookies</h2>
-          <p>Le site sungpt.ma utilise exclusivement des cookies techniques strictement nécessaires au fonctionnement du service. Ces cookies permettent :</p>
+          <p>Le site solarbox.ma utilise exclusivement des cookies techniques strictement nécessaires au fonctionnement du service. Ces cookies permettent :</p>
           <ul>
             <li>La gestion de la session de navigation et l'authentification de l'Utilisateur ;</li>
             <li>La sauvegarde temporaire de la progression du diagnostic en cours ;</li>
@@ -217,7 +217,7 @@ const Privacy = () => {
             <li><strong>Droit de suppression</strong> (article 8) : l'Utilisateur peut demander la suppression de ses données personnelles lorsque leur collecte ou leur traitement n'est pas conforme aux dispositions de la loi n°09-08 ;</li>
             <li><strong>Droit d'opposition</strong> (article 9) : l'Utilisateur peut, pour des motifs légitimes, s'opposer au traitement de ses données personnelles. Il peut également s'opposer, sans frais, à ce que ses données soient utilisées à des fins de prospection.</li>
           </ul>
-          <p>Pour exercer l'un de ces droits, l'Utilisateur doit adresser sa demande par email à : <strong>privacy@sungpt.ma</strong>, en précisant son identité (nom, prénom, email associé au compte) et la nature de sa demande. AFRICACOM SARL s'engage à accuser réception de la demande dans un délai de 48 heures et à y répondre de manière complète dans un délai maximum de 30 jours calendaires à compter de la réception de la demande.</p>
+          <p>Pour exercer l'un de ces droits, l'Utilisateur doit adresser sa demande par email à : <strong>privacy@solarbox.ma</strong>, en précisant son identité (nom, prénom, email associé au compte) et la nature de sa demande. AFRICACOM SARL s'engage à accuser réception de la demande dans un délai de 48 heures et à y répondre de manière complète dans un délai maximum de 30 jours calendaires à compter de la réception de la demande.</p>
           <p>En cas de difficulté dans l'exercice de ses droits, l'Utilisateur peut introduire une réclamation auprès de la Commission Nationale de Contrôle de la Protection des Données à Caractère Personnel (CNDP) :</p>
           <p>
             CNDP – Commission Nationale de contrôle de la protection des Données à caractère Personnel<br />

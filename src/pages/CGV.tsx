@@ -19,17 +19,17 @@ const sections = [
 const schema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  url: "https://sungpt.ma/cgv",
+  url: "https://solarbox.ma/cgv",
   name: "Conditions Générales d'Utilisation et de Vente – SOLARBOX",
-  description: "CGV de SOLARBOX (AFRICACOM SARL). Conditions d'utilisation du service de diagnostic solaire gratuit sungpt.ma.",
-  isPartOf: { "@id": "https://sungpt.ma/#website" },
+  description: "CGV de SOLARBOX (AFRICACOM SARL). Conditions d'utilisation du service de diagnostic solaire gratuit solarbox.ma.",
+  isPartOf: { "@id": "https://solarbox.ma/#website" },
   inLanguage: "fr-MA",
 };
 
 const CGV = () => {
   usePageMeta({
     title: "CGV – SOLARBOX",
-    description: "CGV de SOLARBOX (AFRICACOM SARL). Conditions d'utilisation du service de diagnostic solaire gratuit sungpt.ma.",
+    description: "CGV de SOLARBOX (AFRICACOM SARL). Conditions d'utilisation du service de diagnostic solaire gratuit solarbox.ma.",
   });
 
   return (
@@ -39,14 +39,14 @@ const CGV = () => {
 
         <section id="presentation">
           <h2>Article 1 – Présentation</h2>
-          <p>Les présentes Conditions Générales d'Utilisation et de Vente (ci-après « les CGV ») régissent l'accès et l'utilisation du site internet sungpt.ma (ci-après « le Site ») et de l'ensemble des services qui y sont proposés (ci-après « le Service » ou « les Services »).</p>
+          <p>Les présentes Conditions Générales d'Utilisation et de Vente (ci-après « les CGV ») régissent l'accès et l'utilisation du site internet solarbox.ma (ci-après « le Site ») et de l'ensemble des services qui y sont proposés (ci-après « le Service » ou « les Services »).</p>
           <p>Le Site est édité et exploité par :</p>
           <p>
             <strong>AFRICACOM SARL</strong><br />
             Forme juridique : Société à Responsabilité Limitée (SARL)<br />
             Siège social : 10, rue Liberté, Casablanca, Maroc<br />
             Marque commerciale exploitée : <strong>SOLARBOX</strong><br />
-            Email de contact : privacy@sungpt.ma
+            Email de contact : privacy@solarbox.ma
           </p>
           <p>Le Service SOLARBOX propose un diagnostic solaire personnalisé gratuit à destination des particuliers et des entreprises situés au Maroc, leur permettant d'évaluer le potentiel d'installation photovoltaïque de leur bien immobilier à partir de l'analyse de leur consommation électrique.</p>
         </section>
@@ -55,7 +55,7 @@ const CGV = () => {
           <h2>Article 2 – Acceptation des CGV</h2>
           <p>L'utilisation du Service SOLARBOX, et notamment l'upload de tout document sur la plateforme, implique l'acceptation pleine et entière des présentes CGV ainsi que de la <Link to="/privacy" className="text-primary underline font-medium">Politique de Confidentialité</Link>, qui en fait partie intégrante.</p>
           <p>Cette acceptation est formalisée par une case à cocher obligatoire, que l'Utilisateur doit activer avant tout upload de document ou soumission de formulaire contenant des données personnelles. L'Utilisateur reconnaît avoir pris connaissance de l'ensemble des présentes CGV préalablement à cette validation.</p>
-          <p>Les présentes CGV sont accessibles à tout moment sur le Site à l'adresse sungpt.ma/cgv. AFRICACOM SARL se réserve le droit de les modifier à tout moment. La version applicable est celle en vigueur à la date d'utilisation du Service par l'Utilisateur. Toute modification substantielle sera portée à la connaissance des Utilisateurs par tout moyen approprié.</p>
+          <p>Les présentes CGV sont accessibles à tout moment sur le Site à l'adresse solarbox.ma/cgv. AFRICACOM SARL se réserve le droit de les modifier à tout moment. La version applicable est celle en vigueur à la date d'utilisation du Service par l'Utilisateur. Toute modification substantielle sera portée à la connaissance des Utilisateurs par tout moyen approprié.</p>
           <p>Si l'Utilisateur n'accepte pas les présentes CGV, il est invité à ne pas utiliser le Service et à quitter le Site.</p>
         </section>
 
@@ -109,7 +109,7 @@ const CGV = () => {
 
         <section id="propriete">
           <h2>Article 7 – Propriété intellectuelle</h2>
-          <p>L'ensemble des éléments composant le Site sungpt.ma et le Service SOLARBOX sont la propriété exclusive d'AFRICACOM SARL et sont protégés par les dispositions du droit marocain et des conventions internationales relatives à la propriété intellectuelle. Sont notamment protégés :</p>
+          <p>L'ensemble des éléments composant le Site solarbox.ma et le Service SOLARBOX sont la propriété exclusive d'AFRICACOM SARL et sont protégés par les dispositions du droit marocain et des conventions internationales relatives à la propriété intellectuelle. Sont notamment protégés :</p>
           <ul>
             <li>Le nom commercial « SOLARBOX » et les logos associés ;</li>
             <li>L'architecture, le design, l'ergonomie et l'interface graphique du Site ;</li>
@@ -122,7 +122,7 @@ const CGV = () => {
 
         <section id="donnees">
           <h2>Article 8 – Données personnelles</h2>
-          <p>Le traitement des données personnelles des Utilisateurs est régi par la <Link to="/privacy" className="text-primary underline font-medium">Politique de Confidentialité</Link> accessible à l'adresse sungpt.ma/privacy, qui fait partie intégrante des présentes CGV.</p>
+          <p>Le traitement des données personnelles des Utilisateurs est régi par la <Link to="/privacy" className="text-primary underline font-medium">Politique de Confidentialité</Link> accessible à l'adresse solarbox.ma/privacy, qui fait partie intégrante des présentes CGV.</p>
           <p>En acceptant les présentes CGV, l'Utilisateur déclare avoir pris connaissance de la Politique de Confidentialité et consentir expressément au traitement de ses données personnelles dans les conditions qui y sont décrites, conformément aux dispositions de la loi marocaine n°09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.</p>
           <p>L'Utilisateur est informé que les données personnelles collectées dans le cadre du Service sont traitées avec les mesures de sécurité appropriées et ne sont conservées que pendant les durées nécessaires aux finalités du traitement, telles que détaillées dans la Politique de Confidentialité.</p>
         </section>
