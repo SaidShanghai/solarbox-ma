@@ -169,16 +169,16 @@ Deno.serve(async (req) => {
               <div style="background:#f0fdf4;border:2px solid #22c55e;border-radius:12px;padding:20px;margin:24px 0;text-align:center;">
                 <p style="margin:0 0 6px;font-size:13px;color:#166534;font-weight:600;">📋 Votre numéro de référence dossier</p>
                 <p style="margin:0;font-size:28px;font-weight:900;color:#15803d;letter-spacing:4px;font-family:monospace;">#${refShort}</p>
-                <p style="margin:8px 0 0;font-size:12px;color:#166534;">Conservez ce numéro pour suivre votre dossier et le retrouver dans votre espace client sur <a href="https://sungpt.ma/profil" style="color:#f97316;">sungpt.ma/profil</a></p>
+                <p style="margin:8px 0 0;font-size:12px;color:#166534;">Conservez ce numéro pour suivre votre dossier et le retrouver dans votre espace client sur <a href="https://solarbox.ma/profil" style="color:#f97316;">solarbox.ma/profil</a></p>
               </div>
               <p style="font-size:14px;color:#666;line-height:1.6;">
                 En attendant, si vous avez des questions, n'hésitez pas à nous contacter à 
-                <a href="mailto:contact@sungpt.ma" style="color:#f97316;">contact@sungpt.ma</a>.
+                <a href="mailto:contact@solarbox.ma" style="color:#f97316;">contact@solarbox.ma</a>.
               </p>
               <hr style="border:none;border-top:1px solid #eee;margin:28px 0;" />
               <p style="font-size:12px;color:#aaa;text-align:center;">
                 NOORIA – Votre partenaire solaire au Maroc<br/>
-                <a href="https://solarbox.ma" style="color:#f97316;">sungpt.ma</a>
+                <a href="https://solarbox.ma" style="color:#f97316;">solarbox.ma</a>
               </p>
             </div>
           `,
