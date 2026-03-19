@@ -8,17 +8,17 @@ export const homepageSchema = {
   "@graph": [
     {
       "@type": ["Organization", "LocalBusiness"],
-      "@id": "https://sungpt.ma/#organization",
+      "@id": "https://solarbox.ma/#organization",
       name: "SOLARBOX",
       alternateName: "SOLARBOX",
-      url: "https://sungpt.ma",
+      url: "https://solarbox.ma",
       logo: {
         "@type": "ImageObject",
-        url: "https://sungpt.ma/logo.png",
+        url: "https://solarbox.ma/logo.png",
         width: 200,
         height: 60,
       },
-      image: "https://sungpt.ma/og-image.png",
+      image: "https://solarbox.ma/og-image.png",
       description:
         "Première plateforme de diagnostic solaire au Maroc. Analysez votre facture ONEE, obtenez un devis personnalisé en 2 minutes et connectez-vous à des installateurs certifiés RGE partout au Maroc.",
       foundingDate: "2024",
@@ -74,26 +74,26 @@ export const homepageSchema = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://sungpt.ma/#website",
-      url: "https://sungpt.ma",
+      "@id": "https://solarbox.ma/#website",
+      url: "https://solarbox.ma",
       name: "SOLARBOX – Diagnostic Solaire Maroc",
-      publisher: { "@id": "https://sungpt.ma/#organization" },
+      publisher: { "@id": "https://solarbox.ma/#organization" },
       inLanguage: "fr-MA",
     },
     {
       "@type": "WebPage",
-      "@id": "https://sungpt.ma/#webpage",
-      url: "https://sungpt.ma",
+      "@id": "https://solarbox.ma/#webpage",
+      url: "https://solarbox.ma",
       name: "SOLARBOX – Diagnostic Solaire Gratuit en 2 min au Maroc",
       description:
         "Diagnostic solaire gratuit en 2 minutes. Économisez jusqu'à 70% sur votre facture ONEE. Installateurs certifiés RGE partout au Maroc.",
-      isPartOf: { "@id": "https://sungpt.ma/#website" },
-      about: { "@id": "https://sungpt.ma/#organization" },
+      isPartOf: { "@id": "https://solarbox.ma/#website" },
+      about: { "@id": "https://solarbox.ma/#organization" },
       inLanguage: "fr-MA",
     },
     {
       "@type": "FAQPage",
-      "@id": "https://sungpt.ma/#faq",
+      "@id": "https://solarbox.ma/#faq",
       mainEntity: faqData.slice(0, 6).map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -112,7 +112,7 @@ export const homepageSchema = {
 export const fullFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  url: "https://sungpt.ma/faq",
+  url: "https://solarbox.ma/faq",
   name: "FAQ Solaire Maroc 2025 – 12 Questions Répondues | SOLARBOX",
   mainEntity: faqData.map((item) => ({
     "@type": "Question",
@@ -134,7 +134,7 @@ export const serviceSchema = {
   provider: {
     "@type": "Organization",
     name: "SOLARBOX",
-    url: "https://sungpt.ma",
+    url: "https://solarbox.ma",
   },
   areaServed: {
     "@type": "Country",
@@ -196,14 +196,14 @@ export const diagnosticSchema = {
 export const aboutSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  url: "https://sungpt.ma/a-propos",
+  url: "https://solarbox.ma/a-propos",
   name: "À Propos de SOLARBOX – Experts Solaire au Maroc",
   description:
     "SOLARBOX est la première plateforme dédiée au diagnostic solaire au Maroc. Fondée en 2024, elle connecte les particuliers et entreprises avec des installateurs certifiés RGE.",
   about: {
     "@type": "Organization",
     name: "SOLARBOX",
-    url: "https://sungpt.ma",
+    url: "https://solarbox.ma",
     foundingDate: "2024",
     description:
       "Plateforme de diagnostic et mise en relation solaire au Maroc",
@@ -238,21 +238,21 @@ export function buildArticleSchema(post: {
     headline: post.title,
     description:
       post.meta_description || (post.content?.substring(0, 155) + "…") || "",
-    url: `https://sungpt.ma/blog/${post.slug}`,
+    url: `https://solarbox.ma/blog/${post.slug}`,
     datePublished: post.published_at || undefined,
     dateModified: post.published_at || undefined,
-    image: post.cover_image_url || "https://sungpt.ma/og-image.png",
+    image: post.cover_image_url || "https://solarbox.ma/og-image.png",
     author: {
       "@type": "Organization",
       name: "SOLARBOX",
-      url: "https://sungpt.ma",
+      url: "https://solarbox.ma",
     },
     publisher: {
       "@type": "Organization",
       name: "SOLARBOX",
-      logo: { "@type": "ImageObject", url: "https://sungpt.ma/logo.png" },
+      logo: { "@type": "ImageObject", url: "https://solarbox.ma/logo.png" },
     },
-    mainEntityOfPage: `https://sungpt.ma/blog/${post.slug}`,
+    mainEntityOfPage: `https://solarbox.ma/blog/${post.slug}`,
     about: { "@type": "Thing", name: "Énergie solaire au Maroc" },
     keywords:
       "panneau solaire Maroc, installation solaire MAD, ONEE autoconsommation, Loi 82-21",
@@ -260,7 +260,7 @@ export function buildArticleSchema(post: {
     isPartOf: {
       "@type": "Blog",
       name: "Blog SOLARBOX – Solaire au Maroc",
-      url: "https://sungpt.ma/blog",
+      url: "https://solarbox.ma/blog",
     },
   };
 }
