@@ -1,8 +1,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const ALLOWED_ORIGINS = [
-  "https://sungpt.ma",
-  "https://www.sungpt.ma",
+  "https://solarbox.ma",
+  "https://www.solarbox.ma",
   "https://sun-match-pro.lovable.app",
 ];
 
@@ -178,7 +178,7 @@ Deno.serve(async (req) => {
               <hr style="border:none;border-top:1px solid #eee;margin:28px 0;" />
               <p style="font-size:12px;color:#aaa;text-align:center;">
                 NOORIA – Votre partenaire solaire au Maroc<br/>
-                <a href="https://sungpt.ma" style="color:#f97316;">sungpt.ma</a>
+                <a href="https://solarbox.ma" style="color:#f97316;">sungpt.ma</a>
               </p>
             </div>
           `,
