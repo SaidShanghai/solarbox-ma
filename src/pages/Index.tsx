@@ -264,18 +264,18 @@ const Index = () => {
 
 
               {/* Trust indicators */}
-              <div className="flex items-center gap-8 pt-8 border-t border-border">
+              <div className="inline-flex items-center gap-8 px-6 py-4 rounded-2xl bg-foreground/70 backdrop-blur-sm">
                 <div className="text-center">
-                  <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold" />
-                  <div className="text-sm text-muted-foreground">{STATS.diagnostics.label}</div>
+                  <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold text-background" />
+                  <div className="text-sm text-background/80">{STATS.diagnostics.label}</div>
                 </div>
                 <div className="text-center">
-                  <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold" />
-                  <div className="text-sm text-muted-foreground">{STATS.installateurs.label}</div>
+                  <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold text-background" />
+                  <div className="text-sm text-background/80">{STATS.installateurs.label}</div>
                 </div>
                 <div className="flex items-center gap-1">
                   <Star className="w-5 h-5 text-warning fill-warning" />
-                  <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold" />
+                  <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold text-background" />
                 </div>
               </div>
 
