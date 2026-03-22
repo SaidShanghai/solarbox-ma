@@ -233,7 +233,10 @@ const Index = () => {
 
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-16">
-         <div className="absolute inset-0 bg-background" />
+         <div className="absolute inset-0">
+           <img src={heroBg} alt="" className="w-full h-full object-cover" />
+           <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-[1.2fr_auto_0.8fr] gap-6 items-center">
