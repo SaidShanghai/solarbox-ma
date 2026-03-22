@@ -296,25 +296,6 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="flex gap-3">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("diagnostic");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="flex items-center gap-2 h-14 px-8 text-base font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
-                >
-                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
-                  PARTICULIERS
-                </button>
-                <button
-                  onClick={handleAideCTA}
-                  className="flex items-center gap-2 h-14 px-8 text-base font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
-                >
-                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
-                  ENTREPRISES
-                </button>
-              </div>
             </motion.div>
 
 
@@ -1390,6 +1371,25 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="hidden lg:flex flex-col gap-8 relative max-w-[260px]"
             >
+              <div className="flex gap-3 mb-4">
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("diagnostic");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                >
+                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  PARTICULIERS
+                </button>
+                <button
+                  onClick={handleAideCTA}
+                  className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                >
+                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  ENTREPRISES
+                </button>
+              </div>
               <p className="text-xs font-bold text-foreground uppercase tracking-widest mb-2">Votre parcours</p>
               {/* Dashed vertical line - sketch style */}
               <div className="absolute left-[27px] top-[52px] bottom-6 w-0 border-l-[2px] border-dashed border-primary/25" />
