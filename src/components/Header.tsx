@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -17,6 +17,9 @@ const Header = () => {
   const [showLogout, setShowLogout] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const isHome = location.pathname === "/";
 
   useEffect(() => {
@@ -37,6 +40,44 @@ const Header = () => {
     ];
     return links;
   }, [isAdmin]);
+
+  // Determine which index should show the pill (hovered takes priority, else active route)
+  const activeIndex = NAV_LINKS.findIndex((l) => l.to === location.pathname);
+  const pillIndex = hoveredIndex !== null ? hoveredIndex : activeIndex >= 0 ? activeIndex : 0;
+
+  // Compute pill position from refs
+  const [pillStyle, setPillStyle] = useState({ left: 0, width: 0 });
+
+  useEffect(() => {
+    const el = linkRefs.current[pillIndex];
+    const nav = navRef.current;
+    if (el && nav) {
+      const navRect = nav.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      setPillStyle({
+        left: elRect.left - navRect.left,
+        width: elRect.width,
+      });
+    }
+  }, [pillIndex, NAV_LINKS]);
+
+  // Recalculate on resize
+  useEffect(() => {
+    const onResize = () => {
+      const el = linkRefs.current[pillIndex];
+      const nav = navRef.current;
+      if (el && nav) {
+        const navRect = nav.getBoundingClientRect();
+        const elRect = el.getBoundingClientRect();
+        setPillStyle({
+          left: elRect.left - navRect.left,
+          width: elRect.width,
+        });
+      }
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [pillIndex]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -61,17 +102,30 @@ const Header = () => {
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center gap-6">
-              {NAV_LINKS.map((link) => (
+            <nav
+              ref={navRef}
+              className="hidden md:flex items-center gap-1 relative"
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {/* Sliding pill */}
+              <motion.div
+                className="absolute top-1/2 -translate-y-1/2 h-9 rounded-full bg-background/90 shadow-sm"
+                animate={{ left: pillStyle.left, width: pillStyle.width }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                style={{ pointerEvents: "none" }}
+              />
+              {NAV_LINKS.map((link, i) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`text-sm font-medium transition-colors ${
-                    location.pathname === link.to
-                      ? "text-primary"
+                  ref={(el) => { linkRefs.current[i] = el; }}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  className={`relative z-10 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
+                    pillIndex === i
+                      ? "text-foreground"
                       : headerTransparent
-                        ? "text-white/90 hover:text-white"
-                        : "hover:text-primary"
+                        ? "text-white/80 hover:text-white"
+                        : "text-muted-foreground"
                   }`}
                 >
                   {link.label}
