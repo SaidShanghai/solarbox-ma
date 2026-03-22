@@ -1,5 +1,8 @@
 import { faqData, buildFaqSchema } from "@/data/faq";
 
+const SITE_URL = "https://sungpt.ma";
+const BRAND = "SUNGPT";
+
 /**
  * Homepage: @graph with Organization + WebSite + WebPage + FAQPage (top 6)
  */
@@ -8,19 +11,19 @@ export const homepageSchema = {
   "@graph": [
     {
       "@type": ["Organization", "LocalBusiness"],
-      "@id": "https://solarbox.ma/#organization",
-      name: "SOLARBOX",
-      alternateName: "SOLARBOX",
-      url: "https://solarbox.ma",
+      "@id": `${SITE_URL}/#organization`,
+      name: BRAND,
+      alternateName: BRAND,
+      url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: "https://solarbox.ma/logo.png",
+        url: `${SITE_URL}/logo.png`,
         width: 200,
         height: 60,
       },
-      image: "https://solarbox.ma/og-image.png",
+      image: `${SITE_URL}/og-image.png`,
       description:
-        "Première plateforme de diagnostic solaire au Maroc. Analysez votre facture ONEE, obtenez un devis personnalisé en 2 minutes et connectez-vous à des installateurs certifiés RGE partout au Maroc.",
+        "Première plateforme de diagnostic solaire IA au Maroc. Analysez votre facture ONEE, obtenez un devis personnalisé en 2 minutes et connectez-vous à des installateurs certifiés partout au Maroc.",
       foundingDate: "2024",
       address: {
         "@type": "PostalAddress",
@@ -61,10 +64,10 @@ export const homepageSchema = {
         worstRating: "1",
       },
       sameAs: [
-        "https://facebook.com/solarbox.ma",
-        "https://instagram.com/solarbox.ma",
-        "https://linkedin.com/company/solarbox-ma",
-        "https://sungpt.ma",
+        "https://facebook.com/sungpt.ma",
+        "https://instagram.com/sungpt.ma",
+        "https://linkedin.com/company/sungpt-ma",
+        "https://solarbox.ma",
         "https://nooria.ma",
         "https://solarcompare.ma",
         "https://powerbox.ma",
@@ -82,26 +85,26 @@ export const homepageSchema = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://solarbox.ma/#website",
-      url: "https://solarbox.ma",
-      name: "SOLARBOX – Diagnostic Solaire Maroc",
-      publisher: { "@id": "https://solarbox.ma/#organization" },
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: `${BRAND} – Diagnostic Solaire IA Maroc`,
+      publisher: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "fr-MA",
     },
     {
       "@type": "WebPage",
-      "@id": "https://solarbox.ma/#webpage",
-      url: "https://solarbox.ma",
-      name: "SOLARBOX – Diagnostic Solaire Gratuit en 2 min au Maroc",
+      "@id": `${SITE_URL}/#webpage`,
+      url: SITE_URL,
+      name: `${BRAND} – Diagnostic Solaire IA Gratuit en 2 min au Maroc`,
       description:
-        "Diagnostic solaire gratuit en 2 minutes. Économisez jusqu'à 70% sur votre facture ONEE. Installateurs certifiés RGE partout au Maroc.",
-      isPartOf: { "@id": "https://solarbox.ma/#website" },
-      about: { "@id": "https://solarbox.ma/#organization" },
+        "Diagnostic solaire IA gratuit en 2 minutes. Économisez jusqu'à 70 % sur votre facture ONEE. Installateurs certifiés partout au Maroc.",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "fr-MA",
     },
     {
       "@type": "FAQPage",
-      "@id": "https://solarbox.ma/#faq",
+      "@id": `${SITE_URL}/#faq`,
       mainEntity: faqData.slice(0, 6).map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -120,8 +123,8 @@ export const homepageSchema = {
 export const fullFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  url: "https://solarbox.ma/faq",
-  name: "FAQ Solaire Maroc 2025 – 12 Questions Répondues | SOLARBOX",
+  url: `${SITE_URL}/faq`,
+  name: `FAQ Solaire Maroc 2025 – 12 Questions Répondues | ${BRAND}`,
   mainEntity: faqData.map((item) => ({
     "@type": "Question",
     name: item.question,
@@ -138,18 +141,18 @@ export const fullFaqSchema = {
 export const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "SolarBox – Installation Solaire Résidentielle et Professionnelle",
+  name: `${BRAND} – Installation Solaire Résidentielle et Professionnelle`,
   provider: {
     "@type": "Organization",
-    name: "SOLARBOX",
-    url: "https://solarbox.ma",
+    name: BRAND,
+    url: SITE_URL,
   },
   areaServed: {
     "@type": "Country",
     name: "Maroc",
   },
   description:
-    "Installation solaire complète pour particuliers et entreprises au Maroc. Système avec batterie LFP, onduleur hybride, garantie 10 ans, installateurs certifiés RGE.",
+    "Installation solaire complète pour particuliers et entreprises au Maroc. Système avec batterie LFP, onduleur hybride, garantie 10 ans, installateurs certifiés.",
   category: "Énergie renouvelable",
   serviceType: "Installation photovoltaïque",
   offers: {
@@ -167,9 +170,9 @@ export const serviceSchema = {
 export const diagnosticSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "Comment obtenir un diagnostic solaire gratuit au Maroc avec SOLARBOX",
+  name: `Comment obtenir un diagnostic solaire gratuit au Maroc avec ${BRAND}`,
   description:
-    "Obtenez un diagnostic solaire personnalisé en 2 minutes grâce à SOLARBOX. Analysez votre facture ONEE et recevez une recommandation d'installation en dirhams (MAD).",
+    `Obtenez un diagnostic solaire personnalisé en 2 minutes grâce à ${BRAND}. Analysez votre facture ONEE et recevez une recommandation d'installation en dirhams (MAD).`,
   totalTime: "PT2M",
   estimatedCost: {
     "@type": "MonetaryAmount",
@@ -187,13 +190,13 @@ export const diagnosticSchema = {
       "@type": "HowToStep",
       position: 2,
       name: "L'IA analyse votre profil",
-      text: "SOLARBOX combine votre consommation réelle avec les données PVGIS d'ensoleillement de votre région au Maroc pour calculer la puissance optimale.",
+      text: `${BRAND} combine votre consommation réelle avec les données PVGIS d'ensoleillement de votre région au Maroc pour calculer la puissance optimale.`,
     },
     {
       "@type": "HowToStep",
       position: 3,
       name: "Recevez votre rapport personnalisé",
-      text: "En moins de 2 minutes : puissance recommandée en kWc, coût estimé en dirhams (MAD), ROI calculé et mise en relation avec des installateurs certifiés RGE proches de chez vous.",
+      text: "En moins de 2 minutes : puissance recommandée en kWc, coût estimé en dirhams (MAD), ROI calculé et mise en relation avec des installateurs certifiés proches de chez vous.",
     },
   ],
 };
@@ -204,14 +207,14 @@ export const diagnosticSchema = {
 export const aboutSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  url: "https://solarbox.ma/a-propos",
-  name: "À Propos de SOLARBOX – Experts Solaire au Maroc",
+  url: `${SITE_URL}/a-propos`,
+  name: `À Propos de ${BRAND} – Experts Solaire au Maroc`,
   description:
-    "SOLARBOX est la première plateforme dédiée au diagnostic solaire au Maroc. Fondée en 2024, elle connecte les particuliers et entreprises avec des installateurs certifiés RGE.",
+    `${BRAND} est la première plateforme IA dédiée au diagnostic solaire au Maroc. Fondée en 2024, elle connecte les particuliers et entreprises avec des installateurs certifiés.`,
   about: {
     "@type": "Organization",
-    name: "SOLARBOX",
-    url: "https://solarbox.ma",
+    name: BRAND,
+    url: SITE_URL,
     foundingDate: "2024",
     description:
       "Plateforme de diagnostic et mise en relation solaire au Maroc",
@@ -222,7 +225,6 @@ export const aboutSchema = {
       "Batterie LFP",
       "Onduleur hybride",
       "PVGIS",
-      "Certification RGE",
       "MASEN",
       "AMEE",
     ],
@@ -246,29 +248,29 @@ export function buildArticleSchema(post: {
     headline: post.title,
     description:
       post.meta_description || (post.content?.substring(0, 155) + "…") || "",
-    url: `https://solarbox.ma/blog/${post.slug}`,
+    url: `${SITE_URL}/blog/${post.slug}`,
     datePublished: post.published_at || undefined,
     dateModified: post.published_at || undefined,
-    image: post.cover_image_url || "https://solarbox.ma/og-image.png",
+    image: post.cover_image_url || `${SITE_URL}/og-image.png`,
     author: {
       "@type": "Organization",
-      name: "SOLARBOX",
-      url: "https://solarbox.ma",
+      name: BRAND,
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Organization",
-      name: "SOLARBOX",
-      logo: { "@type": "ImageObject", url: "https://solarbox.ma/logo.png" },
+      name: BRAND,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
     },
-    mainEntityOfPage: `https://solarbox.ma/blog/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
     about: { "@type": "Thing", name: "Énergie solaire au Maroc" },
     keywords:
       "panneau solaire Maroc, installation solaire MAD, ONEE autoconsommation, Loi 82-21",
     inLanguage: "fr-MA",
     isPartOf: {
       "@type": "Blog",
-      name: "Blog SOLARBOX – Solaire au Maroc",
-      url: "https://solarbox.ma/blog",
+      name: `Blog ${BRAND} – Solaire au Maroc`,
+      url: `${SITE_URL}/blog`,
     },
   };
 }

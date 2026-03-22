@@ -58,14 +58,14 @@ export default function BlogPost() {
   // Set document title and meta description for SEO
   useEffect(() => {
     if (post) {
-      document.title = `${post.title} | SOLARBOX`;
+      document.title = `${post.title} | SUNGPT`;
       const metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
       if (metaDesc) {
         metaDesc.content = post.meta_description || (post.content?.substring(0, 155) + "…") || "";
       }
     }
     return () => {
-      document.title = "SOLARBOX – Énergie Solaire au Maroc";
+      document.title = "SUNGPT – Énergie Solaire au Maroc";
     };
   }, [post]);
 

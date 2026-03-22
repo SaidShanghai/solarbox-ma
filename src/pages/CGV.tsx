@@ -28,8 +28,8 @@ const schema = {
 
 const CGV = () => {
   usePageMeta({
-    title: "CGV – SOLARBOX",
-    description: "CGV de SOLARBOX (AFRICACOM SARL). Conditions d'utilisation du service de diagnostic solaire gratuit solarbox.ma.",
+    title: "CGV – SUNGPT",
+    description: "Conditions générales de vente de SUNGPT (AFRICACOM SARL). Conditions d'utilisation du service de diagnostic solaire gratuit sungpt.ma.",
   });
 
   return (

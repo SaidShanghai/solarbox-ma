@@ -24,7 +24,7 @@ export function usePageMeta({ title, description, canonicalPath }: PageMetaOptio
 
     // Canonical link
     const path = canonicalPath ?? window.location.pathname;
-    const canonicalUrl = `https://solarbox.ma${path === "/" ? "" : path}`;
+    const canonicalUrl = `https://sungpt.ma${path === "/" ? "" : path}`;
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     const prevCanonical = link?.href ?? "";
     if (!link) {
