@@ -262,7 +262,7 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-wrap items-center gap-3">
                 <Button
                   asChild
                   size="lg"
@@ -278,6 +278,23 @@ const Index = () => {
                     Comment ça marche ?
                   </Link>
                 </Button>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("diagnostic");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="flex items-center gap-2 h-14 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                >
+                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  PARTICULIERS
+                </button>
+                <button
+                  onClick={handleAideCTA}
+                  className="flex items-center gap-2 h-14 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                >
+                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  ENTREPRISES
+                </button>
               </div>
 
               {/* Trust indicators */}
