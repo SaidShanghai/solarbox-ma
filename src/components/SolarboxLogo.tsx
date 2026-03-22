@@ -6,7 +6,7 @@ interface SolarboxLogoProps {
 }
 
 const SolarboxLogo = ({ className = "", size = "md" }: SolarboxLogoProps) => {
-  const widths = { sm: 100, md: 120, lg: 140 };
+  const widths = { sm: 120, md: 140, lg: 160 };
   const width = widths[size];
 
   return (
