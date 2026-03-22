@@ -1390,7 +1390,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="hidden lg:flex flex-col gap-8 relative max-w-[260px]"
             >
-              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Votre parcours</p>
+              <p className="text-xs font-bold text-foreground uppercase tracking-widest mb-2">Votre parcours</p>
               {/* Dashed vertical line - sketch style */}
               <div className="absolute left-[27px] top-[52px] bottom-6 w-0 border-l-[2px] border-dashed border-primary/25" />
 
@@ -1472,15 +1472,15 @@ const Index = () => {
                       ? "text-primary bg-primary/10 ring-2 ring-primary/30 shadow-lg shadow-primary/20 scale-150"
                       : isDone
                         ? "text-primary/60 bg-primary/5 border border-primary/30"
-                        : "text-muted-foreground bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
+                        : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
                   }`}>
                     {step.sketch}
                   </div>
                   <div className={`min-w-0 transition-all duration-500 ${isActive ? "translate-x-4" : ""}`}>
-                    <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : isDone ? "text-foreground/60 text-[13px]" : "text-foreground/40 group-hover:text-foreground text-[13px]"}`}>
+                    <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : isDone ? "text-foreground/80 text-[13px]" : "text-foreground/80 group-hover:text-foreground text-[13px]"}`}>
                       {step.label}
                     </p>
-                    <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-primary font-semibold text-xs" : "text-muted-foreground text-[11px]"}`}>
+                    <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-primary font-semibold text-xs" : "text-foreground/70 text-[11px]"}`}>
                       {step.sub}
                     </p>
                   </div>
