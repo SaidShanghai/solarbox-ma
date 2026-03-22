@@ -1480,7 +1480,7 @@ const Index = () => {
                     <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : isDone ? "text-foreground/80 text-[13px]" : "text-foreground/80 group-hover:text-foreground text-[13px]"}`}>
                       {step.label}
                     </p>
-                    <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-primary font-semibold text-xs" : "text-muted-foreground text-[11px]"}`}>
+                    <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-primary font-semibold text-xs" : "text-foreground/70 text-[11px]"}`}>
                       {step.sub}
                     </p>
                   </div>
