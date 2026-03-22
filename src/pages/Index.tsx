@@ -1468,6 +1468,25 @@ const Index = () => {
                 </motion.div>
                 );
               })}
+              <div className="flex gap-3 mt-4">
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("diagnostic");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                >
+                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  PARTICULIERS
+                </button>
+                <button
+                  onClick={handleAideCTA}
+                  className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
+                >
+                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
+                  ENTREPRISES
+                </button>
+              </div>
             </motion.div>
           </div>
         </div>
