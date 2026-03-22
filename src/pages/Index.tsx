@@ -235,7 +235,7 @@ const Index = () => {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-16">
          <div className="absolute inset-0">
            <img src={heroBg} alt="" className="w-full h-full object-cover" />
-           <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+           <div className="absolute inset-0 bg-background/40" />
          </div>
 
         <div className="container mx-auto px-4 relative z-10">
