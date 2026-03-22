@@ -1472,7 +1472,7 @@ const Index = () => {
                       ? "text-primary bg-primary/10 ring-2 ring-primary/30 shadow-lg shadow-primary/20 scale-150"
                       : isDone
                         ? "text-primary/60 bg-primary/5 border border-primary/30"
-                        : "text-muted-foreground bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
+                        : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
                   }`}>
                     {step.sketch}
                   </div>
