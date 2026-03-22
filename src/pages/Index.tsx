@@ -1477,7 +1477,7 @@ const Index = () => {
                     {step.sketch}
                   </div>
                   <div className={`min-w-0 transition-all duration-500 ${isActive ? "translate-x-4" : ""}`}>
-                    <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : isDone ? "text-foreground/60 text-[13px]" : "text-foreground/40 group-hover:text-foreground text-[13px]"}`}>
+                    <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : isDone ? "text-foreground/80 text-[13px]" : "text-foreground/80 group-hover:text-foreground text-[13px]"}`}>
                       {step.label}
                     </p>
                     <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-primary font-semibold text-xs" : "text-muted-foreground text-[11px]"}`}>
