@@ -102,8 +102,8 @@ const HeroRotatingTitle = ({ entreprise = false, activeIndex }: { entreprise?: b
 
 const Index = () => {
   usePageMeta({
-    title: "SOLARBOX – Diagnostic Solaire Gratuit en 2 min au Maroc",
-    description: "Diagnostic solaire IA gratuit en 2 minutes. Économisez jusqu'à 70% sur votre facture ONEE. Installateurs certifiés RGE partout au Maroc.",
+    title: "SUNGPT – Diagnostic Solaire IA Gratuit en 2 min au Maroc",
+    description: "Diagnostic solaire IA gratuit en 2 minutes. Économisez jusqu'à 70 % sur votre facture ONEE. Installateurs certifiés partout au Maroc.",
   });
   const [heroStepIndex, setHeroStepIndex] = useState(0);
   const [phoneScreen, setPhoneScreen] = useState<"intro" | "type" | "form" | "informations" | "site" | "eligibilite" | "analyse" | "solutions" | "contact" | "merci">("intro");
