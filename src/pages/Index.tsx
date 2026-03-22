@@ -273,9 +273,11 @@ const Index = () => {
                   <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold text-background" />
                   <div className="text-sm font-medium text-background/90">{STATS.installateurs.label}</div>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Star className="w-5 h-5 text-warning fill-warning" />
-                  <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold text-background" />
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-1">
+                    <Star className="w-5 h-5 text-warning fill-warning" />
+                    <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold text-background" />
+                  </div>
                 </div>
               </div>
 
