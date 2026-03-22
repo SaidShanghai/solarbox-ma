@@ -1,4 +1,4 @@
-import logoImage from "@/assets/solarbox-logo-attached.jpeg";
+import logoImage from "@/assets/sungpt-logo-transparent.png";
 
 interface SolarboxLogoProps {
   className?: string;

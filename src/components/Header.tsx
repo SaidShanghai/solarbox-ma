@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -16,6 +16,14 @@ const Header = () => {
   const location = useLocation();
   const [showLogout, setShowLogout] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const NAV_LINKS = useMemo(() => {
     const links = [
@@ -36,9 +44,15 @@ const Header = () => {
     navigate("/");
   };
 
+  const headerTransparent = isHome && !scrolled;
+
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
+      <header className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+        headerTransparent
+          ? "bg-transparent border-transparent"
+          : "glass border-border"
+      }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center shrink-0">
@@ -55,7 +69,9 @@ const Header = () => {
                   className={`text-sm font-medium transition-colors ${
                     location.pathname === link.to
                       ? "text-primary"
-                      : "hover:text-primary"
+                      : headerTransparent
+                        ? "text-white/90 hover:text-white"
+                        : "hover:text-primary"
                   }`}
                 >
                   {link.label}
@@ -66,8 +82,11 @@ const Header = () => {
             <div className="flex items-center gap-2">
               {user ? (
                 <div className="flex items-center gap-2">
-                  <span className="hidden sm:inline text-xs text-muted-foreground truncate max-w-[160px]">{user.email}</span>
-                  <Button size="sm" variant="outline" onClick={() => setShowLogout(true)}>
+                  <span className={`hidden sm:inline text-xs truncate max-w-[160px] ${
+                    headerTransparent ? "text-white/70" : "text-muted-foreground"
+                  }`}>{user.email}</span>
+                  <Button size="sm" variant="outline" onClick={() => setShowLogout(true)}
+                    className={headerTransparent ? "border-white/30 text-white hover:bg-white/10" : ""}>
                     Connecté
                   </Button>
                 </div>
@@ -79,7 +98,9 @@ const Header = () => {
 
               {/* Mobile hamburger */}
               <button
-                className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+                className={`md:hidden p-2 rounded-lg transition-colors ${
+                  headerTransparent ? "text-white hover:bg-white/10" : "hover:bg-muted"
+                }`}
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Menu"
               >
