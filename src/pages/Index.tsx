@@ -262,23 +262,6 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="flex flex-row items-center gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="group h-14 px-8 text-base text-black animate-[pulse_1.5s_ease-in-out_infinite] hover:animate-none"
-                >
-                  <Link to="/diagnostic">
-                    VOIR MES ÉCONOMIES
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="h-14 px-8 text-base">
-                  <Link to="/diagnostic">
-                    Comment ça marche ?
-                  </Link>
-                </Button>
-              </div>
 
               {/* Trust indicators */}
               <div className="flex items-center gap-8 pt-8 border-t border-border">
@@ -1468,26 +1451,47 @@ const Index = () => {
                 </motion.div>
                 );
               })}
-              <div className="flex gap-3 mt-4">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("diagnostic");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
-                >
-                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
-                  PARTICULIERS
-                </button>
-                <button
-                  onClick={handleAideCTA}
-                  className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-black text-white rounded-md hover:scale-105 transition-transform"
-                >
-                  <span className="w-2 h-2 bg-white rounded-full shrink-0" />
-                  ENTREPRISES
-                </button>
-              </div>
             </motion.div>
+          </div>
+
+          {/* Full-width CTA row — all 4 buttons on same horizontal axis */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mt-8">
+            <div className="flex items-center gap-4">
+              <Button
+                asChild
+                size="lg"
+                className="group h-14 px-8 text-base text-black animate-[pulse_1.5s_ease-in-out_infinite] hover:animate-none"
+              >
+                <Link to="/diagnostic">
+                  VOIR MES ÉCONOMIES
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="h-14 px-8 text-base">
+                <Link to="/diagnostic">
+                  Comment ça marche ?
+                </Link>
+              </Button>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  const el = document.getElementById("diagnostic");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform"
+              >
+                <span className="w-2 h-2 bg-background rounded-full shrink-0" />
+                PARTICULIERS
+              </button>
+              <button
+                onClick={handleAideCTA}
+                className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform"
+              >
+                <span className="w-2 h-2 bg-background rounded-full shrink-0" />
+                ENTREPRISES
+              </button>
+            </div>
           </div>
         </div>
       </section>
