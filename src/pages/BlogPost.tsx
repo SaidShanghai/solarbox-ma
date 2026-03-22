@@ -65,7 +65,7 @@ export default function BlogPost() {
       }
     }
     return () => {
-      document.title = "SOLARBOX – Énergie Solaire au Maroc";
+      document.title = "SUNGPT – Énergie Solaire au Maroc";
     };
   }, [post]);
 
