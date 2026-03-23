@@ -1513,11 +1513,10 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Content that scrolls over the hero */}
-      <div className="relative z-10" style={{ marginTop: "100vh" }}>
+      <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Features */}
-      <section className="py-24 bg-muted/30">
+      <section className="min-h-screen snap-start flex items-center py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
