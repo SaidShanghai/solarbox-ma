@@ -110,6 +110,7 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: 5rem;
+    scroll-snap-type: y proximity;
   }
 
   /* Prevent iOS auto-zoom on input focus */
