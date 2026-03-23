@@ -1666,9 +1666,8 @@ const Index = () => {
         </div>
       </section>
 
-          </motion.div>{/* end horizontal track */}
-        </div>{/* end sticky */}
-      </div>{/* end horizontal scroll runway */}
+        </motion.div>{/* end horizontal track */}
+      </div>{/* end horizontal slider */}
 
       {/* FAQ — vertical below */}
       <div className="min-h-screen flex items-center pt-24 bg-background relative z-10">
