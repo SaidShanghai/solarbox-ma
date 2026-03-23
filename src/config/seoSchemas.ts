@@ -1,7 +1,7 @@
 import { faqData, buildFaqSchema } from "@/data/faq";
 
-const SITE_URL = "https://sungpt.ma";
-const BRAND = "SUNGPT";
+const SITE_URL = "https://solarbox.ma";
+const BRAND = "SOLARBOX";
 
 /**
  * Homepage: @graph with Organization + WebSite + WebPage + FAQPage (top 6)
