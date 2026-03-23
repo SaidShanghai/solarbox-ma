@@ -1549,7 +1549,7 @@ const Index = () => {
       </section>
 
 
-      <div className="min-h-screen snap-start flex items-center">
+      <div className="min-h-screen snap-start flex items-center bg-background">
         <div className="w-full">
           <BeforeAfterBill />
         </div>
