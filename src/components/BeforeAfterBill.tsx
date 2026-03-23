@@ -86,7 +86,7 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
         </button>
 
         {/* After tabs */}
-        {(["after75", "after100", "after120"] as const).map((key) => (
+        {(["after75", "after100"] as const).map((key) => (
           <button
             key={key}
             onClick={() => handleTab(key)}
