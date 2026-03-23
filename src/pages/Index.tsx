@@ -1715,7 +1715,7 @@ const Index = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.35 }}
-            className="border-t border-border pt-8 grid grid-cols-2 lg:grid-cols-4 gap-6"
+            className="border-t border-border pt-4 grid grid-cols-2 lg:grid-cols-4 gap-4"
           >
             {[
               { icon: Leaf, stat: STATS.diagnostics },
