@@ -22,7 +22,7 @@ export const faqData: FAQItem[] = [
   {
     question: "Quelles économies puis-je espérer sur ma facture ONEE ?",
     answer:
-      "En moyenne, nos clients réduisent leur facture ONEE de 70%. Une facture de 1 850 dirhams (MAD)/mois peut descendre à 550 dirhams (MAD)/mois après installation. Sur 25 ans, cela représente jusqu'à 390 000 DH d'économies cumulées estimées selon votre profil de consommation.",
+      "En moyenne, nos clients réduisent leur facture ONEE de 60%. Une facture de 1 360 dirhams (MAD)/mois peut descendre à 512 dirhams (MAD)/mois après installation solaire. Sur 25 ans, cela représente jusqu'à 254 400 DH d'économies cumulées estimées selon votre profil de consommation.",
   },
   {
     question: "L'autoconsommation est-elle légale au Maroc ?",

@@ -105,11 +105,11 @@ export default function BeforeAfterBill() {
                   tab === "after" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2"
                 }`}
               >
-                1 850 MAD
+                1 360 MAD
               </span>
               <AnimatePresence mode="wait">
                 <motion.span
-                  key={tab === "before" ? "1850" : "550"}
+                  key={tab === "before" ? "1360" : "512"}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
@@ -118,7 +118,7 @@ export default function BeforeAfterBill() {
                     tab === "before" ? "text-destructive" : "text-primary"
                   }`}
                 >
-                  {tab === "before" ? "1 850" : "550"} MAD
+                  {tab === "before" ? "1 360" : "512"} MAD
                 </motion.span>
               </AnimatePresence>
             </div>
