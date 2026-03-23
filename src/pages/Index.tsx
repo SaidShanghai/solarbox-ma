@@ -1654,6 +1654,17 @@ const Index = () => {
             <p className="text-xs text-muted-foreground italic">
               * Certains composants (batterie / onduleur) peuvent être remplacés sur la durée.
             </p>
+            <div className="mt-2 bg-background/60 backdrop-blur-sm rounded-xl border border-border/50 px-5 py-3 max-w-sm">
+              <p className="text-xs font-semibold text-foreground mb-1.5">Installation évolutive</p>
+              <ul className="space-y-1">
+                {["Composants remplaçables", "Performance maintenue dans le temps", "Optimisation continue de votre système"].map((t) => (
+                  <li key={t} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                    <CheckCircle2 className="w-3 h-3 text-primary shrink-0" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
 
           {/* Features — horizontal strip */}
