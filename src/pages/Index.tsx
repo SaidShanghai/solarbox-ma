@@ -1652,7 +1652,7 @@ const Index = () => {
               </AnimatePresence>
             </div>
             <div className="mt-2 bg-background/60 backdrop-blur-sm rounded-xl border border-border/50 px-5 py-3 max-w-sm">
-              <p className="text-xs font-semibold text-foreground mb-1.5">Installation évolutive</p>
+              <p className="text-xs font-semibold text-foreground mb-1.5">* Installation évolutive</p>
               <ul className="space-y-1">
                 {["Composants remplaçables", "Performance maintenue dans le temps", "Optimisation continue de votre système"].map((t) => (
                   <li key={t} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
