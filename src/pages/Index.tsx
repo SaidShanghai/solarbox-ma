@@ -22,6 +22,7 @@ import {
   MapPin,
   FileText,
   ChevronLeft,
+  ChevronRight,
   TrendingDown,
   Battery,
   MapPinned,
