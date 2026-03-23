@@ -10,7 +10,7 @@ import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
 import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
 
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun,
   PiggyBank,
@@ -22,6 +22,7 @@ import {
   MapPin,
   FileText,
   ChevronLeft,
+  ChevronRight,
   TrendingDown,
   Battery,
   MapPinned,
@@ -133,9 +134,7 @@ const Index = () => {
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
-  const horizontalRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: horizontalRef, offset: ["start start", "end end"] });
-  const heroX = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  const [heroSlide, setHeroSlide] = useState(0); // 0 = hero, 1 = page 2
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
@@ -237,10 +236,13 @@ const Index = () => {
     <>
       <JsonLd schema={homepageSchema} />
 
-      {/* Horizontal scroll runway — 200vh tall so vertical scroll drives horizontal movement */}
-      <div ref={horizontalRef} className="relative" style={{ height: "200vh" }}>
-        <div className="sticky top-0 h-screen overflow-hidden">
-          <motion.div className="flex w-[200vw] h-full" style={{ x: heroX }}>
+      {/* Horizontal slider — Hero ↔ Page 2 */}
+      <div className="relative h-screen overflow-hidden">
+        <motion.div
+          className="flex w-[200vw] h-full"
+          animate={{ x: heroSlide === 0 ? "0%" : "-50%" }}
+          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+        >
 
       {/* Hero */}
       <section className="w-screen h-screen flex-shrink-0 flex items-center overflow-hidden pt-16 relative">
@@ -1508,19 +1510,22 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-[0.25em] text-background/50 font-medium">Scroll</span>
-          <div className="w-px h-10 bg-background/30 overflow-hidden relative">
-            <motion.div
-              className="absolute inset-x-0 top-0 h-full bg-background/80"
-              animate={{ y: ["0%", "100%"] }}
-              transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
-            />
-          </div>
-        </div>
+          {/* Chevron → slide to page 2 */}
+          {heroSlide === 0 && (
+            <button
+              onClick={() => setHeroSlide(1)}
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-14 h-14 rounded-full bg-primary/20 backdrop-blur border border-primary/30 hover:bg-primary/30 transition-colors"
+              aria-label="Voir la suite"
+            >
+              <motion.div
+                animate={{ x: [0, 6, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ChevronRight className="w-7 h-7 text-primary" />
+              </motion.div>
+            </button>
+          )}
       </section>
-
 
       {/* Section 2 — Pourquoi SOLARBOX */}
       <section className="w-screen h-screen flex-shrink-0 flex items-center pt-24 pb-12 relative overflow-y-auto overflow-x-hidden">
@@ -1529,6 +1534,16 @@ const Index = () => {
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-background/70" />
         </div>
+
+        {/* Back chevron */}
+        <button
+          onClick={() => setHeroSlide(0)}
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-card/60 backdrop-blur border border-border hover:bg-card/80 transition-colors"
+          aria-label="Retour"
+        >
+          <ChevronLeft className="w-6 h-6 text-foreground" />
+        </button>
+
         <div className="container mx-auto px-4 relative z-10">
 
           {/* Section title — centered */}
@@ -1651,9 +1666,8 @@ const Index = () => {
         </div>
       </section>
 
-          </motion.div>{/* end horizontal track */}
-        </div>{/* end sticky */}
-      </div>{/* end horizontal scroll runway */}
+        </motion.div>{/* end horizontal track */}
+      </div>{/* end horizontal slider */}
 
       {/* FAQ — vertical below */}
       <div className="min-h-screen flex items-center pt-24 bg-background relative z-10">
