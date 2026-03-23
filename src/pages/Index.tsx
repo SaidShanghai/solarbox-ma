@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun,
-  PiggyBank,
+  DollarSign,
   Leaf,
   Zap,
   Shield,
@@ -64,7 +64,7 @@ const features = [
     description: "Installateurs certifiés, garanties décennales et suivi post-installation.",
   },
   {
-    icon: PiggyBank,
+    icon: DollarSign,
     title: "Économies Réelles",
     description: "Jusqu'à 70% de réduction sur votre facture d'électricité.",
   },
@@ -1708,7 +1708,7 @@ const Index = () => {
             {[
               { icon: Leaf, stat: STATS.diagnostics },
               { icon: Sun, stat: STATS.installateurs },
-              { icon: PiggyBank, stat: STATS.savings },
+              { icon: DollarSign, stat: STATS.savings },
               { icon: Star, stat: STATS.rating },
             ].map((item) => (
               <div key={item.stat.label} className="flex items-center gap-3 justify-center">
