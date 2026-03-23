@@ -238,8 +238,8 @@ const Index = () => {
            <div className="absolute inset-0 bg-background/40" />
          </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-[1.2fr_auto_0.8fr] gap-6 items-center">
+        <div className="container mx-auto px-4 relative z-10 overflow-hidden">
+          <div className="grid lg:grid-cols-[1.1fr_minmax(0,360px)_0.85fr] gap-4 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
