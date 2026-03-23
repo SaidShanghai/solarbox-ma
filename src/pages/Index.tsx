@@ -1520,7 +1520,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-background/70" />
       </div>
 
-      <section className="min-h-screen snap-start flex items-center pt-24 pb-16 relative">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Pourquoi SOLARBOX */}
@@ -1564,7 +1564,7 @@ const Index = () => {
       </section>
 
       {/* CTA – covers section 2 */}
-      <section className="min-h-screen snap-start flex items-center py-24 bg-foreground text-background relative z-10">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-24 bg-foreground text-background relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -1628,7 +1628,7 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="min-h-screen snap-start flex items-center bg-background relative z-10">
+      <div className="min-h-screen snap-start scroll-mt-20 flex items-center pt-24 bg-background relative z-10">
         <div className="w-full">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
