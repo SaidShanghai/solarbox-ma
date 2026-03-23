@@ -1620,7 +1620,7 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="min-h-screen snap-start flex items-center">
+      <div className="min-h-screen snap-start flex items-center bg-background">
         <div className="w-full">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
