@@ -7,7 +7,7 @@ import { compressImageToBase64 } from "@/lib/compressImage";
 import nooriaLogo from "@/assets/nooria-logo.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
-
+import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
 
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1516,8 +1516,13 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Section 2 — Pourquoi SOLARBOX */}
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center py-24 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-background/70" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
 
           {/* Section title — centered */}
           <motion.div
