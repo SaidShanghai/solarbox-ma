@@ -1634,7 +1634,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="flex items-center justify-center gap-3 mb-16"
+            className="flex flex-col items-center gap-2 mb-16"
           >
             <div className="inline-flex items-center gap-3 rounded-full border border-primary/20 bg-card px-6 py-3 shadow-sm">
               <span className="text-sm text-muted-foreground">Économies sur 25 ans</span>
@@ -1651,6 +1651,9 @@ const Index = () => {
                 </motion.span>
               </AnimatePresence>
             </div>
+            <p className="text-xs text-muted-foreground italic">
+              * Certains composants (batterie / onduleur) peuvent être remplacés sur la durée.
+            </p>
           </motion.div>
 
           {/* Features — horizontal strip */}
