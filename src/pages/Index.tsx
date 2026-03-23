@@ -1647,7 +1647,7 @@ const Index = () => {
                   transition={{ duration: 0.25 }}
                   className="text-xl font-bold text-primary"
                 >
-                  {(monthlySaving * 12 * 25).toLocaleString("fr-FR")} DH
+                  {(monthlySaving * 12 * 25).toLocaleString("fr-FR")} DH*
                 </motion.span>
               </AnimatePresence>
             </div>
