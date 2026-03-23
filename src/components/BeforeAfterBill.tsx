@@ -223,7 +223,7 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
                   transition={{ duration: 0.25 }}
                   className={`text-2xl font-bold ${s.isBefore ? "text-destructive" : "text-primary"}`}
                 >
-                  {fmt(s.totalMad)} MAD
+                  {fmt(s.totalMad)} MAD{!s.isBefore && s.totalMad === 0 && "*"}
                 </motion.span>
               </AnimatePresence>
             </div>
@@ -246,6 +246,11 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
               )}
             </AnimatePresence>
           </div>
+          {!s.isBefore && (
+            <p className="text-[10px] text-muted-foreground mt-1">
+              * Selon profil d'usage et autoconsommation.
+            </p>
+          )}
         </div>
       </div>
     </div>
