@@ -1634,7 +1634,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="flex flex-col items-center gap-2 mb-16"
+            className="flex flex-col items-center gap-2 mb-8"
           >
             <div className="inline-flex items-center gap-3 rounded-full border border-primary/20 bg-card px-6 py-3 shadow-sm">
               <span className="text-sm text-muted-foreground">Économies sur 25 ans</span>
