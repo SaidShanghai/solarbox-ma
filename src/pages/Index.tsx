@@ -1623,12 +1623,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQ Section – top 6 */}
-      <FAQSection items={faqData.slice(0, 6)} />
-      <div className="text-center pb-12">
-        <Button asChild variant="outline" size="lg">
-          <Link to="/faq">Voir toutes les questions →</Link>
-        </Button>
+      <div className="min-h-screen snap-start flex items-center">
+        <div className="w-full">
+          <FAQSection items={faqData.slice(0, 6)} />
+          <div className="text-center pb-12">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/faq">Voir toutes les questions →</Link>
+            </Button>
+          </div>
+        </div>
       </div>
 
       </div>{/* end scroll-over wrapper */}
