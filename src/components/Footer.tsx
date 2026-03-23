@@ -3,7 +3,7 @@ import SolarboxLogo from "@/components/SolarboxLogo";
 
 const Footer = () => {
   return (
-    <footer className="py-12 border-t border-border">
+    <footer className="py-6 border-t border-border">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <SolarboxLogo size="sm" />
