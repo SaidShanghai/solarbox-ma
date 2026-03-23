@@ -1616,7 +1616,7 @@ const Index = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl lg:text-6xl font-bold mb-4">
-              Pourquoi <span className="text-primary">SOLARBOX</span> ?
+              Pourquoi <span className="text-primary">SOLARBOX</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-lg mx-auto">
               Simulez vos économies en un clic.
