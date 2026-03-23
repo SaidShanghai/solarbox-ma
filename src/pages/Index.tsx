@@ -8,7 +8,7 @@ import nooriaLogo from "@/assets/nooria-logo.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Sun,
   PiggyBank,
@@ -227,12 +227,15 @@ const Index = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const { scrollY } = useScroll();
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+
   return (
     <>
       <JsonLd schema={homepageSchema} />
 
       {/* Hero */}
-      <section className="fixed inset-0 z-0 flex items-center overflow-hidden pt-16">
+      <motion.section style={{ opacity: heroOpacity }} className="fixed inset-0 z-0 flex items-center overflow-hidden pt-16">
          <div className="absolute inset-0">
            <img src={heroBg} alt="" className="w-full h-full object-cover" />
            <div className="absolute inset-0 bg-background/40" />
@@ -1508,7 +1511,7 @@ const Index = () => {
             />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Content that scrolls over the hero */}
       <div className="relative z-10" style={{ marginTop: "100vh" }}>
