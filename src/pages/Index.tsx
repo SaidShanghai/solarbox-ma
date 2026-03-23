@@ -1523,7 +1523,7 @@ const Index = () => {
 
 
       {/* Section 2 — Pourquoi SOLARBOX */}
-      <section className="w-screen h-screen flex-shrink-0 flex items-center pt-32 pb-24 relative overflow-hidden">
+      <section className="w-screen h-screen flex-shrink-0 flex items-center pt-24 pb-12 relative overflow-y-auto overflow-x-hidden">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
