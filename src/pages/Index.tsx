@@ -237,6 +237,11 @@ const Index = () => {
     <>
       <JsonLd schema={homepageSchema} />
 
+      {/* Horizontal scroll runway — 200vh tall so vertical scroll drives horizontal movement */}
+      <div ref={horizontalRef} className="relative" style={{ height: "200vh" }}>
+        <div className="sticky top-0 h-screen overflow-hidden">
+          <motion.div className="flex w-[200vw] h-full" style={{ x: heroX }}>
+
       {/* Hero */}
       <section className="w-screen h-screen flex-shrink-0 flex items-center overflow-hidden pt-16 relative">
          <div className="absolute inset-0">
