@@ -1,8 +1,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const ALLOWED_ORIGINS = [
-  "https://sungpt.ma",
-  "https://www.sungpt.ma",
+  "https://solarbox.ma",
+  "https://www.solarbox.ma",
   "https://solarbox.ma",
   "https://www.solarbox.ma",
   "https://sun-match-pro.lovable.app",
