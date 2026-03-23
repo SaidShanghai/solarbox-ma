@@ -111,7 +111,7 @@ const Header = () => {
               <motion.div
                 className="absolute top-1/2 -translate-y-1/2 h-9 rounded-full bg-background/90 shadow-sm"
                 animate={{ left: pillStyle.left, width: pillStyle.width }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                transition={{ type: "spring", stiffness: 150, damping: 22, mass: 1.2 }}
                 style={{ pointerEvents: "none" }}
               />
               {NAV_LINKS.map((link, i) => (
