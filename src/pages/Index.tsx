@@ -261,7 +261,7 @@ const Index = () => {
             >
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary/10 rounded-full">
                 <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
-                <span className="text-xl md:text-2xl font-semibold">Vous payez trop cher votre électricité ONEE ?</span>
+                <span className="text-xl md:text-2xl font-semibold">Facture électrique trop chère ?</span>
               </div>
 
               <HeroRotatingTitle entreprise={selectedType === "Entreprise"} activeIndex={heroStepIndex} />
