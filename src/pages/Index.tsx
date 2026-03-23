@@ -1708,7 +1708,7 @@ const Index = () => {
             {[
               { icon: Leaf, stat: STATS.diagnostics },
               { icon: Sun, stat: STATS.installateurs },
-              { icon: PiggyBank, stat: STATS.savings },
+              { icon: DollarSign, stat: STATS.savings },
               { icon: Star, stat: STATS.rating },
             ].map((item) => (
               <div key={item.stat.label} className="flex items-center gap-3 justify-center">
