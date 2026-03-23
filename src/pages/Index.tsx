@@ -232,7 +232,7 @@ const Index = () => {
       <JsonLd schema={homepageSchema} />
 
       {/* Hero */}
-      <section className="fixed inset-0 z-0 flex items-center overflow-hidden pt-16">
+      <motion.section style={{ opacity: heroOpacity }} className="fixed inset-0 z-0 flex items-center overflow-hidden pt-16">
          <div className="absolute inset-0">
            <img src={heroBg} alt="" className="w-full h-full object-cover" />
            <div className="absolute inset-0 bg-background/40" />
