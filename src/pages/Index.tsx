@@ -1521,7 +1521,7 @@ const Index = () => {
           <div className="absolute inset-0 bg-background/70" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Pourquoi SOLARBOX */}
             <div>
               <motion.div
