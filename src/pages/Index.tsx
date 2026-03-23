@@ -1651,7 +1651,12 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="min-h-screen snap-start scroll-mt-20 flex items-center pt-24 bg-background relative z-10">
+          </motion.div>{/* end horizontal track */}
+        </div>{/* end sticky */}
+      </div>{/* end horizontal scroll runway */}
+
+      {/* FAQ — vertical below */}
+      <div className="min-h-screen flex items-center pt-24 bg-background relative z-10">
         <div className="w-full">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
@@ -1661,8 +1666,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-
-      </div>{/* end scroll-over wrapper */}
 
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
       <QuotePanel open={quoteOpen} onOpenChange={setQuoteOpen} onSuccess={(id, name, email) => { setQuoteRef(id); setContactNom(name); setContactEmail(email); setPhoneScreen("merci"); }} />
