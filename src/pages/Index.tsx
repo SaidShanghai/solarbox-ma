@@ -1514,58 +1514,57 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Features + Before/After combined */}
-      <section className="min-h-[200vh] snap-start relative">
-        {/* Sticky inner so section 2 stays visible while section 3 scrolls over */}
-        <div className="sticky top-0 min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
-          <div className="absolute inset-0">
-            <img src={skyCloudsBg} alt="" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-background/70" />
-          </div>
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
-              {/* Left: Pourquoi SOLARBOX */}
-              <div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="mb-10"
-                >
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pourquoi SOLARBOX ?</h2>
-                  <p className="text-lg text-muted-foreground">
-                    Le comparateur solaire pensé pour simplifier votre transition énergétique.
-                  </p>
-                </motion.div>
+      {/* Section 2 background – fixed like the hero, covered by section 3 */}
+      <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true" id="section2-bg">
+        <img src={skyCloudsBg} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-background/70" />
+      </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  {features.map((feature, index) => (
-                    <motion.div
-                      key={feature.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="ride-card text-center p-4"
-                    >
-                      <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                        <feature.icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <h3 className="text-sm font-semibold mb-1">{feature.title}</h3>
-                      <p className="text-xs text-muted-foreground">{feature.description}</p>
-                    </motion.div>
-                  ))}
-                </div>
+      <section className="min-h-screen snap-start flex items-center pt-24 pb-16 relative">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left: Pourquoi SOLARBOX */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-10"
+              >
+                <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pourquoi SOLARBOX ?</h2>
+                <p className="text-lg text-muted-foreground">
+                  Le comparateur solaire pensé pour simplifier votre transition énergétique.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {features.map((feature, index) => (
+                  <motion.div
+                    key={feature.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="ride-card text-center p-4"
+                  >
+                    <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <feature.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="text-sm font-semibold mb-1">{feature.title}</h3>
+                    <p className="text-xs text-muted-foreground">{feature.description}</p>
+                  </motion.div>
+                ))}
               </div>
-
-              {/* Right: Before/After Bill */}
-              <BeforeAfterBill />
             </div>
+
+            {/* Right: Before/After Bill */}
+            <BeforeAfterBill />
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="min-h-screen snap-start flex items-center py-24 bg-foreground text-background">
+      {/* CTA – covers section 2 */}
+      <section className="min-h-screen snap-start flex items-center py-24 bg-foreground text-background relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
