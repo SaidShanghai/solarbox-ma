@@ -1559,17 +1559,31 @@ const Index = () => {
           <ChevronLeft className="w-6 h-6 text-foreground" />
         </button>
 
-        {/* Forward chevron → FAQ */}
+        {/* Forward chevron → FAQ (half-sun style) */}
         <button
           onClick={() => setHeroSlide(2)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-16 h-16 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-20 h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
           aria-label="Voir la FAQ"
         >
+          <div className="absolute inset-0 rounded-l-full overflow-hidden">
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute right-[38px] top-1/2 h-[2px] bg-primary-foreground/40 origin-right"
+                style={{
+                  width: 28,
+                  rotate: `${-60 + i * 30}deg`,
+                }}
+                animate={{ opacity: [0.2, 0.6, 0.2] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.15 }}
+              />
+            ))}
+          </div>
           <motion.div
             animate={{ x: [0, 5, 0] }}
             transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
           >
-            <ChevronRight className="w-6 h-6 text-primary-foreground" />
+            <ChevronRight className="w-8 h-8 text-primary-foreground drop-shadow-sm" />
           </motion.div>
         </button>
 
