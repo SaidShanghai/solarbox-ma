@@ -134,7 +134,7 @@ const Index = () => {
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
-  const [heroSlide, setHeroSlide] = useState(0); // 0 = hero, 1 = page 2
+  const [heroSlide, setHeroSlide] = useState(0); // 0 = hero, 1 = page 2, 2 = FAQ
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
@@ -239,8 +239,8 @@ const Index = () => {
       {/* Horizontal slider — Hero ↔ Page 2 */}
       <div className="relative h-screen overflow-hidden">
         <motion.div
-          className="flex w-[200vw] h-full"
-          animate={{ x: heroSlide === 0 ? "0%" : "-50%" }}
+          className="flex w-[300vw] h-full"
+          animate={{ x: heroSlide === 0 ? "0%" : heroSlide === 1 ? "-33.333%" : "-66.666%" }}
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
 
@@ -1559,6 +1559,20 @@ const Index = () => {
           <ChevronLeft className="w-6 h-6 text-foreground" />
         </button>
 
+        {/* Forward chevron → FAQ */}
+        <button
+          onClick={() => setHeroSlide(2)}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-16 h-16 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors"
+          aria-label="Voir la FAQ"
+        >
+          <motion.div
+            animate={{ x: [0, 5, 0] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronRight className="w-6 h-6 text-primary-foreground" />
+          </motion.div>
+        </button>
+
         <div className="container mx-auto px-4 relative z-10">
 
           {/* Section title — centered */}
@@ -1681,12 +1695,18 @@ const Index = () => {
         </div>
       </section>
 
-        </motion.div>{/* end horizontal track */}
-      </div>{/* end horizontal slider */}
+      {/* Section 3 — FAQ */}
+      <section className="w-screen h-screen flex-shrink-0 flex items-center relative overflow-y-auto overflow-x-hidden bg-background">
+        {/* Back chevron */}
+        <button
+          onClick={() => setHeroSlide(1)}
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-card/60 backdrop-blur border border-border hover:bg-card/80 transition-colors"
+          aria-label="Retour"
+        >
+          <ChevronLeft className="w-6 h-6 text-foreground" />
+        </button>
 
-      {/* FAQ — vertical below */}
-      <div className="min-h-screen flex items-center pt-24 bg-background relative z-10">
-        <div className="w-full">
+        <div className="w-full py-16">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
             <Button asChild variant="outline" size="lg">
@@ -1694,7 +1714,10 @@ const Index = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </section>
+
+        </motion.div>{/* end horizontal track */}
+      </div>{/* end horizontal slider */}
 
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
       <QuotePanel open={quoteOpen} onOpenChange={setQuoteOpen} onSuccess={(id, name, email) => { setQuoteRef(id); setContactNom(name); setContactEmail(email); setPhoneScreen("merci"); }} />
