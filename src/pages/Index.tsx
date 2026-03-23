@@ -1513,7 +1513,7 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Features + Before/After combined */}
-      <section className="min-h-screen snap-start flex items-center py-16 bg-muted">
+      <section className="min-h-screen snap-start flex items-center pt-24 pb-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Pourquoi SOLARBOX */}
