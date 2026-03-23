@@ -1624,7 +1624,7 @@ const Index = () => {
           </motion.div>
 
           {/* Bill — centered, max-width for focus */}
-          <div className="max-w-md mx-auto mb-8">
+          <div className="max-w-md mx-auto mb-4">
             <BeforeAfterBill onScenarioChange={(saving) => setMonthlySaving(saving)} />
           </div>
 
