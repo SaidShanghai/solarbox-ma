@@ -66,9 +66,19 @@ const scenarios: Record<TabKey, Scenario> = {
 
 const fmt = (n: number) => n.toLocaleString("fr-FR");
 
-export default function BeforeAfterBill() {
+interface BeforeAfterBillProps {
+  onScenarioChange?: (monthlySaving: number) => void;
+}
+
+export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillProps) {
   const [tab, setTab] = useState<TabKey>("before");
   const s = scenarios[tab];
+
+  const handleTab = (key: TabKey) => {
+    setTab(key);
+    const saving = scenarios.before.totalMad - scenarios[key].totalMad;
+    onScenarioChange?.(saving);
+  };
 
   return (
     <div className="space-y-4">
