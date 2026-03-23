@@ -1466,7 +1466,6 @@ const Index = () => {
                 </motion.div>
                 );
               })}
-            </motion.div>
 
               {/* CTAs in right column */}
               <div className="flex flex-col gap-3 mt-4">
