@@ -1559,6 +1559,20 @@ const Index = () => {
           <ChevronLeft className="w-6 h-6 text-foreground" />
         </button>
 
+        {/* Forward chevron → FAQ */}
+        <button
+          onClick={() => setHeroSlide(2)}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-16 h-16 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors"
+          aria-label="Voir la FAQ"
+        >
+          <motion.div
+            animate={{ x: [0, 5, 0] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronRight className="w-6 h-6 text-primary-foreground" />
+          </motion.div>
+        </button>
+
         <div className="container mx-auto px-4 relative z-10">
 
           {/* Section title — centered */}
