@@ -8,7 +8,7 @@ import nooriaLogo from "@/assets/nooria-logo.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun,
   PiggyBank,
