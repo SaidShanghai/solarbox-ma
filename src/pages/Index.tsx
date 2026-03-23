@@ -1681,12 +1681,18 @@ const Index = () => {
         </div>
       </section>
 
-        </motion.div>{/* end horizontal track */}
-      </div>{/* end horizontal slider */}
+      {/* Section 3 — FAQ */}
+      <section className="w-screen h-screen flex-shrink-0 flex items-center relative overflow-y-auto overflow-x-hidden bg-background">
+        {/* Back chevron */}
+        <button
+          onClick={() => setHeroSlide(1)}
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-card/60 backdrop-blur border border-border hover:bg-card/80 transition-colors"
+          aria-label="Retour"
+        >
+          <ChevronLeft className="w-6 h-6 text-foreground" />
+        </button>
 
-      {/* FAQ — vertical below */}
-      <div className="min-h-screen flex items-center pt-24 bg-background relative z-10">
-        <div className="w-full">
+        <div className="w-full py-16">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
             <Button asChild variant="outline" size="lg">
@@ -1694,7 +1700,10 @@ const Index = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </section>
+
+        </motion.div>{/* end horizontal track */}
+      </div>{/* end horizontal slider */}
 
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
       <QuotePanel open={quoteOpen} onOpenChange={setQuoteOpen} onSuccess={(id, name, email) => { setQuoteRef(id); setContactNom(name); setContactEmail(email); setPhoneScreen("merci"); }} />
