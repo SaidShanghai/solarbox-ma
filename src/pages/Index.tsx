@@ -227,6 +227,9 @@ const Index = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const { scrollY } = useScroll();
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+
   return (
     <>
       <JsonLd schema={homepageSchema} />
