@@ -1662,7 +1662,7 @@ const Index = () => {
             className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
           >
             {features.map((feature, index) => (
-              <div key={feature.title} className="text-center">
+              <div key={feature.title} className="text-center bg-background/70 backdrop-blur-sm rounded-2xl p-4 border border-border/50">
                 <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
                   <feature.icon className="w-5 h-5 text-primary" />
                 </div>
