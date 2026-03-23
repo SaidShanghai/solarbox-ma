@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, Sun, BatteryCharging } from "lucide-react";
 
-type TabKey = "before" | "after75" | "after100" | "after120";
+type TabKey = "before" | "after75" | "after100";
 
 interface Scenario {
   label: string;
@@ -51,17 +51,6 @@ const scenarios: Record<TabKey, Scenario> = {
     icon: Sun,
     note: "Facture réseau → 0 MAD",
   },
-  after120: {
-    label: "120 %",
-    shortLabel: "120 %",
-    gridKwh: 0,
-    solarKwh: Math.round(CONSO * 1.2),
-    totalMad: 0,
-    coverage: 120,
-    isBefore: false,
-    icon: BatteryCharging,
-    note: "Installation compatible injection réseau (évolution en cours au Maroc)",
-  },
 };
 
 const fmt = (n: number) => n.toLocaleString("fr-FR");
@@ -97,7 +86,7 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
         </button>
 
         {/* After tabs */}
-        {(["after75", "after100", "after120"] as const).map((key) => (
+        {(["after75", "after100"] as const).map((key) => (
           <button
             key={key}
             onClick={() => handleTab(key)}
