@@ -1613,7 +1613,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8"
           >
             <h2 className="text-4xl lg:text-6xl font-bold mb-4">
               Avec <span className="text-primary">SOLARBOX</span>
