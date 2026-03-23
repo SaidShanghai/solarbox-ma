@@ -1690,7 +1690,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="flex justify-center gap-3 mb-16"
+            className="flex justify-center gap-3 mb-8"
           >
             <Button asChild size="lg" className="h-12 px-7 text-sm bg-primary text-foreground hover:bg-primary/90">
               <Link to="/diagnostic">
