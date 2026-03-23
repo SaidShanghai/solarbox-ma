@@ -239,8 +239,8 @@ const Index = () => {
       {/* Horizontal slider — Hero ↔ Page 2 */}
       <div className="relative h-screen overflow-hidden">
         <motion.div
-          className="flex w-[200vw] h-full"
-          animate={{ x: heroSlide === 0 ? "0%" : "-50%" }}
+          className="flex w-[300vw] h-full"
+          animate={{ x: heroSlide === 0 ? "0%" : heroSlide === 1 ? "-33.333%" : "-66.666%" }}
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
 
