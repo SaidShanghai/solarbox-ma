@@ -133,6 +133,8 @@ const Index = () => {
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
+  const sectionTwoRef = useRef<HTMLElement>(null);
+  const sectionSnapLockRef = useRef(false);
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
