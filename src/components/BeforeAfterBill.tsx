@@ -213,6 +213,6 @@ export default function BeforeAfterBill() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
