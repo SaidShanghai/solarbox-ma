@@ -1630,7 +1630,7 @@ const Index = () => {
                   <AnimatedCounter
                     end={item.stat.value}
                     suffix={item.stat.suffix}
-                    decimals={item.stat.decimals ?? 0}
+                    decimals={'decimals' in item.stat ? item.stat.decimals : 0}
                     className="text-xl font-bold block"
                   />
                   <span className="text-xs text-muted-foreground">{item.stat.label}</span>
