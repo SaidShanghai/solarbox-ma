@@ -134,7 +134,7 @@ const Index = () => {
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
-  const [heroSlide, setHeroSlide] = useState(0); // 0 = hero, 1 = page 2
+  const [heroSlide, setHeroSlide] = useState(0); // 0 = hero, 1 = page 2, 2 = FAQ
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
