@@ -123,9 +123,7 @@ const Header = () => {
                   className={`relative z-10 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
                     pillIndex === i
                       ? "text-foreground"
-                      : headerTransparent
-                        ? "text-white/80 hover:text-white"
-                        : "text-muted-foreground"
+                      : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
                   {link.label}
