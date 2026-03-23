@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun,
-  PiggyBank,
+  DollarSign,
   Leaf,
   Zap,
   Shield,
