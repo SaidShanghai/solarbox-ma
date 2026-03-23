@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, Sun, BatteryCharging } from "lucide-react";
 
-type TabKey = "before" | "after75" | "after100" | "after120";
+type TabKey = "before" | "after75" | "after100";
 
 interface Scenario {
   label: string;
