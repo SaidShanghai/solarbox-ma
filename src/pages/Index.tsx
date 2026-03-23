@@ -1527,7 +1527,23 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Section 2 — Pourquoi SOLARBOX */}
+      <section className="w-screen h-screen flex-shrink-0 flex items-center pt-24 pb-12 relative overflow-y-auto overflow-x-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-background/70" />
         </div>
+
+        {/* Back chevron */}
+        <button
+          onClick={() => setHeroSlide(0)}
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-card/60 backdrop-blur border border-border hover:bg-card/80 transition-colors"
+          aria-label="Retour"
+        >
+          <ChevronLeft className="w-6 h-6 text-foreground" />
+        </button>
+
         <div className="container mx-auto px-4 relative z-10">
 
           {/* Section title — centered */}
