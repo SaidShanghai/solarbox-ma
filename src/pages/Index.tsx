@@ -1730,13 +1730,32 @@ const Index = () => {
 
       {/* Section 3 — FAQ */}
       <section className="w-screen h-screen flex-shrink-0 flex items-center relative overflow-y-auto overflow-x-hidden bg-background">
-        {/* Back chevron */}
+        {/* Back chevron — sunset half-sun */}
         <button
           onClick={() => setHeroSlide(1)}
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-card/60 backdrop-blur border border-border hover:bg-card/80 transition-colors"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-r-full bg-foreground/70 shadow-md hover:bg-foreground/80 transition-colors"
           aria-label="Retour"
         >
-          <ChevronLeft className="w-6 h-6 text-foreground" />
+          <div className="absolute inset-0 rounded-r-full overflow-hidden">
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute left-[18px] top-1/2 h-[1.5px] bg-background/30 origin-left"
+                style={{
+                  width: 14,
+                  rotate: `${-60 + i * 30}deg`,
+                }}
+                animate={{ opacity: [0.15, 0.4, 0.15] }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.15 }}
+              />
+            ))}
+          </div>
+          <motion.div
+            animate={{ x: [0, -3, 0] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronLeft className="w-5 h-5 text-background drop-shadow-sm" />
+          </motion.div>
         </button>
 
         <div className="w-full py-16">
