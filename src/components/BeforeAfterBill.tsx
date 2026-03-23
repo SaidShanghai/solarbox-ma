@@ -60,7 +60,7 @@ const scenarios: Record<TabKey, Scenario> = {
     coverage: 120,
     isBefore: false,
     icon: BatteryCharging,
-    note: "Équipé pour future injection réseau",
+    note: "Installation compatible injection réseau (évolution en cours au Maroc)",
   },
 };
 
