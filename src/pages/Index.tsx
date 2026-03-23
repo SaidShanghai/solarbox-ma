@@ -1680,7 +1680,7 @@ const Index = () => {
             transition={{ delay: 0.3 }}
             className="flex justify-center gap-3 mb-16"
           >
-            <Button asChild size="lg" className="h-12 px-7 text-sm">
+            <Button asChild size="lg" className="h-12 px-7 text-sm bg-primary text-foreground hover:bg-primary/90">
               <Link to="/diagnostic">
                 <Sun className="w-4 h-4 mr-2" />
                 Diagnostic gratuit
