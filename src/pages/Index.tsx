@@ -64,7 +64,7 @@ const features = [
     description: "Installateurs certifiés, garanties décennales et suivi post-installation.",
   },
   {
-    icon: PiggyBank,
+    icon: DollarSign,
     title: "Économies Réelles",
     description: "Jusqu'à 70% de réduction sur votre facture d'électricité.",
   },
