@@ -60,7 +60,7 @@ const scenarios: Record<TabKey, Scenario> = {
     coverage: 120,
     isBefore: false,
     icon: BatteryCharging,
-    note: "Surplus injectable dans le réseau",
+    note: "Équipé pour future injection réseau",
   },
 };
 
