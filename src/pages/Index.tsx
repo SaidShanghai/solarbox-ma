@@ -1509,26 +1509,24 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-[0.25em] text-background/50 font-medium">Scroll</span>
-          <div className="w-px h-10 bg-background/30 overflow-hidden relative">
-            <motion.div
-              className="absolute inset-x-0 top-0 h-full bg-background/80"
-              animate={{ y: ["0%", "100%"] }}
-              transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
-            />
-          </div>
+          {/* Chevron → slide to page 2 */}
+          {heroSlide === 0 && (
+            <button
+              onClick={() => setHeroSlide(1)}
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-14 h-14 rounded-full bg-primary/20 backdrop-blur border border-primary/30 hover:bg-primary/30 transition-colors"
+              aria-label="Voir la suite"
+            >
+              <motion.div
+                animate={{ x: [0, 6, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ChevronRight className="w-7 h-7 text-primary" />
+              </motion.div>
+            </button>
+          )}
         </div>
       </section>
 
-
-      {/* Section 2 — Pourquoi SOLARBOX */}
-      <section className="w-screen h-screen flex-shrink-0 flex items-center pt-24 pb-12 relative overflow-y-auto overflow-x-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-background/70" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
 
