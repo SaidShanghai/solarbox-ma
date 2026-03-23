@@ -39,8 +39,7 @@ export default function BeforeAfterBill() {
   const current = tab === "before" ? beforeData : afterData;
 
   return (
-    <section className="py-24 bg-muted/20">
-      <div className="container mx-auto px-4">
+    <div className="space-y-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +47,7 @@ export default function BeforeAfterBill() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-3">
             Votre facture <span className="text-primary">ONEE</span>, avant et après
           </h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
@@ -83,7 +82,7 @@ export default function BeforeAfterBill() {
         </div>
 
         {/* Content */}
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
+        <div className="grid gap-6 items-start">
           {/* Left: Bill card */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -214,6 +213,6 @@ export default function BeforeAfterBill() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

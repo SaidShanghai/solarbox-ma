@@ -1512,48 +1512,49 @@ const Index = () => {
 
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
-      {/* Features */}
-      <section className="min-h-screen snap-start flex items-center py-24 bg-muted">
+      {/* Features + Before/After combined */}
+      <section className="min-h-screen snap-start flex items-center py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold mb-4">Pourquoi SOLARBOX ?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Le comparateur solaire pensé pour simplifier votre transition énergétique.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left: Pourquoi SOLARBOX */}
+            <div>
               <motion.div
-                key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="ride-card text-center"
+                className="mb-10"
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <feature.icon className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pourquoi SOLARBOX ?</h2>
+                <p className="text-lg text-muted-foreground">
+                  Le comparateur solaire pensé pour simplifier votre transition énergétique.
+                </p>
               </motion.div>
-            ))}
+
+              <div className="grid grid-cols-2 gap-4">
+                {features.map((feature, index) => (
+                  <motion.div
+                    key={feature.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="ride-card text-center p-4"
+                  >
+                    <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <feature.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="text-sm font-semibold mb-1">{feature.title}</h3>
+                    <p className="text-xs text-muted-foreground">{feature.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Before/After Bill */}
+            <BeforeAfterBill />
           </div>
         </div>
       </section>
-
-
-      <div className="min-h-screen snap-start flex items-center bg-background">
-        <div className="w-full">
-          <BeforeAfterBill />
-        </div>
-      </div>
 
       {/* CTA */}
       <section className="min-h-screen snap-start flex items-center py-24 bg-foreground text-background">
