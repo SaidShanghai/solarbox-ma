@@ -1508,7 +1508,7 @@ const Index = () => {
             />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Content that scrolls over the hero */}
       <div className="relative z-10" style={{ marginTop: "100vh" }}>
