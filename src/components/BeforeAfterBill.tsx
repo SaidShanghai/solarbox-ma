@@ -86,7 +86,7 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
       <div className="flex gap-1 bg-muted/80 backdrop-blur rounded-full p-1 w-fit flex-wrap">
         {/* Before tab */}
         <button
-          onClick={() => setTab("before")}
+          onClick={() => handleTab("before")}
           className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
             tab === "before"
               ? "bg-destructive text-destructive-foreground shadow-md"
