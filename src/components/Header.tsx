@@ -116,8 +116,8 @@ const Header = () => {
                   "0 0 8px 2px hsl(var(--primary) / 0.2), 0 0 20px 4px hsl(var(--primary) / 0.08)",
                 ] }}
                 transition={{
-                  left: { type: "spring", stiffness: 150, damping: 22, mass: 1.2 },
-                  width: { type: "spring", stiffness: 150, damping: 22, mass: 1.2 },
+                  left: { type: "spring", stiffness: 120, damping: 28, mass: 1.5 },
+                  width: { type: "spring", stiffness: 120, damping: 28, mass: 1.5 },
                   boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" },
                 }}
                 style={{ pointerEvents: "none" }}
