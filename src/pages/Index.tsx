@@ -1514,13 +1514,12 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Features + Before/After combined */}
-      {/* Section 2 background – fixed like the hero, covered by section 3 */}
-      <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true" id="section2-bg">
-        <img src={skyCloudsBg} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-background/70" />
-      </div>
-
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative overflow-hidden">
+        {/* Section 2 background */}
+        <div className="absolute inset-0 z-0">
+          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-background/70" />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Pourquoi SOLARBOX */}
