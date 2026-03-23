@@ -10,7 +10,7 @@ import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
 import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
 
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun,
   PiggyBank,
