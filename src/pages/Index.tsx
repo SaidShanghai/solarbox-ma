@@ -133,6 +133,8 @@ const Index = () => {
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
+  const sectionTwoRef = useRef<HTMLElement>(null);
+  const sectionSnapLockRef = useRef(false);
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
@@ -192,6 +194,39 @@ const Index = () => {
       setHeroStepIndex((prev) => prev + 1);
     }, 3000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    let releaseTimeout: number | undefined;
+
+    const handleScroll = () => {
+      const section = sectionTwoRef.current;
+      if (!section || sectionSnapLockRef.current) return;
+
+      const headerOffset = 80;
+      const snapThreshold = 120;
+      const rect = section.getBoundingClientRect();
+      const shouldSnap = rect.top > headerOffset && rect.top <= headerOffset + snapThreshold;
+
+      if (!shouldSnap) return;
+
+      sectionSnapLockRef.current = true;
+      window.scrollTo({
+        top: window.scrollY + rect.top - headerOffset,
+        behavior: "smooth",
+      });
+
+      releaseTimeout = window.setTimeout(() => {
+        sectionSnapLockRef.current = false;
+      }, 700);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (releaseTimeout) window.clearTimeout(releaseTimeout);
+    };
   }, []);
 
   const handleAideCTA = () => {
@@ -1513,10 +1548,10 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
+      <div className="relative z-10" style={{ marginTop: "100vh" }}>
 
       {/* Section 2 — Pourquoi SOLARBOX */}
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-32 pb-24 relative overflow-hidden">
+      <section ref={sectionTwoRef} className="min-h-screen scroll-mt-20 flex items-center pt-32 pb-24 relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
