@@ -56,7 +56,7 @@ export default function BeforeAfterBill() {
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-6">
           <div className="inline-flex bg-muted rounded-full p-1 gap-1">
             <button
               onClick={() => setTab("before")}

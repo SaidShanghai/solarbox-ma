@@ -1528,7 +1528,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-10"
+                className="mb-8"
               >
                 <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pourquoi SOLARBOX ?</h2>
                 <p className="text-lg text-muted-foreground">
