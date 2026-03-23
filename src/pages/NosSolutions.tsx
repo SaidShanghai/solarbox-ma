@@ -45,7 +45,7 @@ const specs = [
 
 const NosSolutions = () => {
   usePageMeta({
-    title: "Nos Solutions – Installation Solaire Clé en Main au Maroc | SUNGPT",
+    title: "Nos Solutions – Installation Solaire Clé en Main au Maroc | SOLARBOX",
     description: "Système solaire complet avec batterie LFP, onduleur hybride et garantie 10 ans. Installation par des techniciens certifiés au Maroc.",
   });
 

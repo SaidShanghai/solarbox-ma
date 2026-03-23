@@ -87,8 +87,8 @@ const surfaces = [
 
 const Diagnostic = () => {
   usePageMeta({
-    title: "Diagnostic Solaire Gratuit – Résultat en 2 min | SUNGPT",
-    description: "Analysez votre facture ONEE et obtenez un diagnostic solaire personnalisé gratuit en 2 minutes grâce à SUNGPT.",
+    title: "Diagnostic Solaire Gratuit – Résultat en 2 min | SOLARBOX",
+    description: "Analysez votre facture ONEE et obtenez un diagnostic solaire personnalisé gratuit en 2 minutes grâce à SOLARBOX.",
   });
   const { save, load, clear } = useDiagnosticPersistence();
   const [screen, setScreen] = useState<Screen>("landing");

@@ -31,8 +31,8 @@ const schema = {
 
 const Privacy = () => {
   usePageMeta({
-    title: "Politique de Confidentialité – SUNGPT",
-    description: "Politique de confidentialité de SUNGPT (AFRICACOM SARL). Traitement des données personnelles conformément à la loi marocaine n°09-08.",
+    title: "Politique de Confidentialité – SOLARBOX",
+    description: "Politique de confidentialité de SOLARBOX (AFRICACOM SARL). Traitement des données personnelles conformément à la loi marocaine n°09-08.",
   });
 
   return (

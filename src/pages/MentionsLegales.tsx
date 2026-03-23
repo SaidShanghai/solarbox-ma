@@ -26,8 +26,8 @@ const schema = {
 
 const MentionsLegales = () => {
   usePageMeta({
-    title: "Mentions Légales – SUNGPT",
-    description: "Mentions légales du site sungpt.ma édité par AFRICACOM SARL, exploitant la marque SUNGPT.",
+    title: "Mentions Légales – SOLARBOX",
+    description: "Mentions légales du site solarbox.ma édité par AFRICACOM SARL, exploitant la marque SOLARBOX.",
   });
 
   return (
