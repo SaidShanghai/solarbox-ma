@@ -1555,7 +1555,7 @@ const Index = () => {
                   📊 Économies sur 25 ans
                 </p>
                 <p className="text-2xl font-bold text-primary">
-                  <AnimatedCounter end={390000} suffix=" DH" />
+                  <AnimatedCounter end={254400} suffix=" DH" />
                 </p>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   d'économies cumulées estimées
