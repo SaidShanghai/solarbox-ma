@@ -1467,46 +1467,45 @@ const Index = () => {
                 );
               })}
             </motion.div>
-          </div>
 
-          {/* Full-width CTA row — all 4 buttons on same horizontal axis */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mt-8">
-            <div className="flex items-center gap-4">
-              <Button
-                asChild
-                size="lg"
-                className="group h-14 px-8 text-base text-black animate-[pulse_1.5s_ease-in-out_infinite] hover:animate-none"
-              >
-                <Link to="/diagnostic">
-                  VOIR MES ÉCONOMIES
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="h-14 px-8 text-base">
-                <Link to="/diagnostic">
-                  Comment ça marche ?
-                </Link>
-              </Button>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => {
-                  const el = document.getElementById("diagnostic");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform"
-              >
-                <span className="w-2 h-2 bg-background rounded-full shrink-0" />
-                PARTICULIERS
-              </button>
-              <button
-                onClick={handleAideCTA}
-                className="flex items-center gap-2 h-12 px-6 text-sm font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform"
-              >
-                <span className="w-2 h-2 bg-background rounded-full shrink-0" />
-                ENTREPRISES
-              </button>
-            </div>
+              {/* CTAs in right column */}
+              <div className="flex flex-col gap-3 mt-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="group h-12 px-6 text-sm text-black animate-[pulse_1.5s_ease-in-out_infinite] hover:animate-none w-full"
+                >
+                  <Link to="/diagnostic">
+                    VOIR MES ÉCONOMIES
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="h-12 px-6 text-sm w-full">
+                  <Link to="/diagnostic">
+                    Comment ça marche ?
+                  </Link>
+                </Button>
+                <div className="flex gap-2 mt-1">
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById("diagnostic");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="flex items-center gap-1.5 h-10 px-4 text-xs font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform flex-1 justify-center"
+                  >
+                    <span className="w-1.5 h-1.5 bg-background rounded-full shrink-0" />
+                    PARTICULIERS
+                  </button>
+                  <button
+                    onClick={handleAideCTA}
+                    className="flex items-center gap-1.5 h-10 px-4 text-xs font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform flex-1 justify-center"
+                  >
+                    <span className="w-1.5 h-1.5 bg-background rounded-full shrink-0" />
+                    ENTREPRISES
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
