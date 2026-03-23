@@ -82,7 +82,7 @@ export default function BeforeAfterBill() {
         </div>
 
         {/* Content */}
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
+        <div className="grid gap-6 items-start">
           {/* Left: Bill card */}
           <AnimatePresence mode="wait">
             <motion.div
