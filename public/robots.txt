@@ -43,11 +43,11 @@ Allow: /
 Sitemap: https://solarbox.ma/sitemap.xml
 
 # Domaines satellites (tous redirigent vers solarbox.ma)
-# sungpt.ma → solarbox.ma
-# nooria.ma → solarbox.ma
-# solarcompare.ma → solarbox.ma
-# powerbox.ma → solarbox.ma
-# sunwall.ma → solarbox.ma
-# bluecarbon.ma → solarbox.ma
-# iashems.com → solarbox.ma
-# iasolaire.com → solarbox.ma
+# sungpt.ma -> solarbox.ma
+# nooria.ma -> solarbox.ma
+# solarcompare.ma -> solarbox.ma
+# powerbox.ma -> solarbox.ma
+# sunwall.ma -> solarbox.ma
+# bluecarbon.ma -> solarbox.ma
+# iashems.com -> solarbox.ma
+# iasolaire.com -> solarbox.ma
