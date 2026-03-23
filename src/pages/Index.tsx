@@ -1564,7 +1564,7 @@ const Index = () => {
       </section>
 
       {/* CTA – covers section 2 */}
-      <section className="min-h-screen snap-start flex items-center py-24 bg-foreground text-background relative z-10">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-24 bg-foreground text-background relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
