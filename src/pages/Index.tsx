@@ -1552,7 +1552,11 @@ const Index = () => {
       </section>
 
 
-      <BeforeAfterBill />
+      <div className="min-h-screen snap-start flex items-center">
+        <div className="w-full">
+          <BeforeAfterBill />
+        </div>
+      </div>
 
       {/* CTA */}
       <section className="min-h-screen snap-start flex items-center py-24 bg-foreground text-background">
