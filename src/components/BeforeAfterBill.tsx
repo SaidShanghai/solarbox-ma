@@ -45,7 +45,7 @@ export default function BeforeAfterBill() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mb-4"
         >
           <h2 className="text-2xl lg:text-3xl font-bold mb-3">
             Votre facture <span className="text-primary">ONEE</span>, avant et après
