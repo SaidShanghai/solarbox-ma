@@ -83,7 +83,7 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
   return (
     <div className="space-y-4">
       {/* Tabs */}
-      <div className="flex gap-1 bg-muted/80 backdrop-blur rounded-full p-1 w-fit flex-wrap">
+      <div className="flex gap-1 bg-muted/80 backdrop-blur rounded-full p-1 w-fit mx-auto flex-wrap">
         {/* Before tab */}
         <button
           onClick={() => handleTab("before")}
