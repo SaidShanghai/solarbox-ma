@@ -1513,19 +1513,19 @@ const Index = () => {
 
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
-      {/* Section 2 — Split inversé : facture à gauche, récit à droite */}
+      {/* Section 2 — Split 3 zones : facture | features+CTA | stats */}
       <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-background/60" />
+          <div className="absolute inset-0 bg-background/55" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[1fr_1.2fr_0.8fr] gap-6 lg:gap-8 items-center">
 
-            {/* LEFT — Facture sticky */}
-            <div className="lg:sticky lg:top-32">
+            {/* LEFT — Facture Avant/Après */}
+            <div className="lg:sticky lg:top-32 space-y-4">
               <BeforeAfterBill />
 
               {/* 25yr savings */}
@@ -1534,22 +1534,22 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="mt-4 rounded-2xl bg-card/80 backdrop-blur border border-border p-5"
+                className="rounded-2xl bg-card/80 backdrop-blur border border-border p-4"
               >
                 <p className="text-xs font-medium text-muted-foreground mb-1">
                   📊 Économies sur 25 ans
                 </p>
-                <p className="text-3xl font-bold text-primary">
+                <p className="text-2xl font-bold text-primary">
                   <AnimatedCounter end={390000} suffix=" DH" />
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   d'économies cumulées estimées
                 </p>
               </motion.div>
             </div>
 
-            {/* RIGHT — Récit + features + CTA */}
-            <div className="space-y-8">
+            {/* CENTER — Features + CTA */}
+            <div className="space-y-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1558,12 +1558,11 @@ const Index = () => {
                 <h2 className="text-3xl lg:text-4xl font-bold mb-2">
                   Pourquoi <span className="text-primary">SOLARBOX</span> ?
                 </h2>
-                <p className="text-muted-foreground max-w-md">
+                <p className="text-muted-foreground text-sm max-w-md">
                   Le comparateur solaire pensé pour simplifier votre transition énergétique.
                 </p>
               </motion.div>
 
-              {/* Features — liste verticale compacte */}
               <div className="space-y-3">
                 {features.map((feature, index) => (
                   <motion.div
@@ -1572,10 +1571,10 @@ const Index = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.08 }}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-card/70 backdrop-blur border border-border hover:border-primary/30 transition-colors"
+                    className="flex items-start gap-3 p-3 rounded-xl bg-card/70 backdrop-blur border border-border hover:border-primary/30 transition-colors"
                   >
-                    <div className="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <feature.icon className="w-5 h-5 text-primary" />
+                    <div className="w-9 h-9 shrink-0 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <feature.icon className="w-4 h-4 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold">{feature.title}</h3>
@@ -1585,88 +1584,60 @@ const Index = () => {
                 ))}
               </div>
 
-              {/* CTA */}
+              {/* CTA double */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
+                className="flex flex-col sm:flex-row gap-3 pt-2"
               >
-                <Button asChild size="lg" className="h-13 px-8 text-base">
+                <Button asChild size="lg" className="h-12 px-7 text-sm">
                   <Link to="/diagnostic">
-                    <Sun className="w-5 h-5 mr-2" />
-                    Lancer mon diagnostic
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </motion.div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* CTA – covers section 2 */}
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-24 bg-foreground text-background relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <h2 className="text-4xl lg:text-5xl font-bold">
-                Prêt à passer au solaire ?
-              </h2>
-              <p className="text-xl text-background/70 max-w-lg">
-                Rejoignez des milliers de Marocains qui ont réduit leur facture
-                d'énergie grâce à SOLARBOX.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 h-14 px-8 text-base">
-                  <Link to="/diagnostic">
-                    <Sun className="w-5 h-5 mr-2" />
+                    <Sun className="w-4 h-4 mr-2" />
                     Diagnostic gratuit
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
                 <Button
                   size="lg"
+                  variant="outline"
                   onClick={() => setCallbackOpen(true)}
-                  className="bg-transparent border border-background/60 text-background hover:bg-background/15 hover:text-background h-14 px-8 text-base"
+                  className="h-12 px-7 text-sm bg-card/50 backdrop-blur border-border hover:border-primary/40"
                 >
                   En savoir plus
                 </Button>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-2 gap-6"
-            >
-              <div className="p-6 bg-background/5 rounded-2xl">
-                <Leaf className="w-10 h-10 mb-4" />
-                <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold" />
-                <div className="text-background/70">{STATS.diagnostics.label}</div>
-              </div>
-              <div className="p-6 bg-background/5 rounded-2xl">
-                <Sun className="w-10 h-10 mb-4" />
-                <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold" />
-                <div className="text-background/70">{STATS.installateurs.label}</div>
-              </div>
-              <div className="p-6 bg-background/5 rounded-2xl">
-                <PiggyBank className="w-10 h-10 mb-4" />
-                <AnimatedCounter end={STATS.savings.value} suffix={STATS.savings.suffix} className="text-3xl font-bold" />
-                <div className="text-background/70">{STATS.savings.label}</div>
-              </div>
-              <div className="p-6 bg-background/5 rounded-2xl">
-                <Star className="w-10 h-10 mb-4" />
-                <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold" />
-                <div className="text-background/70">{STATS.rating.label}</div>
-              </div>
-            </motion.div>
+            {/* RIGHT — Stats */}
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
+              {[
+                { icon: Leaf, stat: STATS.diagnostics },
+                { icon: Sun, stat: STATS.installateurs },
+                { icon: PiggyBank, stat: STATS.savings },
+                { icon: Star, stat: STATS.rating },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.stat.label}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="p-4 bg-card/70 backdrop-blur border border-border rounded-xl hover:border-primary/30 transition-colors"
+                >
+                  <item.icon className="w-6 h-6 text-primary mb-2" />
+                  <AnimatedCounter
+                    end={item.stat.value}
+                    suffix={item.stat.suffix}
+                    decimals={item.stat.decimals ?? 0}
+                    className="text-xl font-bold block"
+                  />
+                  <span className="text-xs text-muted-foreground">{item.stat.label}</span>
+                </motion.div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
