@@ -1515,8 +1515,14 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Section 2 — Split 3 zones : facture | features+CTA | stats */}
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-top" />
+          <div className="absolute inset-0 bg-background/65" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           {/* Section title — full width */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
