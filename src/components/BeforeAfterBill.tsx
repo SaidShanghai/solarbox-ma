@@ -85,18 +85,7 @@ export default function BeforeAfterBill() {
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Tarif moyen/kWh</span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={tab === "before" ? "1.60" : "1.10"}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="font-semibold"
-                >
-                  {tab === "before" ? "1.60 MAD" : "1.10 MAD"}
-                </motion.span>
-              </AnimatePresence>
+              <span className="font-semibold">1.60 MAD</span>
             </div>
             {/* Always rendered to prevent height jump */}
             <div className={`flex justify-between text-sm text-primary transition-opacity duration-300 ${
