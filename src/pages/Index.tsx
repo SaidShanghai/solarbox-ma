@@ -1551,7 +1551,7 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="rounded-2xl bg-card border border-border p-5"
+                className="rounded-2xl bg-card/80 backdrop-blur border border-border p-5"
               >
                 <p className="text-xs font-medium text-muted-foreground mb-1">
                   📊 Économies sur 25 ans
