@@ -232,7 +232,7 @@ const Index = () => {
       <JsonLd schema={homepageSchema} />
 
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-16">
+      <section className="fixed inset-0 z-0 flex items-center overflow-hidden pt-16">
          <div className="absolute inset-0">
            <img src={heroBg} alt="" className="w-full h-full object-cover" />
            <div className="absolute inset-0 bg-background/40" />
@@ -1496,7 +1496,22 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+          <span className="text-xs uppercase tracking-[0.25em] text-background/50 font-medium">Scroll</span>
+          <div className="w-px h-10 bg-background/30 overflow-hidden relative">
+            <motion.div
+              className="absolute inset-x-0 top-0 h-full bg-background/80"
+              animate={{ y: ["0%", "100%"] }}
+              transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
+            />
+          </div>
+        </div>
       </section>
+
+      {/* Content that scrolls over the hero */}
+      <div className="relative z-10" style={{ marginTop: "100vh" }}>
 
       {/* Features */}
       <section className="py-24 bg-muted/30">
@@ -1609,6 +1624,8 @@ const Index = () => {
           <Link to="/faq">Voir toutes les questions →</Link>
         </Button>
       </div>
+
+      </div>{/* end scroll-over wrapper */}
 
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
       <QuotePanel open={quoteOpen} onOpenChange={setQuoteOpen} onSuccess={(id, name, email) => { setQuoteRef(id); setContactNom(name); setContactEmail(email); setPhoneScreen("merci"); }} />
