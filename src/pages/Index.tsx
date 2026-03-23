@@ -10,7 +10,7 @@ import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
 import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
 
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Sun,
   PiggyBank,
@@ -133,8 +133,9 @@ const Index = () => {
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
-  const sectionTwoRef = useRef<HTMLElement>(null);
-  const sectionSnapLockRef = useRef(false);
+  const horizontalRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: horizontalRef, offset: ["start start", "end end"] });
+  const heroX = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
@@ -196,39 +197,6 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    let releaseTimeout: number | undefined;
-
-    const handleScroll = () => {
-      const section = sectionTwoRef.current;
-      if (!section || sectionSnapLockRef.current) return;
-
-      const headerOffset = 80;
-      const snapThreshold = 120;
-      const rect = section.getBoundingClientRect();
-      const shouldSnap = rect.top > headerOffset && rect.top <= headerOffset + snapThreshold;
-
-      if (!shouldSnap) return;
-
-      sectionSnapLockRef.current = true;
-      window.scrollTo({
-        top: window.scrollY + rect.top - headerOffset,
-        behavior: "smooth",
-      });
-
-      releaseTimeout = window.setTimeout(() => {
-        sectionSnapLockRef.current = false;
-      }, 700);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (releaseTimeout) window.clearTimeout(releaseTimeout);
-    };
-  }, []);
-
   const handleAideCTA = () => {
     setPhoneScreen("intro");
     setSelectedType(null);
@@ -269,8 +237,13 @@ const Index = () => {
     <>
       <JsonLd schema={homepageSchema} />
 
+      {/* Horizontal scroll runway — 200vh tall so vertical scroll drives horizontal movement */}
+      <div ref={horizontalRef} className="relative" style={{ height: "200vh" }}>
+        <div className="sticky top-0 h-screen overflow-hidden">
+          <motion.div className="flex w-[200vw] h-full" style={{ x: heroX }}>
+
       {/* Hero */}
-      <section className="fixed inset-0 z-0 flex items-center overflow-hidden pt-16">
+      <section className="w-screen h-screen flex-shrink-0 flex items-center overflow-hidden pt-16 relative">
          <div className="absolute inset-0">
            <img src={heroBg} alt="" className="w-full h-full object-cover" />
            <div className="absolute inset-0 bg-background/40" />
@@ -1548,10 +1521,9 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="relative z-10" style={{ marginTop: "100vh" }}>
 
       {/* Section 2 — Pourquoi SOLARBOX */}
-      <section ref={sectionTwoRef} className="min-h-screen scroll-mt-20 flex items-center pt-32 pb-24 relative overflow-hidden">
+      <section className="w-screen h-screen flex-shrink-0 flex items-center pt-24 pb-12 relative overflow-y-auto overflow-x-hidden">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
@@ -1679,7 +1651,12 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="min-h-screen snap-start scroll-mt-20 flex items-center pt-24 bg-background relative z-10">
+          </motion.div>{/* end horizontal track */}
+        </div>{/* end sticky */}
+      </div>{/* end horizontal scroll runway */}
+
+      {/* FAQ — vertical below */}
+      <div className="min-h-screen flex items-center pt-24 bg-background relative z-10">
         <div className="w-full">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
@@ -1689,8 +1666,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-
-      </div>{/* end scroll-over wrapper */}
 
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
       <QuotePanel open={quoteOpen} onOpenChange={setQuoteOpen} onSuccess={(id, name, email) => { setQuoteRef(id); setContactNom(name); setContactEmail(email); setPhoneScreen("merci"); }} />
