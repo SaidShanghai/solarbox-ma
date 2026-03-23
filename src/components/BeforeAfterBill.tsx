@@ -100,7 +100,7 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
         {(["after75", "after100", "after120"] as const).map((key) => (
           <button
             key={key}
-            onClick={() => setTab(key)}
+            onClick={() => handleTab(key)}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
               tab === key
                 ? "bg-primary text-primary-foreground shadow-md"
