@@ -96,7 +96,7 @@ const Header = () => {
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            <Link to="/" className="flex items-center shrink-0">
+            <Link to="/" className="flex items-center shrink-0 translate-y-0.5">
               <SolarboxLogo className="md:hidden" size="sm" />
               <SolarboxLogo className="hidden md:block" size="md" />
             </Link>
