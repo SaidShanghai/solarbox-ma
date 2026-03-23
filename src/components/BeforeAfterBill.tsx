@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Sun, BatteryCharging } from "lucide-react";
+import { Zap, Sun } from "lucide-react";
 
 type TabKey = "before" | "after75" | "after100";
 
