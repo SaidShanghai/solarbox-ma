@@ -1524,7 +1524,6 @@ const Index = () => {
               </motion.div>
             </button>
           )}
-        </div>
       </section>
 
       {/* Section 2 — Pourquoi SOLARBOX */}
