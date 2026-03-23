@@ -1548,10 +1548,10 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
+      <div className="relative z-10" style={{ marginTop: "100vh" }}>
 
       {/* Section 2 — Pourquoi SOLARBOX */}
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-32 pb-24 relative overflow-hidden">
+      <section ref={sectionTwoRef} className="min-h-screen scroll-mt-20 flex items-center pt-32 pb-24 relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
