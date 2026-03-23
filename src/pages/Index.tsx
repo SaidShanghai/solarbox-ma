@@ -1625,6 +1625,8 @@ const Index = () => {
         </Button>
       </div>
 
+      </div>{/* end scroll-over wrapper */}
+
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
       <QuotePanel open={quoteOpen} onOpenChange={setQuoteOpen} onSuccess={(id, name, email) => { setQuoteRef(id); setContactNom(name); setContactEmail(email); setPhoneScreen("merci"); }} />
     </>
