@@ -212,7 +212,6 @@ export default function BeforeAfterBill() {
             </motion.div>
           </div>
         </div>
-      </div>
     </div>
   );
 }
