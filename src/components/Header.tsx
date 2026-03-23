@@ -107,29 +107,21 @@ const Header = () => {
               className="hidden md:flex items-center gap-1 relative"
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Sliding pill with sun rays */}
+              {/* Sliding pill with solar glow */}
               <motion.div
-                className="absolute top-1/2 -translate-y-1/2 h-9 rounded-full bg-background/90 shadow-sm overflow-visible"
-                animate={{ left: pillStyle.left, width: pillStyle.width }}
-                transition={{ type: "spring", stiffness: 150, damping: 22, mass: 1.2 }}
+                className="absolute top-1/2 -translate-y-1/2 h-9 rounded-full bg-background/90"
+                animate={{ left: pillStyle.left, width: pillStyle.width, boxShadow: [
+                  "0 0 8px 2px hsl(var(--primary) / 0.2), 0 0 20px 4px hsl(var(--primary) / 0.08)",
+                  "0 0 14px 4px hsl(var(--primary) / 0.35), 0 0 30px 8px hsl(var(--primary) / 0.15)",
+                  "0 0 8px 2px hsl(var(--primary) / 0.2), 0 0 20px 4px hsl(var(--primary) / 0.08)",
+                ] }}
+                transition={{
+                  left: { type: "spring", stiffness: 150, damping: 22, mass: 1.2 },
+                  width: { type: "spring", stiffness: 150, damping: 22, mass: 1.2 },
+                  boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                }}
                 style={{ pointerEvents: "none" }}
-              >
-                {/* Sun rays */}
-                {[...Array(8)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute top-1/2 left-1/2 h-[1.5px] bg-primary/25 origin-left rounded-full"
-                    style={{
-                      width: 18,
-                      rotate: `${i * 45}deg`,
-                      translateX: "-50%",
-                      translateY: "-50%",
-                    }}
-                    animate={{ opacity: [0.15, 0.4, 0.15], scaleX: [0.7, 1, 0.7] }}
-                    transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.2, ease: "easeInOut" }}
-                  />
-                ))}
-              </motion.div>
+              />
               {NAV_LINKS.map((link, i) => (
                 <Link
                   key={link.to}
