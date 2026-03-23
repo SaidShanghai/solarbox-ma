@@ -1513,51 +1513,95 @@ const Index = () => {
 
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
-      {/* Features + Before/After combined */}
+      {/* Section 2 — Split inversé : facture à gauche, récit à droite */}
       <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative overflow-hidden">
-        {/* Section 2 background */}
+        {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-background/70" />
+          <div className="absolute inset-0 bg-background/60" />
         </div>
+
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left: Pourquoi SOLARBOX */}
-            <div>
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* LEFT — Facture sticky */}
+            <div className="lg:sticky lg:top-32">
+              <BeforeAfterBill />
+
+              {/* 25yr savings */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="mt-4 rounded-2xl bg-card/80 backdrop-blur border border-border p-5"
+              >
+                <p className="text-xs font-medium text-muted-foreground mb-1">
+                  📊 Économies sur 25 ans
+                </p>
+                <p className="text-3xl font-bold text-primary">
+                  <AnimatedCounter end={390000} suffix=" DH" />
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  d'économies cumulées estimées
+                </p>
+              </motion.div>
+            </div>
+
+            {/* RIGHT — Récit + features + CTA */}
+            <div className="space-y-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-8"
               >
-                <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pourquoi SOLARBOX ?</h2>
-                <p className="text-lg text-muted-foreground">
+                <h2 className="text-3xl lg:text-4xl font-bold mb-2">
+                  Pourquoi <span className="text-primary">SOLARBOX</span> ?
+                </h2>
+                <p className="text-muted-foreground max-w-md">
                   Le comparateur solaire pensé pour simplifier votre transition énergétique.
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-2 gap-4">
+              {/* Features — liste verticale compacte */}
+              <div className="space-y-3">
                 {features.map((feature, index) => (
                   <motion.div
                     key={feature.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="ride-card text-center p-4"
+                    transition={{ delay: index * 0.08 }}
+                    className="flex items-start gap-4 p-4 rounded-xl bg-card/70 backdrop-blur border border-border hover:border-primary/30 transition-colors"
                   >
-                    <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <div className="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
                       <feature.icon className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="text-sm font-semibold mb-1">{feature.title}</h3>
-                    <p className="text-xs text-muted-foreground">{feature.description}</p>
+                    <div>
+                      <h3 className="text-sm font-semibold">{feature.title}</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">{feature.description}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
+
+              {/* CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <Button asChild size="lg" className="h-13 px-8 text-base">
+                  <Link to="/diagnostic">
+                    <Sun className="w-5 h-5 mr-2" />
+                    Lancer mon diagnostic
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
 
-            {/* Right: Before/After Bill */}
-            <BeforeAfterBill />
           </div>
         </div>
       </section>
