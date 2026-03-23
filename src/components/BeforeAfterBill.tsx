@@ -66,9 +66,19 @@ const scenarios: Record<TabKey, Scenario> = {
 
 const fmt = (n: number) => n.toLocaleString("fr-FR");
 
-export default function BeforeAfterBill() {
+interface BeforeAfterBillProps {
+  onScenarioChange?: (monthlySaving: number) => void;
+}
+
+export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillProps) {
   const [tab, setTab] = useState<TabKey>("before");
   const s = scenarios[tab];
+
+  const handleTab = (key: TabKey) => {
+    setTab(key);
+    const saving = scenarios.before.totalMad - scenarios[key].totalMad;
+    onScenarioChange?.(saving);
+  };
 
   return (
     <div className="space-y-4">
@@ -76,7 +86,7 @@ export default function BeforeAfterBill() {
       <div className="flex gap-1 bg-muted/80 backdrop-blur rounded-full p-1 w-fit flex-wrap">
         {/* Before tab */}
         <button
-          onClick={() => setTab("before")}
+          onClick={() => handleTab("before")}
           className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
             tab === "before"
               ? "bg-destructive text-destructive-foreground shadow-md"
@@ -90,7 +100,7 @@ export default function BeforeAfterBill() {
         {(["after75", "after100", "after120"] as const).map((key) => (
           <button
             key={key}
-            onClick={() => setTab(key)}
+            onClick={() => handleTab(key)}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
               tab === key
                 ? "bg-primary text-primary-foreground shadow-md"

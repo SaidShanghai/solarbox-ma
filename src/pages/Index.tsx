@@ -131,6 +131,7 @@ const Index = () => {
   const [callbackOpen, setCallbackOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
+  const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
@@ -1543,7 +1544,7 @@ const Index = () => {
 
             {/* LEFT — Facture Avant/Après (sticky) */}
             <div className="lg:sticky lg:top-32 space-y-4">
-              <BeforeAfterBill />
+              <BeforeAfterBill onScenarioChange={(saving) => setMonthlySaving(saving)} />
 
               {/* 25yr savings */}
               <motion.div
@@ -1556,9 +1557,18 @@ const Index = () => {
                 <p className="text-xs font-medium text-muted-foreground mb-1">
                   📊 Économies sur 25 ans
                 </p>
-                <p className="text-2xl font-bold text-primary">
-                  <AnimatedCounter end={254400} suffix=" DH" />
-                </p>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={monthlySaving}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-2xl font-bold text-primary"
+                  >
+                    {(monthlySaving * 12 * 25).toLocaleString("fr-FR")} DH
+                  </motion.p>
+                </AnimatePresence>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   d'économies cumulées estimées
                 </p>
