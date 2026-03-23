@@ -1630,7 +1630,7 @@ const Index = () => {
             ].map((item, i) => (
               <div
                 key={item.stat.label}
-                className="flex items-center gap-3 p-4 bg-card border border-border rounded-xl"
+                className="flex items-center gap-3 p-4 bg-card/80 backdrop-blur border border-border rounded-xl"
               >
                 <item.icon className="w-5 h-5 text-primary shrink-0" />
                 <div>
