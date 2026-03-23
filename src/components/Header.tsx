@@ -143,7 +143,7 @@ const Header = () => {
                   </Button>
                 </div>
               ) : (
-                <Button asChild size="sm" className="hidden md:inline-flex">
+                <Button asChild size="sm" variant="outline" className="hidden md:inline-flex border-foreground/30 text-foreground hover:bg-foreground/5">
                   <Link to="/profil">Se connecter</Link>
                 </Button>
               )}
