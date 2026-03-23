@@ -1513,11 +1513,10 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Content that scrolls over the hero */}
-      <div className="relative z-10" style={{ marginTop: "100vh" }}>
+      <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Features */}
-      <section className="py-24 bg-muted/30">
+      <section className="min-h-screen snap-start flex items-center py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1553,10 +1552,14 @@ const Index = () => {
       </section>
 
 
-      <BeforeAfterBill />
+      <div className="min-h-screen snap-start flex items-center">
+        <div className="w-full">
+          <BeforeAfterBill />
+        </div>
+      </div>
 
       {/* CTA */}
-      <section className="py-24 bg-foreground text-background">
+      <section className="min-h-screen snap-start flex items-center py-24 bg-foreground text-background">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -1620,12 +1623,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQ Section – top 6 */}
-      <FAQSection items={faqData.slice(0, 6)} />
-      <div className="text-center pb-12">
-        <Button asChild variant="outline" size="lg">
-          <Link to="/faq">Voir toutes les questions →</Link>
-        </Button>
+      <div className="min-h-screen snap-start flex items-center">
+        <div className="w-full">
+          <FAQSection items={faqData.slice(0, 6)} />
+          <div className="text-center pb-12">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/faq">Voir toutes les questions →</Link>
+            </Button>
+          </div>
+        </div>
       </div>
 
       </div>{/* end scroll-over wrapper */}
