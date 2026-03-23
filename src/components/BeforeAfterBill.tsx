@@ -246,6 +246,11 @@ export default function BeforeAfterBill({ onScenarioChange }: BeforeAfterBillPro
               )}
             </AnimatePresence>
           </div>
+          {!s.isBefore && (
+            <p className="text-[10px] text-muted-foreground mt-1">
+              * Selon profil d'usage et autoconsommation.
+            </p>
+          )}
         </div>
       </div>
     </div>
