@@ -197,39 +197,6 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    let releaseTimeout: number | undefined;
-
-    const handleScroll = () => {
-      const section = sectionTwoRef.current;
-      if (!section || sectionSnapLockRef.current) return;
-
-      const headerOffset = 80;
-      const snapThreshold = 120;
-      const rect = section.getBoundingClientRect();
-      const shouldSnap = rect.top > headerOffset && rect.top <= headerOffset + snapThreshold;
-
-      if (!shouldSnap) return;
-
-      sectionSnapLockRef.current = true;
-      window.scrollTo({
-        top: window.scrollY + rect.top - headerOffset,
-        behavior: "smooth",
-      });
-
-      releaseTimeout = window.setTimeout(() => {
-        sectionSnapLockRef.current = false;
-      }, 700);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (releaseTimeout) window.clearTimeout(releaseTimeout);
-    };
-  }, []);
-
   const handleAideCTA = () => {
     setPhoneScreen("intro");
     setSelectedType(null);
