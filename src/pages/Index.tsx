@@ -1522,6 +1522,21 @@ const Index = () => {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
+          {/* Section title — full width */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <h2 className="text-4xl lg:text-6xl font-bold mb-3">
+              Pourquoi <span className="text-primary">SOLARBOX</span> ?
+            </h2>
+            <p className="text-muted-foreground text-base lg:text-lg max-w-xl">
+              Le comparateur solaire pensé pour simplifier votre transition énergétique.
+            </p>
+          </motion.div>
+
           <div className="grid lg:grid-cols-[1fr_1.2fr_0.8fr] gap-6 lg:gap-8 items-center">
 
             {/* LEFT — Facture Avant/Après */}
@@ -1550,19 +1565,6 @@ const Index = () => {
 
             {/* CENTER — Features + CTA */}
             <div className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-3xl lg:text-4xl font-bold mb-2">
-                  Pourquoi <span className="text-primary">SOLARBOX</span> ?
-                </h2>
-                <p className="text-muted-foreground text-sm max-w-md">
-                  Le comparateur solaire pensé pour simplifier votre transition énergétique.
-                </p>
-              </motion.div>
-
               <div className="space-y-3">
                 {features.map((feature, index) => (
                   <motion.div
