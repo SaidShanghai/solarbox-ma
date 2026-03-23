@@ -39,7 +39,7 @@ export default function BeforeAfterBill() {
   const current = tab === "before" ? beforeData : afterData;
 
   return (
-    <div>
+    <div className="space-y-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
