@@ -245,7 +245,7 @@ const Index = () => {
         >
 
       {/* Hero */}
-      <section className="w-screen h-screen flex-shrink-0 flex items-center overflow-hidden pt-16 relative">
+      <section className="w-screen h-screen flex-shrink-0 flex items-center overflow-hidden pt-16 relative" style={{ backgroundColor: "#5a8bb5" }}>
          <div className="absolute inset-0">
            <img src={heroBg} alt="" className="w-full h-full object-cover" />
            <div className="absolute inset-0 bg-background/40" />
@@ -1543,7 +1543,7 @@ const Index = () => {
       </section>
 
       {/* Section 2 — Pourquoi SOLARBOX */}
-      <section className="w-screen h-screen flex-shrink-0 flex flex-col pt-32 pb-12 relative overflow-y-auto overflow-x-hidden">
+      <section className="w-screen h-screen flex-shrink-0 flex flex-col pt-32 pb-12 relative overflow-y-auto overflow-x-hidden" style={{ backgroundColor: "#5a8bb5" }}>
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
