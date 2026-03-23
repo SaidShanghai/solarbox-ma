@@ -1575,7 +1575,7 @@ const Index = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.08 }}
-                    className="p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors"
+                    className="p-5 rounded-xl bg-card/80 backdrop-blur border border-border hover:border-primary/30 transition-colors"
                   >
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-3">
                       <feature.icon className="w-5 h-5 text-primary" />
