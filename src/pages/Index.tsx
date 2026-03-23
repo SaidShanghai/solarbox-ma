@@ -1543,7 +1543,7 @@ const Index = () => {
       </section>
 
       {/* Section 2 — Pourquoi SOLARBOX */}
-      <section className="w-screen h-screen flex-shrink-0 flex flex-col pt-32 pb-12 relative overflow-y-auto overflow-x-hidden" style={{ backgroundColor: "#5a8bb5" }}>
+      <section className="w-screen h-screen flex-shrink-0 flex flex-col pt-24 pb-6 relative overflow-y-auto overflow-x-hidden" style={{ backgroundColor: "#5a8bb5" }}>
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
@@ -1613,7 +1613,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8"
           >
             <h2 className="text-4xl lg:text-6xl font-bold mb-4">
               Avec <span className="text-primary">SOLARBOX</span>
@@ -1624,7 +1624,7 @@ const Index = () => {
           </motion.div>
 
           {/* Bill — centered, max-width for focus */}
-          <div className="max-w-md mx-auto mb-8">
+          <div className="max-w-md mx-auto mb-4">
             <BeforeAfterBill onScenarioChange={(saving) => setMonthlySaving(saving)} />
           </div>
 
@@ -1634,7 +1634,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="flex flex-col items-center gap-2 mb-16"
+            className="flex flex-col items-center gap-2 mb-8"
           >
             <div className="inline-flex items-center gap-3 rounded-full border border-primary/20 bg-card px-6 py-3 shadow-sm">
               <span className="text-sm text-muted-foreground">Économies sur 25 ans</span>
@@ -1671,7 +1671,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
           >
             {features.map((feature, index) => (
               <div key={feature.title} className="text-center bg-background/70 backdrop-blur-sm rounded-2xl p-4 border border-border/50">
@@ -1690,7 +1690,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="flex justify-center gap-3 mb-16"
+            className="flex justify-center gap-3 mb-8"
           >
             <Button asChild size="lg" className="h-12 px-7 text-sm bg-primary text-foreground hover:bg-primary/90">
               <Link to="/diagnostic">
@@ -1715,7 +1715,7 @@ const Index = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.35 }}
-            className="border-t border-border pt-8 grid grid-cols-2 lg:grid-cols-4 gap-6"
+            className="border-t border-border pt-4 grid grid-cols-2 lg:grid-cols-4 gap-4"
           >
             {[
               { icon: Leaf, stat: STATS.diagnostics },
