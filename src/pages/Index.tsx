@@ -131,6 +131,7 @@ const Index = () => {
   const [callbackOpen, setCallbackOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
+  const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
