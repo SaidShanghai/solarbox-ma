@@ -1508,7 +1508,7 @@ const Index = () => {
             />
           </div>
         </div>
-      </motion.section>
+      </section>
 
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
