@@ -7,7 +7,7 @@ import { compressImageToBase64 } from "@/lib/compressImage";
 import nooriaLogo from "@/assets/nooria-logo.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
-
+import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
 
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
