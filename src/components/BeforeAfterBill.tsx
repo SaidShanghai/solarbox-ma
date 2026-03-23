@@ -109,20 +109,30 @@ export default function BeforeAfterBill() {
 
           <div className="mt-4 pt-3 border-t border-border flex justify-between items-end">
             <span className="font-bold text-sm">Total TTC</span>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={tab === "before" ? "1850" : "550"}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.25 }}
-                className={`text-2xl font-bold ${
-                  tab === "before" ? "text-destructive" : "text-primary"
+            <div className="flex items-baseline gap-2">
+              {/* Ancien prix barré — visible uniquement en mode Après */}
+              <span
+                className={`text-sm line-through text-muted-foreground transition-all duration-300 ${
+                  tab === "after" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2"
                 }`}
               >
-                {tab === "before" ? "1 850" : "550"} MAD
-              </motion.span>
-            </AnimatePresence>
+                1 850 MAD
+              </span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={tab === "before" ? "1850" : "550"}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.25 }}
+                  className={`text-2xl font-bold ${
+                    tab === "before" ? "text-destructive" : "text-primary"
+                  }`}
+                >
+                  {tab === "before" ? "1 850" : "550"} MAD
+                </motion.span>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
