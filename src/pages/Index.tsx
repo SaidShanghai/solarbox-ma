@@ -1521,14 +1521,14 @@ const Index = () => {
           <div className="absolute inset-0 bg-background/70" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Pourquoi SOLARBOX */}
             <div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-10"
+                className="mb-8"
               >
                 <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pourquoi SOLARBOX ?</h2>
                 <p className="text-lg text-muted-foreground">
