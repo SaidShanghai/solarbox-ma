@@ -56,7 +56,7 @@ function PostCardSkeleton() {
 
 export default function Blog() {
   usePageMeta({
-    title: "Blog Solaire Maroc – Guides, Prix & Réglementation | SUNGPT",
+    title: "Blog Solaire Maroc – Guides, Prix & Réglementation | SOLARBOX",
     description: "Guides complets sur l'installation solaire, les prix en dirhams (MAD), la Loi 82-21 et les aides disponibles au Maroc en 2025.",
   });
   const [posts, setPosts] = useState<BlogPost[]>([]);

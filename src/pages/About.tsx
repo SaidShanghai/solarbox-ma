@@ -43,8 +43,8 @@ const TRUST_POINTS = [
 
 export default function About() {
   usePageMeta({
-    title: "À Propos de SUNGPT – Experts Solaire au Maroc | sungpt.ma",
-    description: "SUNGPT est la première plateforme IA dédiée au solaire au Maroc. Notre mission : rendre l'énergie solaire accessible à chaque Marocain.",
+    title: "À Propos de SOLARBOX – Experts Solaire au Maroc | solarbox.ma",
+    description: "SOLARBOX est la première plateforme IA dédiée au solaire au Maroc. Notre mission : rendre l'énergie solaire accessible à chaque Marocain.",
   });
 
   return (

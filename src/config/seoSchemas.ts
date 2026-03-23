@@ -64,9 +64,9 @@ export const homepageSchema = {
         worstRating: "1",
       },
       sameAs: [
-        "https://facebook.com/sungpt.ma",
-        "https://instagram.com/sungpt.ma",
-        "https://linkedin.com/company/sungpt-ma",
+        "https://facebook.com/solarbox.ma",
+        "https://instagram.com/solarbox.ma",
+        "https://linkedin.com/company/solarbox-ma",
         "https://solarbox.ma",
         "https://nooria.ma",
         "https://solarcompare.ma",

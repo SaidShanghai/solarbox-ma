@@ -102,7 +102,7 @@ const HeroRotatingTitle = ({ entreprise = false, activeIndex }: { entreprise?: b
 
 const Index = () => {
   usePageMeta({
-    title: "SUNGPT – Diagnostic Solaire IA Gratuit en 2 min au Maroc",
+    title: "SOLARBOX – Diagnostic Solaire IA Gratuit en 2 min au Maroc",
     description: "Diagnostic solaire IA gratuit en 2 minutes. Économisez jusqu'à 70 % sur votre facture ONEE. Installateurs certifiés partout au Maroc.",
   });
   const [heroStepIndex, setHeroStepIndex] = useState(0);
