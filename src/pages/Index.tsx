@@ -1513,7 +1513,7 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Features */}
-      <section className="min-h-screen snap-start flex items-center py-24 bg-muted/30">
+      <section className="min-h-screen snap-start flex items-center py-24 bg-muted">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1549,7 +1549,7 @@ const Index = () => {
       </section>
 
 
-      <div className="min-h-screen snap-start flex items-center">
+      <div className="min-h-screen snap-start flex items-center bg-background">
         <div className="w-full">
           <BeforeAfterBill />
         </div>
@@ -1620,7 +1620,7 @@ const Index = () => {
         </div>
       </section>
 
-      <div className="min-h-screen snap-start flex items-center">
+      <div className="min-h-screen snap-start flex items-center bg-background">
         <div className="w-full">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
