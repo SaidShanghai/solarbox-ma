@@ -1514,14 +1514,8 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Section 2 — Split 3 zones : facture | features+CTA | stats */}
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-background/55" />
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 bg-muted/30">
+        <div className="container mx-auto px-4">
           {/* Section title — full width */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1537,9 +1531,10 @@ const Index = () => {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-[1fr_1.2fr_0.8fr] gap-6 lg:gap-8 items-center">
+          {/* 2-column layout */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
 
-            {/* LEFT — Facture Avant/Après */}
+            {/* LEFT — Facture Avant/Après (sticky) */}
             <div className="lg:sticky lg:top-32 space-y-4">
               <BeforeAfterBill />
 
@@ -1549,7 +1544,7 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="rounded-2xl bg-card/80 backdrop-blur border border-border p-4"
+                className="rounded-2xl bg-card border border-border p-5"
               >
                 <p className="text-xs font-medium text-muted-foreground mb-1">
                   📊 Économies sur 25 ans
@@ -1563,25 +1558,23 @@ const Index = () => {
               </motion.div>
             </div>
 
-            {/* CENTER — Features + CTA */}
+            {/* RIGHT — Features 2×2 + CTA */}
             <div className="space-y-6">
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {features.map((feature, index) => (
                   <motion.div
                     key={feature.title}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.08 }}
-                    className="flex items-start gap-3 p-3 rounded-xl bg-card/70 backdrop-blur border border-border hover:border-primary/30 transition-colors"
+                    className="p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors"
                   >
-                    <div className="w-9 h-9 shrink-0 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <feature.icon className="w-4 h-4 text-primary" />
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-3">
+                      <feature.icon className="w-5 h-5 text-primary" />
                     </div>
-                    <div>
-                      <h3 className="text-sm font-semibold">{feature.title}</h3>
-                      <p className="text-xs text-muted-foreground mt-0.5">{feature.description}</p>
-                    </div>
+                    <h3 className="text-sm font-semibold mb-1">{feature.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{feature.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -1605,42 +1598,46 @@ const Index = () => {
                   size="lg"
                   variant="outline"
                   onClick={() => setCallbackOpen(true)}
-                  className="h-12 px-7 text-sm bg-card/50 backdrop-blur border-border hover:border-primary/40"
+                  className="h-12 px-7 text-sm border-border hover:border-primary/40"
                 >
                   En savoir plus
                 </Button>
               </motion.div>
             </div>
 
-            {/* RIGHT — Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
-              {[
-                { icon: Leaf, stat: STATS.diagnostics },
-                { icon: Sun, stat: STATS.installateurs },
-                { icon: PiggyBank, stat: STATS.savings },
-                { icon: Star, stat: STATS.rating },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.stat.label}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="p-4 bg-card/70 backdrop-blur border border-border rounded-xl hover:border-primary/30 transition-colors"
-                >
-                  <item.icon className="w-6 h-6 text-primary mb-2" />
+          </div>
+
+          {/* Stats bar — horizontal */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4"
+          >
+            {[
+              { icon: Leaf, stat: STATS.diagnostics },
+              { icon: Sun, stat: STATS.installateurs },
+              { icon: PiggyBank, stat: STATS.savings },
+              { icon: Star, stat: STATS.rating },
+            ].map((item, i) => (
+              <div
+                key={item.stat.label}
+                className="flex items-center gap-3 p-4 bg-card border border-border rounded-xl"
+              >
+                <item.icon className="w-5 h-5 text-primary shrink-0" />
+                <div>
                   <AnimatedCounter
                     end={item.stat.value}
                     suffix={item.stat.suffix}
                     decimals={'decimals' in item.stat ? item.stat.decimals : 0}
-                    className="text-xl font-bold block"
+                    className="text-lg font-bold block"
                   />
-                  <span className="text-xs text-muted-foreground">{item.stat.label}</span>
-                </motion.div>
-              ))}
-            </div>
-
-          </div>
+                  <span className="text-[11px] text-muted-foreground">{item.stat.label}</span>
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
