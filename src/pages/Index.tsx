@@ -7,6 +7,7 @@ import { compressImageToBase64 } from "@/lib/compressImage";
 import nooriaLogo from "@/assets/nooria-logo.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
+import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
 
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1514,8 +1515,14 @@ const Index = () => {
       <div className="relative z-10 snap-y snap-mandatory" style={{ marginTop: "100vh" }}>
 
       {/* Section 2 — Split 3 zones : facture | features+CTA | stats */}
-      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section className="min-h-screen snap-start scroll-mt-20 flex items-center pt-28 pb-16 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-top" />
+          <div className="absolute inset-0 bg-background/65" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           {/* Section title — full width */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1544,7 +1551,7 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="rounded-2xl bg-card border border-border p-5"
+                className="rounded-2xl bg-card/80 backdrop-blur border border-border p-5"
               >
                 <p className="text-xs font-medium text-muted-foreground mb-1">
                   📊 Économies sur 25 ans
@@ -1568,7 +1575,7 @@ const Index = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.08 }}
-                    className="p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors"
+                    className="p-5 rounded-xl bg-card/80 backdrop-blur border border-border hover:border-primary/30 transition-colors"
                   >
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-3">
                       <feature.icon className="w-5 h-5 text-primary" />
@@ -1623,7 +1630,7 @@ const Index = () => {
             ].map((item, i) => (
               <div
                 key={item.stat.label}
-                className="flex items-center gap-3 p-4 bg-card border border-border rounded-xl"
+                className="flex items-center gap-3 p-4 bg-card/80 backdrop-blur border border-border rounded-xl"
               >
                 <item.icon className="w-5 h-5 text-primary shrink-0" />
                 <div>
