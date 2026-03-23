@@ -133,8 +133,9 @@ const Index = () => {
   const [quoteRef, setQuoteRef] = useState<string | null>(null);
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
-  const sectionTwoRef = useRef<HTMLElement>(null);
-  const sectionSnapLockRef = useRef(false);
+  const horizontalRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: horizontalRef, offset: ["start start", "end end"] });
+  const heroX = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
