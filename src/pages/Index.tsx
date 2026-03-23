@@ -1496,7 +1496,22 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+          <span className="text-xs uppercase tracking-[0.25em] text-background/50 font-medium">Scroll</span>
+          <div className="w-px h-10 bg-background/30 overflow-hidden relative">
+            <motion.div
+              className="absolute inset-x-0 top-0 h-full bg-background/80"
+              animate={{ y: ["0%", "100%"] }}
+              transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
+            />
+          </div>
+        </div>
       </section>
+
+      {/* Content that scrolls over the hero */}
+      <div className="relative z-10" style={{ marginTop: "100vh" }}>
 
       {/* Features */}
       <section className="py-24 bg-muted/30">
