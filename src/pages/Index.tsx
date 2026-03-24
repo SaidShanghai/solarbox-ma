@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import faqBgImg from "@/assets/faq-bg.jpg";
+import faqBgImg from "@/assets/faq-bg.webp";
 import { STATS } from "@/config/stats";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { supabase } from "@/integrations/supabase/client";
