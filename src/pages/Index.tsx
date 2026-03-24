@@ -1456,7 +1456,6 @@ const Index = () => {
               ].map((step, i) => {
                 const activeStep = heroStepIndex % 4;
                 const isActive = i === activeStep;
-                const isDone = i < activeStep;
                 return (
                 <motion.div
                   key={step.label}
@@ -1473,14 +1472,12 @@ const Index = () => {
                   <div className={`w-[54px] h-[54px] shrink-0 z-10 rounded-xl p-1.5 transition-all duration-500 ${
                     isActive
                       ? "text-primary bg-primary/10"
-                      : isDone
-                        ? "text-primary/60 bg-primary/5 border border-primary/30"
-                        : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
+                      : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
                   }`}>
                     {step.sketch}
                   </div>
                   <div className="min-w-0">
-                    <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : isDone ? "text-foreground/80 text-[13px]" : "text-foreground/80 group-hover:text-foreground text-[13px]"}`}>
+                    <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : "text-foreground/80 group-hover:text-foreground text-[13px]"}`}>
                       {step.label}
                     </p>
                     <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-primary font-semibold text-xs" : "text-foreground/70 text-[11px]"}`}>
