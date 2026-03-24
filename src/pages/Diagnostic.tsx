@@ -546,7 +546,8 @@ const Diagnostic = () => {
                   <div className={!consentAccepted ? "opacity-50 pointer-events-none select-none" : ""}>
                     <FactureUpload
                       onDataExtracted={(ocrData) => {
-                        setOcrRawData(ocrData as OcrFactureData);
+                         setOcrRawData(ocrData as OcrFactureData);
+                         setPeriodeMode("annuel"); // OCR values are already annualized
                         if (ocrData.montant_ttc) {
                           const days = ocrData.periode_jours || 30;
                           const annualAmount = Math.round((ocrData.montant_ttc / days) * 365);
