@@ -1632,7 +1632,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4 lg:w-4/5"
+            className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4"
           >
             {features.map((feature, index) => (
               <div key={feature.title} className="text-center bg-background/70 backdrop-blur-sm rounded-xl p-2.5 border border-border/50">
@@ -1748,7 +1748,7 @@ const Index = () => {
           className={`absolute bottom-12 z-30 hidden lg:flex flex-col gap-3 transition-opacity duration-300 ${
             heroSlide === 2 ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
-          style={{ width: "calc((100% - 2rem - 4 * 0.75rem) / 5)", right: "max(1rem, calc((100% - 1280px) / 2 + 1rem))" }}
+          style={{ width: "calc((100% - max(2rem, (100% - 1280px)) - 4 * 0.75rem) / 5)", right: "calc(max(1rem, (100% - 1280px) / 2 + 1rem))" }}
         >
           <Button
             asChild
