@@ -20,7 +20,7 @@ import BlogPost from "./pages/BlogPost";
 import NosSolutions from "./pages/NosSolutions";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
-
+import Contact from "./pages/Contact";
 const queryClient = new QueryClient();
 
 function ScrollToTop() {
@@ -53,6 +53,7 @@ const App = () => (
             <Route path="/nos-solutions" element={<NosSolutions />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/a-propos" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<Navigate to="/a-propos" replace />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />

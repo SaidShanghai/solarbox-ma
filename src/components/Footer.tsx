@@ -8,6 +8,7 @@ const navLinks = [
   { to: "/blog", label: "Blog" },
   { to: "/faq", label: "FAQ" },
   { to: "/a-propos", label: "À propos" },
+  { to: "/contact", label: "Contact" },
 ];
 
 const legalLinks = [
