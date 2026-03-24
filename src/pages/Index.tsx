@@ -1456,7 +1456,6 @@ const Index = () => {
               ].map((step, i) => {
                 const activeStep = heroStepIndex % 4;
                 const isActive = i === activeStep;
-                const isDone = i < activeStep;
                 return (
                 <motion.div
                   key={step.label}
