@@ -1737,9 +1737,23 @@ const Index = () => {
           </motion.div>
         </button>
 
-        <div className="w-full py-16 relative z-10">
+        <div className="w-full pt-24 pb-16 relative z-10">
           <div className="relative z-10">
-          <FAQSection items={faqData.slice(0, 7)} />
+          {/* Section title — same design as page 2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <h2 className="text-4xl lg:text-6xl font-bold mb-4">
+              Questions fréquentes
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+              Tout ce que vous devez savoir sur le solaire au Maroc
+            </p>
+          </motion.div>
+          <FAQSection items={faqData.slice(0, 7)} title="" subtitle="" />
           <div className="text-center pb-12">
             <Button asChild variant="outline" size="lg">
               <Link to="/faq">Voir toutes les questions →</Link>
