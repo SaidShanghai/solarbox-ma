@@ -20,7 +20,7 @@ import BlogPost from "./pages/BlogPost";
 import NosSolutions from "./pages/NosSolutions";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
-
+import Contact from "./pages/Contact";
 const queryClient = new QueryClient();
 
 function ScrollToTop() {
