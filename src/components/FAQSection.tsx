@@ -39,7 +39,7 @@ export default function FAQSection({
             >
               <button
                 type="button"
-                className="flex w-full items-center justify-between cursor-pointer py-5 text-left text-base font-medium text-foreground"
+                className="flex w-full items-center justify-between cursor-pointer py-5 text-left text-base font-medium text-background"
                 onClick={(e) => {
                   const content = e.currentTarget.nextElementSibling as HTMLElement;
                   const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
