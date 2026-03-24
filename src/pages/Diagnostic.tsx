@@ -424,7 +424,7 @@ const Diagnostic = () => {
                     ].map(({ icon: Icon, label, desc }) => (
                       <button
                         key={label}
-                        onClick={() => { setSelectedType(label); setScreen("form"); }}
+                        onClick={() => { setSelectedType(label); setScreen("form"); if (label === "Appartement") setTensionSite("220V"); }}
                         className="flex flex-col items-center gap-3 p-8 rounded-2xl border-2 border-border hover:border-primary hover:bg-primary/5 transition-all active:scale-[0.97]"
                       >
                         <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
