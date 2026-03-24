@@ -1472,9 +1472,7 @@ const Index = () => {
                   <div className={`w-[54px] h-[54px] shrink-0 z-10 rounded-xl p-1.5 transition-all duration-500 ${
                     isActive
                       ? "text-primary bg-primary/10"
-                      : isDone
-                        ? "text-primary/60 bg-primary/5 border border-primary/30"
-                        : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
+                      : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
                   }`}>
                     {step.sketch}
                   </div>
