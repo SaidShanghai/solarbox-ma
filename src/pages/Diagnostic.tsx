@@ -1154,8 +1154,8 @@ const Diagnostic = () => {
           roof_type: typeBatiment || undefined,
           roof_orientation: panelAccess.length > 0 ? panelAccess.join(", ") : undefined,
           roof_surface: selectedSurface || undefined,
-          annual_consumption: conso ? `${conso} kWh` : undefined,
-          budget: facture ? `${facture} DH/mois` : undefined,
+           annual_consumption: conso ? `${periodeMode === "mensuel" ? Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR") : conso} kWh` : undefined,
+           budget: facture ? `${periodeMode === "mensuel" ? Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR") : facture} DH/an` : undefined,
           
           type_abonnement: typeAbonnement || undefined,
           puissance_souscrite: puissanceSouscrite ? `${puissanceSouscrite} kVA` : undefined,
