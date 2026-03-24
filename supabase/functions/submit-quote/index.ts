@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { client_name, client_email, client_phone, city, housing_type, roof_type, roof_orientation, roof_surface, annual_consumption, budget, project_type, objectif, type_abonnement, puissance_souscrite, selected_usages, description_projet, adresse_projet, ville_projet, date_debut, date_fin, pv_existante, extension_install, subvention_recue, elig_decl, gps_lat, gps_lng } = await req.json();
+    const { client_name, client_email, client_phone, city, housing_type, roof_type, roof_orientation, roof_surface, annual_consumption, budget, project_type, objectif, type_abonnement, puissance_souscrite, selected_usages, description_projet, adresse_projet, ville_projet, date_debut, date_fin, pv_existante, extension_install, subvention_recue, elig_decl, gps_lat, gps_lng, tension_site } = await req.json();
 
     if (!client_name || !client_email) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {

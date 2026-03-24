@@ -1117,6 +1117,7 @@ const Diagnostic = () => {
           elig_decl: Object.values(eligDecl).some(v => v !== null) ? eligDecl : undefined,
           gps_lat: roofLat ?? undefined,
           gps_lng: roofLng ?? undefined,
+          tension_site: tensionSite || undefined,
         }}
         pic={buildPic()}
         onSuccess={(id, clientName, clientEmail) => {
