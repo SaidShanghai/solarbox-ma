@@ -255,7 +255,7 @@ const Index = () => {
       {/* Hero */}
       <section className="w-screen h-screen flex-shrink-0 flex items-center overflow-hidden pt-16 relative" style={{ backgroundColor: "#5a8bb5" }}>
          <div className="absolute inset-0">
-           <img src={heroBg} alt="" className="w-full h-full object-cover" />
+           <img src={heroBg} alt="Panneaux solaires sur un toit au Maroc" width={1920} height={1058} className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
            <div className="absolute inset-0 bg-background/40" />
          </div>
 
