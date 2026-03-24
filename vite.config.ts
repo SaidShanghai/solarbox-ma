@@ -19,4 +19,20 @@ export default defineConfig(({ mode }) => ({
     },
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-ui": ["framer-motion", "@radix-ui/react-dialog", "@radix-ui/react-popover", "@radix-ui/react-tooltip"],
+          "vendor-supabase": ["@supabase/supabase-js"],
+          "vendor-pdf": ["jspdf", "jspdf-autotable"],
+          "vendor-charts": ["recharts"],
+          "vendor-query": ["@tanstack/react-query"],
+        },
+      },
+    },
+    target: "es2020",
+    cssCodeSplit: true,
+  },
 }));
