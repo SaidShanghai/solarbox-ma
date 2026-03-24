@@ -1190,27 +1190,14 @@ const Index = () => {
                           </div>
                         </div>
 
-                        {/* Tension du site — sauf Appartement */}
-                        {selectedType !== "Appartement" && (
-                        <div className="space-y-1.5">
-                          <label className="text-[10px] font-semibold text-foreground">Tension du site</label>
-                          <div className="flex gap-2">
-                            {(["220", "380"] as const).map(opt => (
-                              <button
-                                key={opt}
-                                onClick={() => setTension(opt)}
-                                className={`flex-1 py-2 rounded-xl text-sm font-bold border-2 transition-colors ${
-                                  tension === opt
-                                    ? "bg-primary/10 border-primary text-primary"
-                                    : "border-border hover:border-primary/50 text-muted-foreground"
-                                }`}
-                              >
-                                {opt}V
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        )}
+                         {/* Tension auto-calculée */}
+                         {selectedType !== "Appartement" && (
+                         <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-muted/60 border border-border">
+                           <span className="text-[9px] text-muted-foreground">
+                             ⚡ Tension : <strong className="text-foreground">{(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) ? "380V" : "220V"}</strong>
+                           </span>
+                         </div>
+                         )}
 
                         {selectedType === "Entreprise" && (
                           <div className="space-y-2">

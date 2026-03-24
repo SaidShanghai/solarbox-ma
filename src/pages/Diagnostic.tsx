@@ -823,27 +823,18 @@ const Diagnostic = () => {
                     </div>
                   </div>
 
-                  {/* Tension du site — tous profils sauf Appartement */}
-                  {selectedType !== "Appartement" && (
-                    <div className="space-y-3">
-                      <label className="text-sm font-semibold">Tension du site</label>
-                      <div className="flex gap-3">
-                        {(["220V", "380V"] as const).map(opt => (
-                          <button
-                            key={opt}
-                            onClick={() => setTensionSite(opt)}
-                            className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
-                              tensionSite === opt
-                                ? "bg-primary/10 border-primary text-primary"
-                                : "border-border hover:border-primary/50 text-muted-foreground"
-                            }`}
-                          >
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                   {/* Tension auto-calculée : affichage informatif */}
+                   {selectedType !== "Appartement" && (
+                     <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-muted/60 border border-border">
+                       <Zap className="w-4 h-4 text-primary shrink-0" />
+                       <span className="text-sm text-muted-foreground">
+                         Tension du site : <strong className="text-foreground">{(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) ? "380V (triphasé)" : "220V (monophasé)"}</strong>
+                         {(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) && (
+                           <span className="text-xs text-primary ml-1">— détecté via vos usages</span>
+                         )}
+                       </span>
+                     </div>
+                   )}
 
                   {selectedType === "Entreprise" && (
                     <div className="space-y-4">
