@@ -281,9 +281,8 @@ const Index = () => {
                 <p className="text-lg md:text-xl font-bold text-foreground">
                   En moins de 2 minutes. Gratuit. Sans engagement.
                 </p>
-              </div>
-
-
+                        </div>
+                        )}
               {/* Trust indicators */}
               <div className="flex items-start gap-8 pt-8 [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
                 <div className="text-center">
