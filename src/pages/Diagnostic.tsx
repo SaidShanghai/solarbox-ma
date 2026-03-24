@@ -244,8 +244,8 @@ const Diagnostic = () => {
 
     const base = {
       objectif,
-      consommation_annuelle_kwh: conso ? Number(conso.replace(/\s/g, "")) : null,
-      facture_annuelle_mad: facture ? Number(facture.replace(/\s/g, "")) : null,
+      consommation_annuelle_kwh: conso ? Number(conso.replace(/\s/g, "")) * (periodeMode === "mensuel" ? 12 : 1) : null,
+      facture_annuelle_mad: facture ? Number(facture.replace(/\s/g, "")) * (periodeMode === "mensuel" ? 12 : 1) : null,
       ville: ville || villeProjet || null,
       gps: roofLat && roofLng ? { lat: roofLat, lng: roofLng } : null,
       usages: selectedUsages,
