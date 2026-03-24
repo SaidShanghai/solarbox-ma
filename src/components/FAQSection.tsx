@@ -79,7 +79,7 @@ export default function FAQSection({
                 itemType="https://schema.org/Answer"
                 itemProp="acceptedAnswer"
               >
-                <p className="text-muted-foreground leading-relaxed pb-5" itemProp="text">
+                <p className="text-background/70 leading-relaxed pb-5" itemProp="text">
                   {item.answer}
                 </p>
               </div>
