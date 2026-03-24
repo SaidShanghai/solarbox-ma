@@ -136,6 +136,13 @@ const Index = () => {
   const [monthlySaving, setMonthlySaving] = useState(0);
   const { toast } = useToast();
   const [heroSlide, setHeroSlide] = useState(0); // 0 = hero, 1 = page 2, 2 = FAQ
+
+  // Listen for "Accueil" click to reset slider to page 0
+  useEffect(() => {
+    const goHome = () => setHeroSlide(0);
+    window.addEventListener("solarbox:go-home", goHome);
+    return () => window.removeEventListener("solarbox:go-home", goHome);
+  }, []);
   // OCR mockup state
   const mockupFileRef = useRef<HTMLInputElement>(null);
   const [mockupConsentAccepted, setMockupConsentAccepted] = useState(false);
