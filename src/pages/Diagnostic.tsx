@@ -780,7 +780,7 @@ const Diagnostic = () => {
                    <div className="space-y-2">
                      <label className="text-sm font-semibold">Surface disponible</label>
                      <div className="grid grid-cols-4 gap-2">
-                       {surfaces.map(s => (
+                       {getSurfaces(selectedType).map(s => (
                          <button key={s.label} onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }} className={`flex flex-col items-center p-2.5 rounded-xl border-2 text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
                            <span className="text-xs font-bold">{s.m2}</span>
                            <span className="text-[10px] text-muted-foreground">{s.pan}</span>
