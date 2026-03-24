@@ -1,0 +1,1 @@
+UPDATE blog_posts SET cover_image_url = 'https://ffgclfdgqovirhptqipi.supabase.co/storage/v1/object/public/blog-covers/dimensionnement-solaire-formulas.jpg' WHERE id = 'e6151cf3-e8e9-449a-8db4-f7cc099428aa';
