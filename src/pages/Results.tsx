@@ -9,24 +9,24 @@ import QuotePanel from "@/components/QuotePanel";
 
 const mockInstallers = [
   {
-    id: 1, name: "SunTech Solutions", rating: 4.8, reviews: 127, city: "Paris",
-    specialties: ["Résidentiel", "Autoconsommation"], priceRange: "8 000 - 12 000 €",
-    certifications: ["RGE", "QualiPV"], yearsExp: 12, emoji: "🔆",
+    id: 1, name: "SolarTech Maroc", rating: 4.8, reviews: 127, city: "Casablanca",
+    specialties: ["Résidentiel", "Autoconsommation"], priceRange: "55 000 – 85 000 MAD",
+    certifications: ["AMISOLE", "QualiPV"], yearsExp: 12, emoji: "🔆",
   },
   {
-    id: 2, name: "ÉcoSolaire France", rating: 4.6, reviews: 89, city: "Lyon",
-    specialties: ["Résidentiel", "Batteries"], priceRange: "9 000 - 14 000 €",
-    certifications: ["RGE", "QualiPV", "Qualibat"], yearsExp: 8, emoji: "🌱",
+    id: 2, name: "ÉcoSolaire Maroc", rating: 4.6, reviews: 89, city: "Rabat",
+    specialties: ["Résidentiel", "Batteries"], priceRange: "60 000 – 95 000 MAD",
+    certifications: ["AMISOLE", "IRESEN"], yearsExp: 8, emoji: "🌱",
   },
   {
-    id: 3, name: "GreenPower Install", rating: 4.9, reviews: 203, city: "Marseille",
-    specialties: ["Résidentiel", "Commercial", "Autoconsommation"], priceRange: "7 500 - 11 000 €",
-    certifications: ["RGE", "QualiPV"], yearsExp: 15, emoji: "⚡",
+    id: 3, name: "GreenPower Install", rating: 4.9, reviews: 203, city: "Marrakech",
+    specialties: ["Résidentiel", "Commercial", "Autoconsommation"], priceRange: "50 000 – 80 000 MAD",
+    certifications: ["AMISOLE", "QualiPV"], yearsExp: 15, emoji: "⚡",
   },
   {
-    id: 4, name: "Solaris Énergie", rating: 4.5, reviews: 64, city: "Bordeaux",
-    specialties: ["Résidentiel", "Autoconsommation", "Batteries"], priceRange: "8 500 - 13 000 €",
-    certifications: ["RGE"], yearsExp: 6, emoji: "☀️",
+    id: 4, name: "Solaris Énergie", rating: 4.5, reviews: 64, city: "Agadir",
+    specialties: ["Résidentiel", "Autoconsommation", "Batteries"], priceRange: "58 000 – 90 000 MAD",
+    certifications: ["AMISOLE"], yearsExp: 6, emoji: "☀️",
   },
 ];
 
