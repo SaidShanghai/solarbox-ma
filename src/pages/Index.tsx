@@ -1700,7 +1700,15 @@ const Index = () => {
       </section>
 
       {/* Section 3 — FAQ */}
-      <section className="w-screen h-screen flex-shrink-0 flex items-center relative overflow-y-auto overflow-x-hidden bg-background">
+      <section
+        className="w-screen h-screen flex-shrink-0 flex items-center relative overflow-y-auto overflow-x-hidden"
+        style={{
+          backgroundImage: `url(${faqBgImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-background/50" />
         {/* Back chevron — sunset half-sun */}
         <button
           onClick={() => setHeroSlide(1)}
