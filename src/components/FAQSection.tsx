@@ -32,14 +32,14 @@ export default function FAQSection({
           {items.map((item, i) => (
             <div
               key={i}
-              className="group border border-border rounded-xl px-5 bg-foreground/80 backdrop-blur-sm"
+              className="group rounded-2xl px-6 bg-background/60 backdrop-blur-md border border-primary/15 hover:border-primary/40 transition-colors duration-200"
               itemScope
               itemType="https://schema.org/Question"
               itemProp="mainEntity"
             >
               <button
                 type="button"
-                className="flex w-full items-center justify-center cursor-pointer py-5 text-center text-base font-medium text-background"
+                className="flex w-full items-center justify-between cursor-pointer py-5 text-left text-base font-medium text-foreground"
                 onClick={(e) => {
                   const content = e.currentTarget.nextElementSibling as HTMLElement;
                   const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
@@ -48,19 +48,19 @@ export default function FAQSection({
                     content.style.maxHeight = "0px";
                     content.style.opacity = "0";
                     chevron?.classList.remove("rotate-180");
-                    e.currentTarget.closest(".group")?.classList.remove("shadow-md");
+                    e.currentTarget.closest(".group")?.classList.remove("shadow-lg", "shadow-primary/10");
                   } else {
                     content.style.maxHeight = content.scrollHeight + "px";
                     content.style.opacity = "1";
                     chevron?.classList.add("rotate-180");
-                    e.currentTarget.closest(".group")?.classList.add("shadow-md");
+                    e.currentTarget.closest(".group")?.classList.add("shadow-lg", "shadow-primary/10");
                   }
                 }}
                 aria-expanded="false"
               >
                 <span itemProp="name">{item.question}</span>
                 <svg
-                  className="w-4 h-4 shrink-0 ml-4 text-muted-foreground transition-transform duration-200"
+                  className="w-5 h-5 shrink-0 ml-4 text-primary transition-transform duration-200"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"
@@ -79,7 +79,7 @@ export default function FAQSection({
                 itemType="https://schema.org/Answer"
                 itemProp="acceptedAnswer"
               >
-                <p className="text-background/70 leading-relaxed pb-5" itemProp="text">
+                <p className="text-muted-foreground leading-relaxed pb-5" itemProp="text">
                   {item.answer}
                 </p>
               </div>
