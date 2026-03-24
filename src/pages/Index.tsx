@@ -1669,7 +1669,7 @@ const Index = () => {
                     decimals={'decimals' in item.stat ? item.stat.decimals : 0}
                     className="text-lg font-bold"
                   />
-                  <span className="text-[11px] text-muted-foreground block">{item.stat.label}</span>
+                  <span className="text-[11px] text-foreground block">{item.stat.label}</span>
                 </div>
               </div>
             ))}
