@@ -95,7 +95,12 @@ const Diagnostic = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [objectif, setObjectif] = useState<"facture" | "autonomie" | null>(null);
   const [typeBatiment, setTypeBatiment] = useState<"Industriel" | "Tertiaire" | null>(null);
-  const [tensionSite, setTensionSite] = useState<"220V" | "380V" | null>(null);
+  // Tension auto-computed from usages (no manual toggle)
+  const computeTension = (type: string | null, usages: string[]): "220V" | "380V" => {
+    if (type === "Appartement") return "220V";
+    if (usages.includes("Piscine") || usages.includes("Véhicule élec.")) return "380V";
+    return "220V";
+  };
   const [conso, setConso] = useState("");
   const [facture, setFacture] = useState("");
   const [puissanceSouscrite, setPuissanceSouscrite] = useState("");
@@ -148,7 +153,7 @@ const Diagnostic = () => {
     setSelectedType(draft.selectedType);
     setObjectif(draft.objectif as any);
     setTypeBatiment(draft.typeBatiment as any);
-    setTensionSite(draft.tensionSite as any);
+    // tensionSite is now computed, no need to restore
     setConso(draft.conso);
     setFacture(draft.facture);
     setPuissanceSouscrite(draft.puissanceSouscrite);
@@ -176,13 +181,13 @@ const Diagnostic = () => {
   useEffect(() => {
     if (!restoredRef.current) return;
     save({
-      screen, selectedType, objectif, typeBatiment, tensionSite, conso, facture,
+      screen, selectedType, objectif, typeBatiment, tensionSite: computeTension(selectedType, selectedUsages), conso, facture,
       puissanceSouscrite, typeAbonnement, ville, panelAccess,
       selectedSurface, selectedUsages, descriptionProjet, adresseProjet,
       villeProjet, roofLat, roofLng, dateDebut, dateFin,
       pvExistante, extensionInstall, subventionRecue, eligDecl,
     });
-  }, [screen, selectedType, objectif, typeBatiment, tensionSite, conso, facture,
+  }, [screen, selectedType, objectif, typeBatiment, conso, facture,
     puissanceSouscrite, typeAbonnement, ville, panelAccess,
     selectedSurface, selectedUsages, descriptionProjet, adresseProjet,
     villeProjet, roofLat, roofLng, dateDebut, dateFin,
@@ -211,7 +216,7 @@ const Diagnostic = () => {
       usages: selectedUsages,
       acces_panneaux: panelAccess,
       surface: selectedSurface,
-      tension_site: tensionSite,
+      tension_site: computeTension(selectedType, selectedUsages),
       ocr_brut: ocrRawData,
       distributeur: ocrRawData?.distributeur ?? null,
       type_abonnement: typeAbonnement ?? ocrRawData?.type_abonnement ?? null,
@@ -424,7 +429,7 @@ const Diagnostic = () => {
                     ].map(({ icon: Icon, label, desc }) => (
                       <button
                         key={label}
-                        onClick={() => { setSelectedType(label); setScreen("form"); if (label === "Appartement") setTensionSite("220V"); }}
+                        onClick={() => { setSelectedType(label); setScreen("form"); }}
                         className="flex flex-col items-center gap-3 p-8 rounded-2xl border-2 border-border hover:border-primary hover:bg-primary/5 transition-all active:scale-[0.97]"
                       >
                         <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
@@ -823,27 +828,18 @@ const Diagnostic = () => {
                     </div>
                   </div>
 
-                  {/* Tension du site — tous profils sauf Appartement */}
-                  {selectedType !== "Appartement" && (
-                    <div className="space-y-3">
-                      <label className="text-sm font-semibold">Tension du site</label>
-                      <div className="flex gap-3">
-                        {(["220V", "380V"] as const).map(opt => (
-                          <button
-                            key={opt}
-                            onClick={() => setTensionSite(opt)}
-                            className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
-                              tensionSite === opt
-                                ? "bg-primary/10 border-primary text-primary"
-                                : "border-border hover:border-primary/50 text-muted-foreground"
-                            }`}
-                          >
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                   {/* Tension auto-calculée : affichage informatif */}
+                   {selectedType !== "Appartement" && (
+                     <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-muted/60 border border-border">
+                       <Zap className="w-4 h-4 text-primary shrink-0" />
+                       <span className="text-sm text-muted-foreground">
+                         Tension du site : <strong className="text-foreground">{(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) ? "380V (triphasé)" : "220V (monophasé)"}</strong>
+                         {(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) && (
+                           <span className="text-xs text-primary ml-1">— détecté via vos usages</span>
+                         )}
+                       </span>
+                     </div>
+                   )}
 
                   {selectedType === "Entreprise" && (
                     <div className="space-y-4">
@@ -1118,7 +1114,7 @@ const Diagnostic = () => {
           elig_decl: Object.values(eligDecl).some(v => v !== null) ? eligDecl : undefined,
           gps_lat: roofLat ?? undefined,
           gps_lng: roofLng ?? undefined,
-          tension_site: tensionSite || undefined,
+          tension_site: computeTension(selectedType, selectedUsages) || undefined,
         }}
         pic={buildPic()}
         onSuccess={(id, clientName, clientEmail) => {
