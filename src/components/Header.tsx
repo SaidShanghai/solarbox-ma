@@ -36,6 +36,7 @@ const Header = () => {
       { to: "/nos-solutions", label: "Nos solutions" },
       { to: "/blog", label: "Blog" },
       { to: "/a-propos", label: "À propos" },
+      { to: "/contact", label: "Contact" },
       ...(!isAdmin ? [{ to: "/profil", label: "Mon diagnostic" }] : []),
     ];
     return links;
