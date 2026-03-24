@@ -74,7 +74,8 @@ const getUsages = (type: string | null) => {
   ];
 };
 
-const surfaces = [
+/** Standard surface paliers (Maison / Appartement / Ferme résidentiel) */
+const surfacesStandard = [
   { m2: "22 m²", pan: "8 pan.", label: "M1" },
   { m2: "44 m²", pan: "16 pan.", label: "M2" },
   { m2: "66 m²", pan: "24 pan.", label: "M3/T1" },
@@ -83,6 +84,17 @@ const surfaces = [
   { m2: "264 m²", pan: "96 pan.", label: "T4" },
   { m2: "330 m²", pan: "120 pan.", label: "T5" },
 ];
+
+/** AIO BOX paliers (Entreprise / Ferme industriel) */
+const surfacesAIO = [
+  { m2: "450 m²", pan: "225 pan.", label: "A1" },
+  { m2: "900 m²", pan: "450 pan.", label: "A2" },
+  { m2: "1350 m²", pan: "675 pan.", label: "A3" },
+  { m2: "1800 m²", pan: "900 pan.", label: "A4" },
+];
+
+/** All paliers combined for resolution */
+const allSurfaces = [...surfacesStandard, ...surfacesAIO];
 
 /** Surface values in m² for each palier, sorted ascending */
 const surfaceValues = surfaces.map(s => parseInt(s.m2));
