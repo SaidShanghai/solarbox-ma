@@ -1621,15 +1621,15 @@ const Index = () => {
           >
             <div className="inline-flex items-center justify-center gap-3 rounded-full border border-primary/20 bg-card px-6 py-3 shadow-sm min-w-[340px]">
               <span className="text-sm text-muted-foreground whitespace-nowrap">Économies sur 25 ans</span>
-              <span className="min-w-[120px] text-right">
+              <span className="w-[130px] text-right">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={monthlySaving}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-xl font-bold text-primary inline-block"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-xl font-bold text-primary inline-block w-full"
                   >
                     {(monthlySaving * 12 * 25).toLocaleString("fr-FR")} DH*
                   </motion.span>
