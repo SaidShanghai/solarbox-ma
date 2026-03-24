@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { FileText, Loader2, Mail, Phone, MapPin, Calendar, ChevronDown, ChevronUp, StickyNote, Sun, Zap, Leaf, LayoutGrid, Search, Copy, Clock, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import SatelliteMapPreview from "@/components/admin/SatelliteMapPreview";
-import { generateQuotePdf } from "@/components/admin/generateQuotePdf";
+// generateQuotePdf is dynamically imported on demand to avoid bundling jspdf on page load
 import { parseConsoKwh, scaleSolar } from "@/lib/solarScaling";
 
 interface SolarResult {
