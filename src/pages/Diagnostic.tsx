@@ -824,6 +824,27 @@ const Diagnostic = () => {
                   </div>
 
                   {selectedType === "Entreprise" && (
+                    <div className="space-y-3">
+                      <label className="text-sm font-semibold">Tension du site</label>
+                      <div className="flex gap-3">
+                        {(["220V", "380V"] as const).map(opt => (
+                          <button
+                            key={opt}
+                            onClick={() => setTensionSite(opt)}
+                            className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
+                              tensionSite === opt
+                                ? "bg-primary/10 border-primary text-primary"
+                                : "border-border hover:border-primary/50 text-muted-foreground"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedType === "Entreprise" && (
                     <div className="space-y-4">
                       {([
                         { label: "Installation PV existante", value: pvExistante, set: setPvExistante },
