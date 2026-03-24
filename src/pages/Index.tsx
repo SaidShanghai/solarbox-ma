@@ -1542,7 +1542,7 @@ const Index = () => {
       <section className="w-screen h-screen flex-shrink-0 flex flex-col pt-24 pb-6 relative overflow-hidden" style={{ backgroundColor: "#5a8bb5" }}>
         {/* Background */}
         <div className="absolute inset-0 z-0">
-          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
+          <img src={skyCloudsBg} alt="Ciel nuageux" width={1920} height={1280} className="w-full h-full object-cover object-center" loading="lazy" />
           <div className="absolute inset-0 bg-background/70" />
         </div>
 
