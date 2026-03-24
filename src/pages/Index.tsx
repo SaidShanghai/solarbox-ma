@@ -1636,8 +1636,8 @@ const Index = () => {
           >
             {features.map((feature, index) => (
               <div key={feature.title} className="text-center bg-background/70 backdrop-blur-sm rounded-xl p-2.5 border border-border/50">
-                <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <feature.icon className="w-5 h-5 text-primary" />
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-1.5">
+                  <feature.icon className="w-4 h-4 text-primary" />
                 </div>
                 <h3 className="text-sm font-semibold mb-1">{feature.title}</h3>
                 <p className="text-xs text-foreground leading-relaxed">{feature.description}</p>
