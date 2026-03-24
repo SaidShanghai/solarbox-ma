@@ -103,6 +103,7 @@ const DIAGNOSTIC_LABELS: Record<string, string> = {
   pv_existante: "Installation PV existante",
   extension_install: "Extension installation",
   subvention_recue: "Subvention reçue",
+  tension_site: "Tension du site",
 };
 
 const QuoteRequestsManager = () => {
