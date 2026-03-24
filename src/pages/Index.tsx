@@ -1192,7 +1192,8 @@ const Index = () => {
                           </div>
                         </div>
 
-                        {/* Tension du site — tous profils */}
+                        {/* Tension du site — sauf Appartement */}
+                        {selectedType !== "Appartement" && (
                         <div className="space-y-1.5">
                           <label className="text-[10px] font-semibold text-foreground">Tension du site</label>
                           <div className="flex gap-2">
