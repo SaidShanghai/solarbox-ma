@@ -1196,17 +1196,17 @@ const Index = () => {
                         <div className="space-y-1.5">
                           <label className="text-[10px] font-semibold text-foreground">Tension du site</label>
                           <div className="flex gap-2">
-                            {(["220V", "380V"] as const).map(opt => (
+                            {(["220", "380"] as const).map(opt => (
                               <button
                                 key={opt}
-                                onClick={() => setTensionSite(opt)}
+                                onClick={() => setTension(opt)}
                                 className={`flex-1 py-2 rounded-xl text-sm font-bold border-2 transition-colors ${
-                                  tensionSite === opt
+                                  tension === opt
                                     ? "bg-primary/10 border-primary text-primary"
                                     : "border-border hover:border-primary/50 text-muted-foreground"
                                 }`}
                               >
-                                {opt}
+                                {opt}V
                               </button>
                             ))}
                           </div>
