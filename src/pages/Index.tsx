@@ -1749,7 +1749,7 @@ const Index = () => {
             <h2 className="text-4xl lg:text-6xl font-bold mb-4">
               Questions <span className="text-primary">fréquentes</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+            <p className="text-foreground text-lg max-w-lg mx-auto" style={{ textShadow: "0 0 4px rgba(0,0,0,0.5)" }}>
               Tout ce que vous devez savoir sur le solaire au Maroc
             </p>
           </motion.div>
