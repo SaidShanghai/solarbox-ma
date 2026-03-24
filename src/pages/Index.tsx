@@ -1467,43 +1467,6 @@ const Index = () => {
                 );
               })}
 
-              {/* CTAs in right column */}
-              <div className="flex flex-col gap-3 mt-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="group h-12 px-6 text-sm text-black animate-[pulse_1.5s_ease-in-out_infinite] hover:animate-none w-full"
-                >
-                  <Link to="/diagnostic">
-                    VOIR MES ÉCONOMIES
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="h-12 px-6 text-sm w-full">
-                  <Link to="/diagnostic">
-                    Comment ça marche ?
-                  </Link>
-                </Button>
-                <div className="flex gap-2 mt-1">
-                  <button
-                    onClick={() => {
-                      const el = document.getElementById("diagnostic");
-                      if (el) el.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="flex items-center gap-1.5 h-10 px-4 text-xs font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform flex-1 justify-center"
-                  >
-                    <span className="w-1.5 h-1.5 bg-background rounded-full shrink-0" />
-                    PARTICULIERS
-                  </button>
-                  <button
-                    onClick={handleAideCTA}
-                    className="flex items-center gap-1.5 h-10 px-4 text-xs font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform flex-1 justify-center"
-                  >
-                    <span className="w-1.5 h-1.5 bg-background rounded-full shrink-0" />
-                    ENTREPRISES
-                  </button>
-                </div>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -1779,6 +1742,48 @@ const Index = () => {
       </section>
 
         </motion.div>{/* end horizontal track */}
+
+        {/* Floating CTAs — visible on pages 0 & 1, same position */}
+        <div
+          className={`absolute bottom-12 right-12 z-30 hidden lg:flex flex-col gap-3 w-[260px] transition-opacity duration-300 ${
+            heroSlide === 2 ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <Button
+            asChild
+            size="lg"
+            className="group h-12 px-6 text-sm text-black animate-[pulse_1.5s_ease-in-out_infinite] hover:animate-none w-full"
+          >
+            <Link to="/diagnostic">
+              VOIR MES ÉCONOMIES
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+          <Button asChild variant="outline" size="lg" className="h-12 px-6 text-sm w-full bg-background/80 backdrop-blur-sm">
+            <Link to="/diagnostic">
+              Comment ça marche ?
+            </Link>
+          </Button>
+          <div className="flex gap-2 mt-1">
+            <button
+              onClick={() => {
+                const el = document.getElementById("diagnostic");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="flex items-center gap-1.5 h-10 px-4 text-xs font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform flex-1 justify-center"
+            >
+              <span className="w-1.5 h-1.5 bg-background rounded-full shrink-0" />
+              PARTICULIERS
+            </button>
+            <button
+              onClick={handleAideCTA}
+              className="flex items-center gap-1.5 h-10 px-4 text-xs font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform flex-1 justify-center"
+            >
+              <span className="w-1.5 h-1.5 bg-background rounded-full shrink-0" />
+              ENTREPRISES
+            </button>
+          </div>
+        </div>
       </div>{/* end horizontal slider */}
 
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
