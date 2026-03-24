@@ -14,6 +14,14 @@ const Profil = () => {
   const { isAdmin, loading: adminLoading } = useAdmin();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow";
+    document.head.appendChild(meta);
+    return () => { document.head.removeChild(meta); };
+  }, []);
+
   const loading = authLoading || adminLoading;
 
   if (loading) {
