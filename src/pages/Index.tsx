@@ -5,7 +5,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { compressImageToBase64 } from "@/lib/compressImage";
-import nooriaLogo from "@/assets/nooria-logo.jpg";
+import nooriaLogo from "@/assets/nooria-logo.webp";
 import heroBg from "@/assets/hero-bg.webp";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
 import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
