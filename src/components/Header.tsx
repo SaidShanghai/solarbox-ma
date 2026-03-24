@@ -137,6 +137,12 @@ const Header = () => {
               ))}
             </nav>
 
+            {/* Centered logo */}
+            <Link to="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+              <SolarboxLogo className="md:hidden" size="sm" />
+              <SolarboxLogo className="hidden md:block" size="md" />
+            </Link>
+
             <div className="flex items-center gap-2">
               {user ? (
                 <div className="flex items-center gap-2">
