@@ -98,7 +98,7 @@ const Diagnostic = () => {
   // Tension auto-computed from usages (no manual toggle)
   const computeTension = (type: string | null, usages: string[]): "220V" | "380V" => {
     if (type === "Appartement") return "220V";
-    if (usages.includes("Piscine") || usages.includes("Véhicule élec.")) return "380V";
+    if (usages.includes("Piscine") || usages.includes("Véhicule élec.") || (type === "Ferme" && usages.includes("Chambre froide"))) return "380V";
     return "220V";
   };
   const [conso, setConso] = useState("");
