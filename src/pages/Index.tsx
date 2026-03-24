@@ -370,12 +370,39 @@ const Index = () => {
                           </div>
                         </div>
 
-                        <button
-                          onClick={() => setPhoneScreen("type")}
-                          className={`w-full bg-primary text-primary-foreground rounded-full py-3 text-xs font-semibold flex items-center justify-center gap-1.5 mt-1 hover:bg-primary/90 transition-colors ${ctaBlink ? "animate-[pulse_0.4s_ease-in-out_infinite]" : ""}`}
-                        >
-                          Lancer l'analyse solaire <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
+                        <div className="relative w-full">
+                          <button
+                            onClick={() => setPhoneScreen("type")}
+                            className={`w-full bg-primary text-primary-foreground rounded-full py-3 text-xs font-semibold flex items-center justify-center gap-1.5 mt-1 hover:bg-primary/90 transition-colors ${ctaBlink ? "animate-[pulse_0.4s_ease-in-out_infinite]" : ""}`}
+                          >
+                            Lancer l'analyse solaire <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                          {/* Fake animated cursor */}
+                          <motion.svg
+                            width="20"
+                            height="24"
+                            viewBox="0 0 24 28"
+                            fill="none"
+                            className="absolute pointer-events-none drop-shadow-md"
+                            style={{ bottom: -2, right: 18 }}
+                            initial={{ opacity: 0, x: 30, y: 20 }}
+                            animate={{
+                              opacity: [0, 1, 1, 1, 1, 0],
+                              x: [30, 0, 0, 0, 0, 0],
+                              y: [20, 0, 0, -2, 0, 0],
+                              scale: [1, 1, 1, 0.85, 1, 1],
+                            }}
+                            transition={{
+                              duration: 3,
+                              repeat: Infinity,
+                              repeatDelay: 2,
+                              times: [0, 0.3, 0.5, 0.55, 0.65, 0.9],
+                              ease: "easeInOut",
+                            }}
+                          >
+                            <path d="M5.5 0L5.5 17.5L9.5 13.5L13.5 21L16.5 19.5L12.5 12L18 11L5.5 0Z" fill="white" stroke="hsl(var(--foreground))" strokeWidth="1.5" strokeLinejoin="round" />
+                          </motion.svg>
+                        </div>
 
                         <p className="text-[9px] text-muted-foreground">
                           Gratuit • Sans engagement • Résultat instantané
