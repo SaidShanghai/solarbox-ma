@@ -1645,30 +1645,6 @@ const Index = () => {
             ))}
           </motion.div>
 
-          {/* CTA — centered */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="flex justify-center gap-3 mb-8"
-          >
-            <Button asChild size="lg" className="h-12 px-7 text-sm bg-primary text-foreground hover:bg-primary/90">
-              <Link to="/diagnostic">
-                <Sun className="w-4 h-4 mr-2" />
-                Diagnostic gratuit
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => setCallbackOpen(true)}
-              className="h-12 px-7 text-sm border-border hover:border-primary/40"
-            >
-              En savoir plus
-            </Button>
-          </motion.div>
 
           {/* Stats — subtle divider row */}
           <motion.div
