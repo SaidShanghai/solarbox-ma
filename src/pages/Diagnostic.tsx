@@ -95,7 +95,12 @@ const Diagnostic = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [objectif, setObjectif] = useState<"facture" | "autonomie" | null>(null);
   const [typeBatiment, setTypeBatiment] = useState<"Industriel" | "Tertiaire" | null>(null);
-  const [tensionSite, setTensionSite] = useState<"220V" | "380V" | null>(null);
+  // Tension auto-computed from usages (no manual toggle)
+  const computeTension = (type: string | null, usages: string[]): "220V" | "380V" => {
+    if (type === "Appartement") return "220V";
+    if (usages.includes("Piscine") || usages.includes("Véhicule élec.")) return "380V";
+    return "220V";
+  };
   const [conso, setConso] = useState("");
   const [facture, setFacture] = useState("");
   const [puissanceSouscrite, setPuissanceSouscrite] = useState("");
