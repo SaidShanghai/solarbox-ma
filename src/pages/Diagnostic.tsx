@@ -82,8 +82,14 @@ const surfaces = [
   { m2: "198 m²", pan: "72 pan.", label: "T3" },
   { m2: "264 m²", pan: "96 pan.", label: "T4" },
   { m2: "330 m²", pan: "120 pan.", label: "T5" },
-  { m2: "396 m²", pan: "144 pan.", label: "T5+" },
 ];
+
+/** Resolve surface in m² from label (handles custom "CUSTOM:xxx" labels) */
+function getSurfaceM2(label: string | null): number {
+  if (!label) return 22;
+  if (label.startsWith("CUSTOM:")) return parseInt(label.split(":")[1]) || 400;
+  return parseInt(surfaces.find(s => s.label === label)?.m2 || "22");
+}
 
 const Diagnostic = () => {
   usePageMeta({
