@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import JsonLd from "@/components/seo/JsonLd";
 import { diagnosticSchema } from "@/config/seoSchemas";
-import nooriaLogo from "@/assets/nooria-logo.jpg";
+import nooriaLogo from "@/assets/nooria-logo.webp";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun, Zap, Shield, ArrowRight, Star, MapPin, FileText, Lock,

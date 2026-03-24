@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import faqBgImg from "@/assets/faq-bg.jpg";
+import faqBgImg from "@/assets/faq-bg.webp";
 import { STATS } from "@/config/stats";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { compressImageToBase64 } from "@/lib/compressImage";
-import nooriaLogo from "@/assets/nooria-logo.jpg";
+import nooriaLogo from "@/assets/nooria-logo.webp";
 import heroBg from "@/assets/hero-bg.webp";
-import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
-import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
+import solarboxLogoFull from "@/assets/solarbox-logo-mockup.webp";
+import skyCloudsBg from "@/assets/sky-clouds-bg.webp";
 
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1542,7 +1542,7 @@ const Index = () => {
       <section className="w-screen h-screen flex-shrink-0 flex flex-col pt-24 pb-6 relative overflow-hidden" style={{ backgroundColor: "#5a8bb5" }}>
         {/* Background */}
         <div className="absolute inset-0 z-0">
-          <img src={skyCloudsBg} alt="" className="w-full h-full object-cover object-center" />
+          <img src={skyCloudsBg} alt="Ciel nuageux" width={1920} height={1280} className="w-full h-full object-cover object-center" loading="lazy" />
           <div className="absolute inset-0 bg-background/70" />
         </div>
 
