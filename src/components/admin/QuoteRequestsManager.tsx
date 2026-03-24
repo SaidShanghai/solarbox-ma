@@ -508,9 +508,10 @@ const QuoteRequestsManager = () => {
                       {/* CTA Émettre un Devis */}
                       <div className="flex justify-end pt-4 border-t">
                         <Button
-                          onClick={() => {
+                          onClick={async () => {
                             const solar = solarCache[req.id];
                             const solarData = solar && solar !== "loading" && !solar.error ? solar as any : null;
+                            const { generateQuotePdf } = await import("@/components/admin/generateQuotePdf");
                             generateQuotePdf(req, solarData, allPackages);
                             toast({ title: "PDF généré !", description: `Devis #${req.id.slice(0, 8).toUpperCase()} téléchargé.` });
                           }}
