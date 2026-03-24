@@ -1747,7 +1747,7 @@ const Index = () => {
             className="text-center mb-8"
           >
             <h2 className="text-4xl lg:text-6xl font-bold mb-4">
-              Questions fréquentes
+              Questions <span className="text-primary">fréquentes</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-lg mx-auto">
               Tout ce que vous devez savoir sur le solaire au Maroc
