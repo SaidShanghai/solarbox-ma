@@ -32,14 +32,14 @@ export default function FAQSection({
           {items.map((item, i) => (
             <div
               key={i}
-              className="group border border-border rounded-xl px-5"
+              className="group border border-border rounded-xl px-5 bg-foreground/80 backdrop-blur-sm"
               itemScope
               itemType="https://schema.org/Question"
               itemProp="mainEntity"
             >
               <button
                 type="button"
-                className="flex w-full items-center justify-between cursor-pointer py-5 text-left text-base font-medium text-foreground"
+                className="flex w-full items-center justify-between cursor-pointer py-5 text-left text-base font-medium text-background"
                 onClick={(e) => {
                   const content = e.currentTarget.nextElementSibling as HTMLElement;
                   const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
@@ -79,7 +79,7 @@ export default function FAQSection({
                 itemType="https://schema.org/Answer"
                 itemProp="acceptedAnswer"
               >
-                <p className="text-muted-foreground leading-relaxed pb-5" itemProp="text">
+                <p className="text-background/70 leading-relaxed pb-5" itemProp="text">
                   {item.answer}
                 </p>
               </div>
