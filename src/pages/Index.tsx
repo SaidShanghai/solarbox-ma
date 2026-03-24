@@ -1464,29 +1464,26 @@ const Index = () => {
                   animate={{
                     opacity: 1,
                     y: 0,
-                    scale: isActive ? 1.08 : 1,
-                    zIndex: isActive ? 20 : 1,
                   }}
-                  transition={isActive
-                    ? { type: "spring", stiffness: 200, damping: 22 }
-                    : { delay: 0.5 + i * 0.15, type: "spring", stiffness: 120 }
-                  }
-                  className="flex items-center gap-5 relative group origin-left"
+                  transition={{ delay: 0.5 + i * 0.15, type: "spring", stiffness: 120 }}
+                  className={`flex items-center gap-5 relative group origin-left rounded-xl px-3 py-2 transition-all duration-500 ${
+                    isActive ? "bg-card shadow-sm" : ""
+                  }`}
                 >
                   <div className={`w-[54px] h-[54px] shrink-0 z-10 rounded-xl p-1.5 transition-all duration-500 ${
                     isActive
-                      ? "text-primary bg-primary/10 ring-1 ring-primary/20 shadow-md shadow-primary/10 scale-110"
+                      ? "text-primary bg-primary/10"
                       : isDone
                         ? "text-primary/60 bg-primary/5 border border-primary/30"
                         : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
                   }`}>
                     {step.sketch}
                   </div>
-                  <div className={`min-w-0 transition-all duration-500 ${isActive ? "translate-x-4" : ""}`}>
+                  <div className="min-w-0">
                     <p className={`font-bold leading-tight transition-all duration-500 ${isActive ? "text-foreground text-[15px]" : isDone ? "text-foreground/80 text-[13px]" : "text-foreground/80 group-hover:text-foreground text-[13px]"}`}>
                       {step.label}
                     </p>
-                    <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-foreground font-semibold text-xs" : "text-foreground/70 text-[11px]"}`}>
+                    <p className={`mt-0.5 transition-all duration-500 ${isActive ? "text-primary font-semibold text-xs" : "text-foreground/70 text-[11px]"}`}>
                       {step.sub}
                     </p>
                   </div>
