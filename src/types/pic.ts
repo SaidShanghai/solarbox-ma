@@ -49,6 +49,8 @@ interface PicBase {
   acces_panneaux: string[];
   /** Selected roof/ground surface label */
   surface: string | null;
+  /** Site voltage: 220V (monophasé) or 380V (triphasé) */
+  tension_site: "220V" | "380V" | null;
   /** Raw OCR data if a bill was scanned */
   ocr_brut: OcrFactureData | null;
   /** OCR-extracted distributor */
@@ -75,7 +77,6 @@ export interface PICA extends PicBase {
 export interface PICE extends PicBase {
   segment: "Entreprise";
   type_batiment: "Industriel" | "Tertiaire" | null;
-  tension_site: "220V" | "380V" | null;
   description_projet: string | null;
   adresse_projet: string | null;
   ville_projet: string | null;

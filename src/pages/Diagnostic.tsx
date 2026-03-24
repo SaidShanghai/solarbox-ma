@@ -211,6 +211,7 @@ const Diagnostic = () => {
       usages: selectedUsages,
       acces_panneaux: panelAccess,
       surface: selectedSurface,
+      tension_site: tensionSite,
       ocr_brut: ocrRawData,
       distributeur: ocrRawData?.distributeur ?? null,
       type_abonnement: typeAbonnement ?? ocrRawData?.type_abonnement ?? null,
@@ -223,7 +224,6 @@ const Diagnostic = () => {
         ...base,
         segment: "Entreprise",
         type_batiment: typeBatiment,
-        tension_site: tensionSite,
         description_projet: descriptionProjet || null,
         adresse_projet: adresseProjet || null,
         ville_projet: villeProjet || null,
@@ -823,26 +823,25 @@ const Diagnostic = () => {
                     </div>
                   </div>
 
-                  {selectedType === "Entreprise" && (
-                    <div className="space-y-3">
-                      <label className="text-sm font-semibold">Tension du site</label>
-                      <div className="flex gap-3">
-                        {(["220V", "380V"] as const).map(opt => (
-                          <button
-                            key={opt}
-                            onClick={() => setTensionSite(opt)}
-                            className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
-                              tensionSite === opt
-                                ? "bg-primary/10 border-primary text-primary"
-                                : "border-border hover:border-primary/50 text-muted-foreground"
-                            }`}
-                          >
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
+                  {/* Tension du site — tous profils */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-semibold">Tension du site</label>
+                    <div className="flex gap-3">
+                      {(["220V", "380V"] as const).map(opt => (
+                        <button
+                          key={opt}
+                          onClick={() => setTensionSite(opt)}
+                          className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
+                            tensionSite === opt
+                              ? "bg-primary/10 border-primary text-primary"
+                              : "border-border hover:border-primary/50 text-muted-foreground"
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      ))}
                     </div>
-                  )}
+                  </div>
 
                   {selectedType === "Entreprise" && (
                     <div className="space-y-4">
