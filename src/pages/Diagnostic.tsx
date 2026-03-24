@@ -223,6 +223,7 @@ const Diagnostic = () => {
         ...base,
         segment: "Entreprise",
         type_batiment: typeBatiment,
+        tension_site: tensionSite,
         description_projet: descriptionProjet || null,
         adresse_projet: adresseProjet || null,
         ville_projet: villeProjet || null,
