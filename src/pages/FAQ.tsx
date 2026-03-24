@@ -3,7 +3,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { faqData } from "@/data/faq";
 import { fullFaqSchema } from "@/config/seoSchemas";
 import { usePageMeta } from "@/hooks/usePageMeta";
-import faqBg from "@/assets/faq-bg.jpg";
+import faqBg from "@/assets/faq-bg.webp";
 
 export default function FAQ() {
   usePageMeta({

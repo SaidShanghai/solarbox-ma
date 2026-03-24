@@ -7,8 +7,8 @@ import { useToast } from "@/hooks/use-toast";
 import { compressImageToBase64 } from "@/lib/compressImage";
 import nooriaLogo from "@/assets/nooria-logo.webp";
 import heroBg from "@/assets/hero-bg.webp";
-import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
-import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
+import solarboxLogoFull from "@/assets/solarbox-logo-mockup.webp";
+import skyCloudsBg from "@/assets/sky-clouds-bg.webp";
 
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
