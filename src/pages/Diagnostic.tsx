@@ -135,6 +135,7 @@ const Diagnostic = () => {
   };
   const [conso, setConso] = useState("");
   const [facture, setFacture] = useState("");
+  const [periodeMode, setPeriodeMode] = useState<"mensuel" | "annuel">("mensuel");
   const [puissanceSouscrite, setPuissanceSouscrite] = useState("");
   const [typeAbonnement, setTypeAbonnement] = useState<"Basse Tension" | "Moyenne Tension" | "Haute Tension" | null>(null);
   const [ville, setVille] = useState("");
@@ -243,8 +244,8 @@ const Diagnostic = () => {
 
     const base = {
       objectif,
-      consommation_annuelle_kwh: conso ? Number(conso.replace(/\s/g, "")) : null,
-      facture_annuelle_mad: facture ? Number(facture.replace(/\s/g, "")) : null,
+      consommation_annuelle_kwh: conso ? Number(conso.replace(/\s/g, "")) * (periodeMode === "mensuel" ? 12 : 1) : null,
+      facture_annuelle_mad: facture ? Number(facture.replace(/\s/g, "")) * (periodeMode === "mensuel" ? 12 : 1) : null,
       ville: ville || villeProjet || null,
       gps: roofLat && roofLng ? { lat: roofLat, lng: roofLng } : null,
       usages: selectedUsages,
@@ -545,7 +546,8 @@ const Diagnostic = () => {
                   <div className={!consentAccepted ? "opacity-50 pointer-events-none select-none" : ""}>
                     <FactureUpload
                       onDataExtracted={(ocrData) => {
-                        setOcrRawData(ocrData as OcrFactureData);
+                         setOcrRawData(ocrData as OcrFactureData);
+                         setPeriodeMode("annuel"); // OCR values are already annualized
                         if (ocrData.montant_ttc) {
                           const days = ocrData.periode_jours || 30;
                           const annualAmount = Math.round((ocrData.montant_ttc / days) * 365);
@@ -587,20 +589,30 @@ const Diagnostic = () => {
                           ))}
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-semibold">Consommation annuelle (kWh)</label>
-                        <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
-                          <Zap className="w-4 h-4 text-muted-foreground shrink-0" />
-                          <input type="text" inputMode="numeric" value={conso} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setConso(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder="Ex : 480 000" className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-semibold">Facture annuelle (MAD)</label>
-                        <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
-                          <FileText className="w-4 h-4 text-muted-foreground shrink-0" />
-                          <input type="text" inputMode="numeric" value={facture} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setFacture(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder="Ex : 180 000" className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" />
-                        </div>
-                      </div>
+                       {/* Toggle mensuel/annuel */}
+                       <div className="flex items-center gap-1 p-1 bg-muted rounded-xl w-fit">
+                         {(["mensuel", "annuel"] as const).map(m => (
+                           <button key={m} onClick={() => setPeriodeMode(m)} className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${periodeMode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+                             {m === "mensuel" ? "Mensuel" : "Annuel"}
+                           </button>
+                         ))}
+                       </div>
+                       <div className="space-y-2">
+                         <label className="text-sm font-semibold">Consommation {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (kWh)</label>
+                         <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
+                           <Zap className="w-4 h-4 text-muted-foreground shrink-0" />
+                           <input type="text" inputMode="numeric" value={conso} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setConso(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder={periodeMode === "mensuel" ? "Ex : 40 000" : "Ex : 480 000"} className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" style={{ fontSize: "16px" }} />
+                         </div>
+                         {periodeMode === "mensuel" && conso && <p className="text-xs text-muted-foreground">≈ {Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} kWh/an</p>}
+                       </div>
+                       <div className="space-y-2">
+                         <label className="text-sm font-semibold">Facture {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (MAD)</label>
+                         <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
+                           <FileText className="w-4 h-4 text-muted-foreground shrink-0" />
+                           <input type="text" inputMode="numeric" value={facture} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setFacture(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder={periodeMode === "mensuel" ? "Ex : 15 000" : "Ex : 180 000"} className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" style={{ fontSize: "16px" }} />
+                         </div>
+                         {periodeMode === "mensuel" && facture && <p className="text-xs text-muted-foreground">≈ {Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} MAD/an</p>}
+                       </div>
                       <div className="space-y-2">
                         <label className="text-sm font-semibold">Puissance souscrite (kVA)</label>
                         <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
@@ -623,20 +635,30 @@ const Diagnostic = () => {
                     </>
                   ) : (
                     <>
-                      <div className="space-y-2">
-                        <label className="text-sm font-semibold">Facture annuelle (MAD)</label>
-                        <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
-                          <FileText className="w-4 h-4 text-muted-foreground shrink-0" />
-                          <input type="text" inputMode="numeric" value={facture} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setFacture(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder="Ex : 9 600" className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-semibold">Consommation annuelle (kWh)</label>
-                        <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
-                          <Zap className="w-4 h-4 text-muted-foreground shrink-0" />
-                          <input type="text" inputMode="numeric" value={conso} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setConso(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder="Ex : 350" className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" />
-                        </div>
-                      </div>
+                       {/* Toggle mensuel/annuel */}
+                       <div className="flex items-center gap-1 p-1 bg-muted rounded-xl w-fit">
+                         {(["mensuel", "annuel"] as const).map(m => (
+                           <button key={m} onClick={() => setPeriodeMode(m)} className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${periodeMode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+                             {m === "mensuel" ? "Mensuel" : "Annuel"}
+                           </button>
+                         ))}
+                       </div>
+                       <div className="space-y-2">
+                         <label className="text-sm font-semibold">Facture {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (MAD)</label>
+                         <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
+                           <FileText className="w-4 h-4 text-muted-foreground shrink-0" />
+                           <input type="text" inputMode="numeric" value={facture} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setFacture(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder={periodeMode === "mensuel" ? "Ex : 800" : "Ex : 9 600"} className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" style={{ fontSize: "16px" }} />
+                         </div>
+                         {periodeMode === "mensuel" && facture && <p className="text-xs text-muted-foreground">≈ {Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} MAD/an</p>}
+                       </div>
+                       <div className="space-y-2">
+                         <label className="text-sm font-semibold">Consommation {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (kWh) <span className="text-muted-foreground font-normal">(optionnel)</span></label>
+                         <div className="flex items-center gap-2 px-4 py-3 border-2 border-border rounded-xl focus-within:border-primary transition-colors">
+                           <Zap className="w-4 h-4 text-muted-foreground shrink-0" />
+                           <input type="text" inputMode="numeric" value={conso} onChange={(e) => { const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, ""); setConso(raw ? Number(raw).toLocaleString("fr-FR") : ""); }} placeholder={periodeMode === "mensuel" ? "Ex : 30" : "Ex : 350"} className="bg-transparent outline-none w-full text-sm placeholder:text-muted-foreground" style={{ fontSize: "16px" }} />
+                         </div>
+                         {periodeMode === "mensuel" && conso && <p className="text-xs text-muted-foreground">≈ {Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} kWh/an</p>}
+                       </div>
                       <div className="space-y-2" ref={villeRef}>
                         <label className="text-sm font-semibold">Ville</label>
                         <div className="relative">
@@ -1153,8 +1175,8 @@ const Diagnostic = () => {
           roof_type: typeBatiment || undefined,
           roof_orientation: panelAccess.length > 0 ? panelAccess.join(", ") : undefined,
           roof_surface: selectedSurface || undefined,
-          annual_consumption: conso ? `${conso} kWh` : undefined,
-          budget: facture ? `${facture} DH/mois` : undefined,
+           annual_consumption: conso ? `${periodeMode === "mensuel" ? Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR") : conso} kWh` : undefined,
+           budget: facture ? `${periodeMode === "mensuel" ? Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR") : facture} DH/an` : undefined,
           
           type_abonnement: typeAbonnement || undefined,
           puissance_souscrite: puissanceSouscrite ? `${puissanceSouscrite} kVA` : undefined,
