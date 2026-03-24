@@ -1738,7 +1738,7 @@ const Index = () => {
               backgroundPosition: "center",
             }}
           />
-          <div className="absolute inset-0 z-0 bg-background/90" />
+          <div className="absolute inset-0 z-0 bg-background/50" />
           <div className="relative z-10">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
