@@ -55,6 +55,7 @@ interface QuoteRequest {
   elig_decl: Record<string, string | null> | null;
   gps_lat: number | null;
   gps_lng: number | null;
+  tension_site: string | null;
   status: string;
   admin_notes: string | null;
   recommended_package_id: string | null;
