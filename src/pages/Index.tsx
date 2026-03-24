@@ -1194,7 +1194,7 @@ const Index = () => {
                          {selectedType !== "Appartement" && (
                          <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-muted/60 border border-border">
                            <span className="text-[9px] text-muted-foreground">
-                             ⚡ Tension : <strong className="text-foreground">{(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) ? "380V" : "220V"}</strong>
+                             ⚡ Tension : <strong className="text-foreground">{(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.") || (selectedType === "Ferme" && selectedUsages.includes("Chambre froide"))) ? "380V" : "220V"}</strong>
                            </span>
                          </div>
                          )}

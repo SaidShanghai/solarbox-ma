@@ -829,17 +829,19 @@ const Diagnostic = () => {
                   </div>
 
                    {/* Tension auto-calculée : affichage informatif */}
-                   {selectedType !== "Appartement" && (
-                     <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-muted/60 border border-border">
-                       <Zap className="w-4 h-4 text-primary shrink-0" />
-                       <span className="text-sm text-muted-foreground">
-                         Tension du site : <strong className="text-foreground">{(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) ? "380V (triphasé)" : "220V (monophasé)"}</strong>
-                         {(selectedUsages.includes("Piscine") || selectedUsages.includes("Véhicule élec.")) && (
-                           <span className="text-xs text-primary ml-1">— détecté via vos usages</span>
-                         )}
-                       </span>
-                     </div>
-                   )}
+                   {selectedType !== "Appartement" && (() => {
+                     const t = computeTension(selectedType, selectedUsages);
+                     const is380 = t === "380V";
+                     return (
+                       <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-muted/60 border border-border">
+                         <Zap className="w-4 h-4 text-primary shrink-0" />
+                         <span className="text-sm text-muted-foreground">
+                           Tension du site : <strong className="text-foreground">{is380 ? "380V (triphasé)" : "220V (monophasé)"}</strong>
+                           {is380 && <span className="text-xs text-primary ml-1">— détecté via vos usages</span>}
+                         </span>
+                       </div>
+                     );
+                   })()}
 
                   {selectedType === "Entreprise" && (
                     <div className="space-y-4">
