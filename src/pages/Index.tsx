@@ -1776,9 +1776,7 @@ const Index = () => {
 
         {/* Floating CTAs — visible on pages 0 & 1, same position */}
         <div
-          className={`absolute bottom-12 z-30 hidden lg:flex flex-col gap-3 transition-opacity duration-300 ${
-            heroSlide === 2 ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
+          className={`absolute bottom-12 z-30 hidden lg:flex flex-col gap-3 transition-opacity duration-300 opacity-100`}
           style={{ width: 240, right: "max(1rem, calc((100% - 1280px) / 2 + 1rem))" }}
         >
           <Button
