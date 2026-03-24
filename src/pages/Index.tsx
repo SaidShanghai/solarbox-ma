@@ -1475,7 +1475,7 @@ const Index = () => {
                 >
                   <div className={`w-[54px] h-[54px] shrink-0 z-10 rounded-xl p-1.5 transition-all duration-500 ${
                     isActive
-                      ? "text-primary bg-primary/10 ring-2 ring-primary/30 shadow-lg shadow-primary/20 scale-150"
+                      ? "text-primary bg-primary/10 ring-1 ring-primary/20 shadow-md shadow-primary/10 scale-110"
                       : isDone
                         ? "text-primary/60 bg-primary/5 border border-primary/30"
                         : "text-foreground/80 bg-background border border-dashed border-border group-hover:border-primary/40 group-hover:text-primary"
