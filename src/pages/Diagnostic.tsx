@@ -415,9 +415,9 @@ const Diagnostic = () => {
         </main>
       ) : (
         /* ── Multi-step form ── */
-        <main className="flex-1 flex flex-col pt-16">
-          {/* Top bar with back + stepper */}
-          <div className="sticky top-16 z-30 bg-background border-b border-border">
+         <main className="flex-1 flex flex-col pt-20">
+           {/* Top bar with back + stepper */}
+           <div className="sticky top-20 z-30 bg-background border-b border-border">
             <div className="container mx-auto px-4 max-w-2xl">
               <div className="flex items-center gap-3 py-3">
                 <button onClick={goBack} className="p-2 rounded-full hover:bg-muted transition-colors shrink-0">
