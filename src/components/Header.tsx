@@ -96,10 +96,12 @@ const Header = () => {
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            {/* Spacer to balance the centered logo */}
-            <div className="w-[140px] shrink-0 md:hidden" />
+            <Link to="/" className="flex items-center shrink-0 translate-y-1">
+              <SolarboxLogo className="md:hidden" size="sm" />
+              <SolarboxLogo className="hidden md:block" size="md" />
+            </Link>
 
-            {/* Desktop nav - left side */}
+            {/* Desktop nav */}
             <nav
               ref={navRef}
               className="hidden md:flex items-center gap-1 relative"
@@ -136,12 +138,6 @@ const Header = () => {
                 </Link>
               ))}
             </nav>
-
-            {/* Centered logo */}
-            <Link to="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-              <SolarboxLogo className="md:hidden" size="sm" />
-              <SolarboxLogo className="hidden md:block" size="md" />
-            </Link>
 
             <div className="flex items-center gap-2">
               {user ? (
