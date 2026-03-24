@@ -82,8 +82,14 @@ const surfaces = [
   { m2: "198 m²", pan: "72 pan.", label: "T3" },
   { m2: "264 m²", pan: "96 pan.", label: "T4" },
   { m2: "330 m²", pan: "120 pan.", label: "T5" },
-  { m2: "396 m²", pan: "144 pan.", label: "T5+" },
 ];
+
+/** Resolve surface in m² from label (handles custom "CUSTOM:xxx" labels) */
+function getSurfaceM2(label: string | null): number {
+  if (!label) return 22;
+  if (label.startsWith("CUSTOM:")) return parseInt(label.split(":")[1]) || 400;
+  return parseInt(surfaces.find(s => s.label === label)?.m2 || "22");
+}
 
 const Diagnostic = () => {
   usePageMeta({
@@ -111,6 +117,8 @@ const Diagnostic = () => {
   const villeRef = useRef<HTMLDivElement>(null);
   const [panelAccess, setPanelAccess] = useState<string[]>([]);
   const [selectedSurface, setSelectedSurface] = useState<string | null>(null);
+  const [customSurfaceOpen, setCustomSurfaceOpen] = useState(false);
+  const [customSurfaceInput, setCustomSurfaceInput] = useState("");
   const [selectedUsages, setSelectedUsages] = useState<string[]>([]);
   const [descriptionProjet, setDescriptionProjet] = useState("");
   const [adresseProjet, setAdresseProjet] = useState("");
@@ -743,18 +751,28 @@ const Diagnostic = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold">Surface disponible</label>
-                    <div className="grid grid-cols-4 gap-2">
-                      {surfaces.map(s => (
-                        <button key={s.label} onClick={() => setSelectedSurface(s.label)} className={`flex flex-col items-center p-2.5 rounded-xl border-2 text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
-                          <span className="text-xs font-bold">{s.m2}</span>
-                          <span className="text-[10px] text-muted-foreground">{s.pan}</span>
-                          <span className="text-[10px] font-medium text-primary">{s.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                   <div className="space-y-2">
+                     <label className="text-sm font-semibold">Surface disponible</label>
+                     <div className="grid grid-cols-4 gap-2">
+                       {surfaces.map(s => (
+                         <button key={s.label} onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }} className={`flex flex-col items-center p-2.5 rounded-xl border-2 text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
+                           <span className="text-xs font-bold">{s.m2}</span>
+                           <span className="text-[10px] text-muted-foreground">{s.pan}</span>
+                           <span className="text-[10px] font-medium text-primary">{s.label}</span>
+                         </button>
+                       ))}
+                       <button onClick={() => { setCustomSurfaceOpen(true); setSelectedSurface(null); }} className={`flex flex-col items-center justify-center p-2.5 rounded-xl border-2 text-center transition-colors ${customSurfaceOpen || selectedSurface?.startsWith("CUSTOM:") ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
+                         <span className="text-2xl font-bold text-primary">+</span>
+                         <span className="text-[10px] text-muted-foreground">Autre</span>
+                       </button>
+                     </div>
+                     {customSurfaceOpen && (
+                       <div className="flex items-center gap-2 mt-2">
+                         <input type="number" min="50" placeholder="Ex: 500" value={customSurfaceInput} onChange={e => { setCustomSurfaceInput(e.target.value); if (parseInt(e.target.value) >= 50) setSelectedSurface(`CUSTOM:${e.target.value}`); else setSelectedSurface(null); }} className="flex-1 text-sm bg-transparent outline-none border-2 border-border rounded-xl px-4 py-3 text-foreground focus:border-primary" style={{ fontSize: "16px" }} />
+                         <span className="text-sm text-muted-foreground font-medium">m²</span>
+                       </div>
+                     )}
+                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -798,18 +816,28 @@ const Diagnostic = () => {
                         </div>
                       </div>
 
-                      <div className="space-y-3">
-                        <label className="text-sm font-semibold">Surface disponible</label>
-                        <div className="grid grid-cols-4 gap-2">
-                          {surfaces.map(s => (
-                            <button key={s.label} onClick={() => setSelectedSurface(s.label)} className={`flex flex-col items-center p-2.5 rounded-xl border-2 text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
-                              <span className="text-xs font-bold">{s.m2}</span>
-                              <span className="text-[10px] text-muted-foreground">{s.pan}</span>
-                              <span className="text-[10px] font-medium text-primary">{s.label}</span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
+                       <div className="space-y-3">
+                         <label className="text-sm font-semibold">Surface disponible</label>
+                         <div className="grid grid-cols-4 gap-2">
+                           {surfaces.map(s => (
+                             <button key={s.label} onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }} className={`flex flex-col items-center p-2.5 rounded-xl border-2 text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
+                               <span className="text-xs font-bold">{s.m2}</span>
+                               <span className="text-[10px] text-muted-foreground">{s.pan}</span>
+                               <span className="text-[10px] font-medium text-primary">{s.label}</span>
+                             </button>
+                           ))}
+                           <button onClick={() => { setCustomSurfaceOpen(true); setSelectedSurface(null); }} className={`flex flex-col items-center justify-center p-2.5 rounded-xl border-2 text-center transition-colors ${customSurfaceOpen || selectedSurface?.startsWith("CUSTOM:") ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
+                             <span className="text-2xl font-bold text-primary">+</span>
+                             <span className="text-[10px] text-muted-foreground">Autre</span>
+                           </button>
+                         </div>
+                         {customSurfaceOpen && (
+                           <div className="flex items-center gap-2 mt-2">
+                             <input type="number" min="50" placeholder="Ex: 500" value={customSurfaceInput} onChange={e => { setCustomSurfaceInput(e.target.value); if (parseInt(e.target.value) >= 50) setSelectedSurface(`CUSTOM:${e.target.value}`); else setSelectedSurface(null); }} className="flex-1 text-sm bg-transparent outline-none border-2 border-border rounded-xl px-4 py-3 text-foreground focus:border-primary" style={{ fontSize: "16px" }} />
+                             <span className="text-sm text-muted-foreground font-medium">m²</span>
+                           </div>
+                         )}
+                       </div>
                     </>
                   )}
 
@@ -875,7 +903,7 @@ const Diagnostic = () => {
                         setSolarData(null);
                         const lat = roofLat || 33.5731;
                         const lng = roofLng || -7.5898;
-                        const surfaceM2 = selectedSurface ? parseInt(surfaces.find(s => s.label === selectedSurface)?.m2 || "22") : 22;
+                         const surfaceM2 = getSurfaceM2(selectedSurface);
                         const estimatedKwp = Math.max(1, Math.round((surfaceM2 / 2) * 0.5));
                         supabase.functions.invoke("get-solar-data", { body: { lat, lng, peakpower: estimatedKwp } })
                           .then(({ data, error: fnErr }) => {
@@ -958,7 +986,7 @@ const Diagnostic = () => {
                           const lat = roofLat || 33.5731;
                           const lng = roofLng || -7.5898;
                           // Estimate peakpower from surface for Maison (rough: 1 panel = 400W, 2m²)
-                          const surfaceM2 = selectedSurface ? parseInt(surfaces.find(s => s.label === selectedSurface)?.m2 || "22") : 22;
+                          const surfaceM2 = getSurfaceM2(selectedSurface);
                           const estimatedKwp = Math.max(1, Math.round((surfaceM2 / 2) * 0.4));
                           supabase.functions.invoke("get-solar-data", { body: { lat, lng, peakpower: estimatedKwp } })
                             .then(({ data, error: fnErr }) => {
