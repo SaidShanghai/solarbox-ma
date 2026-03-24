@@ -1464,11 +1464,11 @@ const Index = () => {
                   animate={{
                     opacity: 1,
                     y: 0,
-                    scale: isActive ? 1.3 : 1,
+                    scale: isActive ? 1.08 : 1,
                     zIndex: isActive ? 20 : 1,
                   }}
                   transition={isActive
-                    ? { type: "spring", stiffness: 300, damping: 18 }
+                    ? { type: "spring", stiffness: 200, damping: 22 }
                     : { delay: 0.5 + i * 0.15, type: "spring", stiffness: 120 }
                   }
                   className="flex items-center gap-5 relative group origin-left"
