@@ -95,6 +95,7 @@ const Diagnostic = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [objectif, setObjectif] = useState<"facture" | "autonomie" | null>(null);
   const [typeBatiment, setTypeBatiment] = useState<"Industriel" | "Tertiaire" | null>(null);
+  const [tensionSite, setTensionSite] = useState<"220V" | "380V" | null>(null);
   const [conso, setConso] = useState("");
   const [facture, setFacture] = useState("");
   const [puissanceSouscrite, setPuissanceSouscrite] = useState("");
