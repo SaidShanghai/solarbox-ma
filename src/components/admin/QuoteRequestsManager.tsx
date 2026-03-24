@@ -55,6 +55,7 @@ interface QuoteRequest {
   elig_decl: Record<string, string | null> | null;
   gps_lat: number | null;
   gps_lng: number | null;
+  tension_site: string | null;
   status: string;
   admin_notes: string | null;
   recommended_package_id: string | null;
@@ -102,6 +103,7 @@ const DIAGNOSTIC_LABELS: Record<string, string> = {
   pv_existante: "Installation PV existante",
   extension_install: "Extension installation",
   subvention_recue: "Subvention reçue",
+  tension_site: "Tension du site",
 };
 
 const QuoteRequestsManager = () => {

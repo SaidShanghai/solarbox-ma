@@ -31,6 +31,7 @@ export interface DiagnosticData {
   elig_decl?: Record<string, string | null>;
   gps_lat?: number;
   gps_lng?: number;
+  tension_site?: string;
 }
 
 interface QuotePanelProps {

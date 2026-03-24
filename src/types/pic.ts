@@ -75,6 +75,7 @@ export interface PICA extends PicBase {
 export interface PICE extends PicBase {
   segment: "Entreprise";
   type_batiment: "Industriel" | "Tertiaire" | null;
+  tension_site: "220V" | "380V" | null;
   description_projet: string | null;
   adresse_projet: string | null;
   ville_projet: string | null;

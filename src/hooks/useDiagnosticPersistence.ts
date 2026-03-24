@@ -7,6 +7,7 @@ export interface DiagnosticDraft {
   selectedType: string | null;
   objectif: string | null;
   typeBatiment: string | null;
+  tensionSite: string | null;
   conso: string;
   facture: string;
   puissanceSouscrite: string;

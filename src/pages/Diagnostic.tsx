@@ -95,6 +95,7 @@ const Diagnostic = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [objectif, setObjectif] = useState<"facture" | "autonomie" | null>(null);
   const [typeBatiment, setTypeBatiment] = useState<"Industriel" | "Tertiaire" | null>(null);
+  const [tensionSite, setTensionSite] = useState<"220V" | "380V" | null>(null);
   const [conso, setConso] = useState("");
   const [facture, setFacture] = useState("");
   const [puissanceSouscrite, setPuissanceSouscrite] = useState("");
@@ -147,6 +148,7 @@ const Diagnostic = () => {
     setSelectedType(draft.selectedType);
     setObjectif(draft.objectif as any);
     setTypeBatiment(draft.typeBatiment as any);
+    setTensionSite(draft.tensionSite as any);
     setConso(draft.conso);
     setFacture(draft.facture);
     setPuissanceSouscrite(draft.puissanceSouscrite);
@@ -174,13 +176,13 @@ const Diagnostic = () => {
   useEffect(() => {
     if (!restoredRef.current) return;
     save({
-      screen, selectedType, objectif, typeBatiment, conso, facture,
+      screen, selectedType, objectif, typeBatiment, tensionSite, conso, facture,
       puissanceSouscrite, typeAbonnement, ville, panelAccess,
       selectedSurface, selectedUsages, descriptionProjet, adresseProjet,
       villeProjet, roofLat, roofLng, dateDebut, dateFin,
       pvExistante, extensionInstall, subventionRecue, eligDecl,
     });
-  }, [screen, selectedType, objectif, typeBatiment, conso, facture,
+  }, [screen, selectedType, objectif, typeBatiment, tensionSite, conso, facture,
     puissanceSouscrite, typeAbonnement, ville, panelAccess,
     selectedSurface, selectedUsages, descriptionProjet, adresseProjet,
     villeProjet, roofLat, roofLng, dateDebut, dateFin,
@@ -221,6 +223,7 @@ const Diagnostic = () => {
         ...base,
         segment: "Entreprise",
         type_batiment: typeBatiment,
+        tension_site: tensionSite,
         description_projet: descriptionProjet || null,
         adresse_projet: adresseProjet || null,
         ville_projet: villeProjet || null,
@@ -821,6 +824,27 @@ const Diagnostic = () => {
                   </div>
 
                   {selectedType === "Entreprise" && (
+                    <div className="space-y-3">
+                      <label className="text-sm font-semibold">Tension du site</label>
+                      <div className="flex gap-3">
+                        {(["220V", "380V"] as const).map(opt => (
+                          <button
+                            key={opt}
+                            onClick={() => setTensionSite(opt)}
+                            className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
+                              tensionSite === opt
+                                ? "bg-primary/10 border-primary text-primary"
+                                : "border-border hover:border-primary/50 text-muted-foreground"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedType === "Entreprise" && (
                     <div className="space-y-4">
                       {([
                         { label: "Installation PV existante", value: pvExistante, set: setPvExistante },
@@ -1093,6 +1117,7 @@ const Diagnostic = () => {
           elig_decl: Object.values(eligDecl).some(v => v !== null) ? eligDecl : undefined,
           gps_lat: roofLat ?? undefined,
           gps_lng: roofLng ?? undefined,
+          tension_site: tensionSite || undefined,
         }}
         pic={buildPic()}
         onSuccess={(id, clientName, clientEmail) => {
