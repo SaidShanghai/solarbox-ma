@@ -1700,7 +1700,15 @@ const Index = () => {
       </section>
 
       {/* Section 3 — FAQ */}
-      <section className="w-screen h-screen flex-shrink-0 flex items-center relative overflow-y-auto overflow-x-hidden bg-background">
+      <section
+        className="w-screen h-screen flex-shrink-0 flex items-center relative overflow-y-auto overflow-x-hidden"
+        style={{
+          backgroundImage: `url(${faqBgImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-background/50" />
         {/* Back chevron — sunset half-sun */}
         <button
           onClick={() => setHeroSlide(1)}
@@ -1729,16 +1737,7 @@ const Index = () => {
           </motion.div>
         </button>
 
-        <div className="w-full py-16 relative">
-          <div
-            className="absolute inset-0 z-0"
-            style={{
-              backgroundImage: `url(${faqBgImg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          />
-          <div className="absolute inset-0 z-0 bg-background/50" />
+        <div className="w-full py-16 relative z-10">
           <div className="relative z-10">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
