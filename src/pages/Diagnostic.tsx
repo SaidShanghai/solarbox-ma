@@ -176,13 +176,13 @@ const Diagnostic = () => {
   useEffect(() => {
     if (!restoredRef.current) return;
     save({
-      screen, selectedType, objectif, typeBatiment, conso, facture,
+      screen, selectedType, objectif, typeBatiment, tensionSite, conso, facture,
       puissanceSouscrite, typeAbonnement, ville, panelAccess,
       selectedSurface, selectedUsages, descriptionProjet, adresseProjet,
       villeProjet, roofLat, roofLng, dateDebut, dateFin,
       pvExistante, extensionInstall, subventionRecue, eligDecl,
     });
-  }, [screen, selectedType, objectif, typeBatiment, conso, facture,
+  }, [screen, selectedType, objectif, typeBatiment, tensionSite, conso, facture,
     puissanceSouscrite, typeAbonnement, ville, panelAccess,
     selectedSurface, selectedUsages, descriptionProjet, adresseProjet,
     villeProjet, roofLat, roofLng, dateDebut, dateFin,
