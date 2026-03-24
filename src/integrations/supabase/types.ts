@@ -434,6 +434,7 @@ export type Database = {
           selected_usages: string[] | null
           status: string
           subvention_recue: string | null
+          tension_site: string | null
           type_abonnement: string | null
           updated_at: string
           ville_projet: string | null
@@ -468,6 +469,7 @@ export type Database = {
           selected_usages?: string[] | null
           status?: string
           subvention_recue?: string | null
+          tension_site?: string | null
           type_abonnement?: string | null
           updated_at?: string
           ville_projet?: string | null
@@ -502,6 +504,7 @@ export type Database = {
           selected_usages?: string[] | null
           status?: string
           subvention_recue?: string | null
+          tension_site?: string | null
           type_abonnement?: string | null
           updated_at?: string
           ville_projet?: string | null
