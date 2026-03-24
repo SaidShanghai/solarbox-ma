@@ -125,6 +125,7 @@ Deno.serve(async (req) => {
         elig_decl: elig_decl ?? null,
         gps_lat: gps_lat != null ? Number(gps_lat) : null,
         gps_lng: gps_lng != null ? Number(gps_lng) : null,
+        tension_site: tension_site ? String(tension_site).trim().slice(0, 10) : null,
         status: "new",
       })
       .select("id")
