@@ -1210,6 +1210,7 @@ const Index = () => {
                             ))}
                           </div>
                         </div>
+                        )}
 
                         {selectedType === "Entreprise" && (
                           <div className="space-y-2">
