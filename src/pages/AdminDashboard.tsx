@@ -51,6 +51,14 @@ const AdminDashboard = () => {
   const [updating, setUpdating] = useState<string | null>(null);
 
   useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow";
+    document.head.appendChild(meta);
+    return () => { document.head.removeChild(meta); };
+  }, []);
+
+  useEffect(() => {
     if (adminLoading) return;
     console.log("[AdminDashboard] adminLoading:", adminLoading, "isAdmin:", isAdmin, "user:", user?.id);
     if (!user) {
