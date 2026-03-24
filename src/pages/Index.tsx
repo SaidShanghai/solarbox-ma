@@ -1745,6 +1745,7 @@ const Index = () => {
               <Link to="/faq">Voir toutes les questions →</Link>
             </Button>
           </div>
+          </div>
         </div>
       </section>
 
