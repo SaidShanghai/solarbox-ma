@@ -117,6 +117,8 @@ const Diagnostic = () => {
   const villeRef = useRef<HTMLDivElement>(null);
   const [panelAccess, setPanelAccess] = useState<string[]>([]);
   const [selectedSurface, setSelectedSurface] = useState<string | null>(null);
+  const [customSurfaceOpen, setCustomSurfaceOpen] = useState(false);
+  const [customSurfaceInput, setCustomSurfaceInput] = useState("");
   const [selectedUsages, setSelectedUsages] = useState<string[]>([]);
   const [descriptionProjet, setDescriptionProjet] = useState("");
   const [adresseProjet, setAdresseProjet] = useState("");
