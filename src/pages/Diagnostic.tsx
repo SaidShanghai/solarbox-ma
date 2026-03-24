@@ -97,7 +97,7 @@ const surfacesAIO = [
 const allSurfaces = [...surfacesStandard, ...surfacesAIO];
 
 /** Surface values in m² for each palier, sorted ascending */
-const surfaceValues = surfaces.map(s => parseInt(s.m2));
+const surfaceValues = allSurfaces.map(s => parseInt(s.m2));
 
 /** Resolve surface in m² from label — custom values snap to palier inférieur
  *  to avoid exceeding inverter DC input limits */
@@ -105,11 +105,16 @@ function getSurfaceM2(label: string | null): number {
   if (!label) return 22;
   if (label.startsWith("CUSTOM:")) {
     const custom = parseInt(label.split(":")[1]) || 400;
-    // Find the highest palier ≤ custom surface
     const palier = [...surfaceValues].reverse().find(v => v <= custom);
     return palier ?? surfaceValues[0];
   }
-  return parseInt(surfaces.find(s => s.label === label)?.m2 || "22");
+  return parseInt(allSurfaces.find(s => s.label === label)?.m2 || "22");
+}
+
+/** Get the right surface list based on profile type */
+function getSurfaces(type: string | null) {
+  if (type === "Entreprise" || type === "Ferme") return [...surfacesStandard, ...surfacesAIO];
+  return surfacesStandard;
 }
 
 const Diagnostic = () => {
