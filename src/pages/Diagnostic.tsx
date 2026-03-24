@@ -84,10 +84,19 @@ const surfaces = [
   { m2: "330 m²", pan: "120 pan.", label: "T5" },
 ];
 
-/** Resolve surface in m² from label (handles custom "CUSTOM:xxx" labels) */
+/** Surface values in m² for each palier, sorted ascending */
+const surfaceValues = surfaces.map(s => parseInt(s.m2));
+
+/** Resolve surface in m² from label — custom values snap to palier inférieur
+ *  to avoid exceeding inverter DC input limits */
 function getSurfaceM2(label: string | null): number {
   if (!label) return 22;
-  if (label.startsWith("CUSTOM:")) return parseInt(label.split(":")[1]) || 400;
+  if (label.startsWith("CUSTOM:")) {
+    const custom = parseInt(label.split(":")[1]) || 400;
+    // Find the highest palier ≤ custom surface
+    const palier = [...surfaceValues].reverse().find(v => v <= custom);
+    return palier ?? surfaceValues[0];
+  }
   return parseInt(surfaces.find(s => s.label === label)?.m2 || "22");
 }
 
