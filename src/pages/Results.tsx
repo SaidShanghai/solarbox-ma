@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Star, MapPin, Shield, ArrowRight, CheckCircle, Zap, PiggyBank, Sun } from "lucide-react";
+import { Star, MapPin, Shield, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -32,10 +32,32 @@ const mockInstallers = [
 
 const Results = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const diagnostic = location.state?.diagnostic;
   const [compareList, setCompareList] = useState<number[]>([]);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [selectedInstaller, setSelectedInstaller] = useState<string | undefined>();
+
+  // Redirect users who haven't come from diagnostic
+  useEffect(() => {
+    if (!diagnostic) {
+      navigate("/diagnostic", { replace: true });
+    }
+  }, [diagnostic, navigate]);
+
+  // Add noindex meta tag
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow";
+    document.head.appendChild(meta);
+    return () => {
+      document.head.removeChild(meta);
+    };
+  }, []);
+
+  // If no diagnostic data, don't render anything (will redirect)
+  if (!diagnostic) return null;
 
   const toggleCompare = (id: number) => {
     setCompareList((prev) =>
