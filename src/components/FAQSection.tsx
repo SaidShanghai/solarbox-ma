@@ -28,7 +28,7 @@ export default function FAQSection({
         )}
 
         {/* FAQ accordion – answers always in DOM for crawlers */}
-        <div className="space-y-3" itemScope itemType="https://schema.org/FAQPage">
+        <div className="space-y-3 ml-[10px]" itemScope itemType="https://schema.org/FAQPage">
           {items.map((item, i) => (
             <div
               key={i}
