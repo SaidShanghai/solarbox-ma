@@ -128,6 +128,11 @@ const Header = () => {
                   to={link.to}
                   ref={(el) => { linkRefs.current[i] = el; }}
                   onMouseEnter={() => setHoveredIndex(i)}
+                  onClick={() => {
+                    if (link.to === "/" && location.pathname === "/") {
+                      window.dispatchEvent(new CustomEvent("solarbox:go-home"));
+                    }
+                  }}
                   className={`relative z-10 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
                     pillIndex === i
                       ? "text-foreground"
