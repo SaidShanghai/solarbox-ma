@@ -1632,7 +1632,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4"
           >
             {features.map((feature, index) => (
               <div key={feature.title} className="text-center bg-background/70 backdrop-blur-sm rounded-xl p-2.5 border border-border/50">
