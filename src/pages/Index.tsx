@@ -1635,7 +1635,7 @@ const Index = () => {
             className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4"
           >
             {features.map((feature, index) => (
-              <div key={feature.title} className="text-center bg-background/70 backdrop-blur-sm rounded-xl p-2.5 border border-border/50">
+              <div key={feature.title} className="text-center bg-background/70 backdrop-blur-sm rounded-xl p-2.5 border border-border/50" style={{ maxWidth: 230 }}>
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-1.5">
                   <feature.icon className="w-4 h-4 text-primary" />
                 </div>
