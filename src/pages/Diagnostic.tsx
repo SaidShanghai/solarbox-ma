@@ -153,7 +153,7 @@ const Diagnostic = () => {
     setSelectedType(draft.selectedType);
     setObjectif(draft.objectif as any);
     setTypeBatiment(draft.typeBatiment as any);
-    setTensionSite(draft.tensionSite as any);
+    // tensionSite is now computed, no need to restore
     setConso(draft.conso);
     setFacture(draft.facture);
     setPuissanceSouscrite(draft.puissanceSouscrite);
