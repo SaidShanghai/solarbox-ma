@@ -216,7 +216,7 @@ const Diagnostic = () => {
       usages: selectedUsages,
       acces_panneaux: panelAccess,
       surface: selectedSurface,
-      tension_site: tensionSite,
+      tension_site: computeTension(selectedType, selectedUsages),
       ocr_brut: ocrRawData,
       distributeur: ocrRawData?.distributeur ?? null,
       type_abonnement: typeAbonnement ?? ocrRawData?.type_abonnement ?? null,
