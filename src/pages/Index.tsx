@@ -379,8 +379,8 @@ const Index = () => {
                           </button>
                           {/* Fake animated cursor */}
                           <motion.svg
-                            width="20"
-                            height="24"
+                            width="28"
+                            height="34"
                             viewBox="0 0 24 28"
                             fill="none"
                             className="absolute pointer-events-none drop-shadow-md"
