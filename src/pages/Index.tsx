@@ -1739,7 +1739,7 @@ const Index = () => {
 
         <div className="w-full py-16 relative z-10">
           <div className="relative z-10">
-          <FAQSection items={faqData.slice(0, 6)} />
+          <FAQSection items={faqData.slice(0, 7)} />
           <div className="text-center pb-12">
             <Button asChild variant="outline" size="lg">
               <Link to="/faq">Voir toutes les questions →</Link>
