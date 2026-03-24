@@ -1748,7 +1748,7 @@ const Index = () => {
           className={`absolute bottom-12 z-30 hidden lg:flex flex-col gap-3 transition-opacity duration-300 ${
             heroSlide === 2 ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
-          style={{ width: "calc((100% - max(2rem, (100% - 1280px)) - 4 * 0.75rem) / 5)", right: "calc(max(1rem, (100% - 1280px) / 2 + 1rem))" }}
+          style={{ width: 240, right: "max(1rem, calc((100% - 1280px) / 2 + 1rem))" }}
         >
           <Button
             asChild
