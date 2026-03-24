@@ -1620,19 +1620,21 @@ const Index = () => {
             className="flex flex-col items-center gap-2 mb-8"
           >
             <div className="inline-flex items-center justify-center gap-3 rounded-full border border-primary/20 bg-card px-6 py-3 shadow-sm min-w-[340px]">
-              <span className="text-sm text-muted-foreground">Économies sur 25 ans</span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={monthlySaving}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.25 }}
-                  className="text-xl font-bold text-primary"
-                >
-                  {(monthlySaving * 12 * 25).toLocaleString("fr-FR")} DH*
-                </motion.span>
-              </AnimatePresence>
+              <span className="text-sm text-muted-foreground whitespace-nowrap">Économies sur 25 ans</span>
+              <span className="min-w-[120px] text-right">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={monthlySaving}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-xl font-bold text-primary inline-block"
+                  >
+                    {(monthlySaving * 12 * 25).toLocaleString("fr-FR")} DH*
+                  </motion.span>
+                </AnimatePresence>
+              </span>
             </div>
             <div className="mt-2 bg-background/60 backdrop-blur-sm rounded-xl border border-border/50 px-5 py-3 max-w-sm">
               <p className="text-xs font-semibold text-foreground mb-0.5">* Installation évolutive</p>
