@@ -1601,7 +1601,7 @@ const Index = () => {
             <h2 className="text-4xl lg:text-6xl font-bold mb-4">
               Avec <span className="text-primary">SOLARBOX</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+            <p className="text-foreground text-lg max-w-lg mx-auto">
               Simulez vos économies en un clic.
             </p>
           </motion.div>
