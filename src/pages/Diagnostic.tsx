@@ -148,6 +148,7 @@ const Diagnostic = () => {
     setSelectedType(draft.selectedType);
     setObjectif(draft.objectif as any);
     setTypeBatiment(draft.typeBatiment as any);
+    setTensionSite(draft.tensionSite as any);
     setConso(draft.conso);
     setFacture(draft.facture);
     setPuissanceSouscrite(draft.puissanceSouscrite);
