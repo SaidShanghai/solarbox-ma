@@ -74,7 +74,8 @@ const getUsages = (type: string | null) => {
   ];
 };
 
-const surfaces = [
+/** Standard surface paliers (Maison / Appartement / Ferme résidentiel) */
+const surfacesStandard = [
   { m2: "22 m²", pan: "8 pan.", label: "M1" },
   { m2: "44 m²", pan: "16 pan.", label: "M2" },
   { m2: "66 m²", pan: "24 pan.", label: "M3/T1" },
@@ -84,8 +85,19 @@ const surfaces = [
   { m2: "330 m²", pan: "120 pan.", label: "T5" },
 ];
 
+/** AIO BOX paliers (Entreprise / Ferme industriel) */
+const surfacesAIO = [
+  { m2: "450 m²", pan: "225 pan.", label: "A1" },
+  { m2: "900 m²", pan: "450 pan.", label: "A2" },
+  { m2: "1350 m²", pan: "675 pan.", label: "A3" },
+  { m2: "1800 m²", pan: "900 pan.", label: "A4" },
+];
+
+/** All paliers combined for resolution */
+const allSurfaces = [...surfacesStandard, ...surfacesAIO];
+
 /** Surface values in m² for each palier, sorted ascending */
-const surfaceValues = surfaces.map(s => parseInt(s.m2));
+const surfaceValues = allSurfaces.map(s => parseInt(s.m2));
 
 /** Resolve surface in m² from label — custom values snap to palier inférieur
  *  to avoid exceeding inverter DC input limits */
@@ -93,11 +105,16 @@ function getSurfaceM2(label: string | null): number {
   if (!label) return 22;
   if (label.startsWith("CUSTOM:")) {
     const custom = parseInt(label.split(":")[1]) || 400;
-    // Find the highest palier ≤ custom surface
     const palier = [...surfaceValues].reverse().find(v => v <= custom);
     return palier ?? surfaceValues[0];
   }
-  return parseInt(surfaces.find(s => s.label === label)?.m2 || "22");
+  return parseInt(allSurfaces.find(s => s.label === label)?.m2 || "22");
+}
+
+/** Get the right surface list based on profile type */
+function getSurfaces(type: string | null) {
+  if (type === "Entreprise" || type === "Ferme") return [...surfacesStandard, ...surfacesAIO];
+  return surfacesStandard;
 }
 
 const Diagnostic = () => {
@@ -763,7 +780,7 @@ const Diagnostic = () => {
                    <div className="space-y-2">
                      <label className="text-sm font-semibold">Surface disponible</label>
                      <div className="grid grid-cols-4 gap-2">
-                       {surfaces.map(s => (
+                       {getSurfaces(selectedType).map(s => (
                          <button key={s.label} onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }} className={`flex flex-col items-center p-2.5 rounded-xl border-2 text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
                            <span className="text-xs font-bold">{s.m2}</span>
                            <span className="text-[10px] text-muted-foreground">{s.pan}</span>
@@ -828,7 +845,7 @@ const Diagnostic = () => {
                        <div className="space-y-3">
                          <label className="text-sm font-semibold">Surface disponible</label>
                          <div className="grid grid-cols-4 gap-2">
-                           {surfaces.map(s => (
+                           {getSurfaces(selectedType).map(s => (
                              <button key={s.label} onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }} className={`flex flex-col items-center p-2.5 rounded-xl border-2 text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
                                <span className="text-xs font-bold">{s.m2}</span>
                                <span className="text-[10px] text-muted-foreground">{s.pan}</span>
