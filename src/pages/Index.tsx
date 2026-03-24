@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { compressImageToBase64 } from "@/lib/compressImage";
 import nooriaLogo from "@/assets/nooria-logo.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg.webp";
 import solarboxLogoFull from "@/assets/solarbox-logo-mockup.png";
 import skyCloudsBg from "@/assets/sky-clouds-bg.jpg";
 
@@ -255,7 +255,7 @@ const Index = () => {
       {/* Hero */}
       <section className="w-screen h-screen flex-shrink-0 flex items-center overflow-hidden pt-16 relative" style={{ backgroundColor: "#5a8bb5" }}>
          <div className="absolute inset-0">
-           <img src={heroBg} alt="" className="w-full h-full object-cover" />
+           <img src={heroBg} alt="Panneaux solaires sur un toit au Maroc" width={1920} height={1058} className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
            <div className="absolute inset-0 bg-background/40" />
          </div>
 
