@@ -282,8 +282,6 @@ const Index = () => {
                   En moins de 2 minutes. Gratuit. Sans engagement.
                 </p>
               </div>
-
-
               {/* Trust indicators */}
               <div className="flex items-start gap-8 pt-8 [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
                 <div className="text-center">
@@ -1192,7 +1190,8 @@ const Index = () => {
                           </div>
                         </div>
 
-                        {/* Tension du site — tous profils */}
+                        {/* Tension du site — sauf Appartement */}
+                        {selectedType !== "Appartement" && (
                         <div className="space-y-1.5">
                           <label className="text-[10px] font-semibold text-foreground">Tension du site</label>
                           <div className="flex gap-2">
@@ -1211,6 +1210,7 @@ const Index = () => {
                             ))}
                           </div>
                         </div>
+                        )}
 
                         {selectedType === "Entreprise" && (
                           <div className="space-y-2">

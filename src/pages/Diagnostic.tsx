@@ -424,7 +424,7 @@ const Diagnostic = () => {
                     ].map(({ icon: Icon, label, desc }) => (
                       <button
                         key={label}
-                        onClick={() => { setSelectedType(label); setScreen("form"); }}
+                        onClick={() => { setSelectedType(label); setScreen("form"); if (label === "Appartement") setTensionSite("220V"); }}
                         className="flex flex-col items-center gap-3 p-8 rounded-2xl border-2 border-border hover:border-primary hover:bg-primary/5 transition-all active:scale-[0.97]"
                       >
                         <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
@@ -823,25 +823,27 @@ const Diagnostic = () => {
                     </div>
                   </div>
 
-                  {/* Tension du site — tous profils */}
-                  <div className="space-y-3">
-                    <label className="text-sm font-semibold">Tension du site</label>
-                    <div className="flex gap-3">
-                      {(["220V", "380V"] as const).map(opt => (
-                        <button
-                          key={opt}
-                          onClick={() => setTensionSite(opt)}
-                          className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
-                            tensionSite === opt
-                              ? "bg-primary/10 border-primary text-primary"
-                              : "border-border hover:border-primary/50 text-muted-foreground"
-                          }`}
-                        >
-                          {opt}
-                        </button>
-                      ))}
+                  {/* Tension du site — tous profils sauf Appartement */}
+                  {selectedType !== "Appartement" && (
+                    <div className="space-y-3">
+                      <label className="text-sm font-semibold">Tension du site</label>
+                      <div className="flex gap-3">
+                        {(["220V", "380V"] as const).map(opt => (
+                          <button
+                            key={opt}
+                            onClick={() => setTensionSite(opt)}
+                            className={`flex-1 py-4 rounded-xl text-lg font-bold border-2 transition-colors ${
+                              tensionSite === opt
+                                ? "bg-primary/10 border-primary text-primary"
+                                : "border-border hover:border-primary/50 text-muted-foreground"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {selectedType === "Entreprise" && (
                     <div className="space-y-4">
