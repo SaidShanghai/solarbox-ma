@@ -32,7 +32,7 @@ export default function FAQSection({
           {items.map((item, i) => (
             <div
               key={i}
-              className="group border border-border rounded-xl px-5"
+              className="group border border-border rounded-xl px-5 bg-foreground/80 backdrop-blur-sm"
               itemScope
               itemType="https://schema.org/Question"
               itemProp="mainEntity"
