@@ -966,7 +966,7 @@ const Diagnostic = () => {
                           const lat = roofLat || 33.5731;
                           const lng = roofLng || -7.5898;
                           // Estimate peakpower from surface for Maison (rough: 1 panel = 400W, 2m²)
-                          const surfaceM2 = selectedSurface ? parseInt(surfaces.find(s => s.label === selectedSurface)?.m2 || "22") : 22;
+                          const surfaceM2 = getSurfaceM2(selectedSurface);
                           const estimatedKwp = Math.max(1, Math.round((surfaceM2 / 2) * 0.4));
                           supabase.functions.invoke("get-solar-data", { body: { lat, lng, peakpower: estimatedKwp } })
                             .then(({ data, error: fnErr }) => {
