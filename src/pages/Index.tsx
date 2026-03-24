@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import faqBgImg from "@/assets/faq-bg.jpg";
 import { STATS } from "@/config/stats";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { supabase } from "@/integrations/supabase/client";
@@ -1728,12 +1729,23 @@ const Index = () => {
           </motion.div>
         </button>
 
-        <div className="w-full py-16">
+        <div className="w-full py-16 relative">
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: `url(${faqBgImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+          <div className="absolute inset-0 z-0 bg-background/90" />
+          <div className="relative z-10">
           <FAQSection items={faqData.slice(0, 6)} />
           <div className="text-center pb-12">
             <Button asChild variant="outline" size="lg">
               <Link to="/faq">Voir toutes les questions →</Link>
             </Button>
+          </div>
           </div>
         </div>
       </section>
