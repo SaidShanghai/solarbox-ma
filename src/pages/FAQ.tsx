@@ -3,6 +3,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { faqData } from "@/data/faq";
 import { fullFaqSchema } from "@/config/seoSchemas";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import faqBg from "@/assets/faq-bg.jpg";
 
 export default function FAQ() {
   usePageMeta({
@@ -14,16 +15,30 @@ export default function FAQ() {
     <>
       <JsonLd schema={fullFaqSchema} />
 
-      <main className="flex-1 pt-16">
-        <div className="text-center pt-12 px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-            FAQ – Énergie Solaire au Maroc
-          </h1>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">
-            Retrouvez les réponses aux questions les plus posées sur le solaire,
-            l'autoconsommation et les aides disponibles au Maroc en 2025.
-          </p>
-        </div>
+      <main className="flex-1">
+        {/* Hero banner with background image */}
+        <section
+          className="relative pt-28 pb-20 px-4 overflow-hidden"
+          style={{
+            backgroundImage: `url(${faqBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0 bg-foreground/75 backdrop-blur-sm" />
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            <span className="inline-block text-xs font-semibold uppercase tracking-widest text-primary mb-4 bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">
+              Questions fréquentes
+            </span>
+            <h1 className="text-4xl md:text-5xl font-bold text-background leading-tight">
+              Tout savoir sur le solaire au Maroc
+            </h1>
+            <p className="text-background/70 mt-5 max-w-2xl mx-auto text-lg leading-relaxed">
+              Coûts, Loi 82-21, ONEE, aides AMEE… Les réponses claires aux
+              questions les plus posées sur l'installation solaire en 2025.
+            </p>
+          </div>
+        </section>
 
         <FAQSection
           items={faqData}
@@ -31,7 +46,6 @@ export default function FAQ() {
           subtitle=""
         />
       </main>
-
     </>
   );
 }
