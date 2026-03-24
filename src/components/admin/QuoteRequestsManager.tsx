@@ -500,24 +500,24 @@ const QuoteRequestsManager = () => {
                               </div>
                             );
                           })()}
-
-                          {/* CTA Émettre un Devis */}
-                          <div className="flex justify-end pt-4 border-t">
-                            <Button
-                              onClick={() => {
-                                const solar = solarCache[req.id];
-                                const solarData = solar && solar !== "loading" && !solar.error ? solar as any : null;
-                                generateQuotePdf(req, solarData, allPackages);
-                                toast({ title: "PDF généré !", description: `Devis #${req.id.slice(0, 8).toUpperCase()} téléchargé.` });
-                              }}
-                              className="gap-2"
-                            >
-                              <Download className="w-4 h-4" />
-                              Émettre un Devis
-                            </Button>
-                          </div>
                         </div>
                       )}
+
+                      {/* CTA Émettre un Devis */}
+                      <div className="flex justify-end pt-4 border-t">
+                        <Button
+                          onClick={() => {
+                            const solar = solarCache[req.id];
+                            const solarData = solar && solar !== "loading" && !solar.error ? solar as any : null;
+                            generateQuotePdf(req, solarData, allPackages);
+                            toast({ title: "PDF généré !", description: `Devis #${req.id.slice(0, 8).toUpperCase()} téléchargé.` });
+                          }}
+                          className="gap-2"
+                        >
+                          <Download className="w-4 h-4" />
+                          Émettre un Devis
+                        </Button>
+                      </div>
                     </div>
                   )}
                 </CardContent>
