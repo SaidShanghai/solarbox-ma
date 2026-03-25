@@ -126,6 +126,8 @@ const Index = () => {
   const [villeSearch, setVilleSearch] = useState("");
   const [panelAccess, setPanelAccess] = useState<string[]>([]);
   const [selectedSurface, setSelectedSurface] = useState<string | null>(null);
+  const [customSurfaceOpen, setCustomSurfaceOpen] = useState(false);
+  const [customSurfaceInput, setCustomSurfaceInput] = useState("");
   const [selectedUsages, setSelectedUsages] = useState<string[]>([]);
   const [analyseProgress, setAnalyseProgress] = useState(0);
   const [analyseLabel, setAnalyseLabel] = useState("");
