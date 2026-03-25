@@ -440,7 +440,7 @@ const Index = () => {
                             onClick={() => setPhoneScreen("type")}
                             className={`w-full bg-primary text-primary-foreground rounded-full py-3 text-xs font-semibold flex items-center justify-center gap-1.5 mt-1 hover:bg-primary/90 transition-colors ${ctaBlink ? "animate-[pulse_0.4s_ease-in-out_infinite]" : ""}`}
                           >
-                            Lancer l'analyse solaire <ArrowRight className="w-3.5 h-3.5" />
+                            Configurer ma SolarBox <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                           {/* Fake animated cursor */}
                           <motion.svg
