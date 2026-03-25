@@ -431,7 +431,7 @@ const Index = () => {
                             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                               <Sun className="w-4 h-4 text-primary" />
                             </div>
-                            <span className="text-[10px] leading-snug">Devis personnalisé en quelques minutes</span>
+                            <span className="text-[10px] leading-snug">Devis gratuit avec matériel et pose inclus</span>
                           </div>
                         </div>
 
