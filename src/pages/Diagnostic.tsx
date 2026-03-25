@@ -423,20 +423,34 @@ const Diagnostic = () => {
                 <button onClick={goBack} className="p-2 rounded-full hover:bg-muted transition-colors shrink-0">
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                <div className="flex-1 flex items-center justify-between">
-                  {isInForm && steps.map((step, i) => {
-                    const activeIndex = getStepIndex();
-                    const isDone = i < activeIndex;
-                    const isActive = i === activeIndex;
-                    return (
-                      <div key={step} className="flex flex-col items-center gap-0.5">
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold transition-colors ${isDone ? "bg-success text-success-foreground" : isActive ? "bg-primary text-primary-foreground" : "border border-border text-muted-foreground"}`}>
-                          {isDone ? "✓" : i + 1}
+               <div className="flex-1 flex items-center justify-between">
+                  {isInForm && (
+                    <>
+                      {/* Profile badge reminder */}
+                      {selectedType && (
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 mr-3 shrink-0">
+                          {selectedType === "Maison" && <Home className="w-3.5 h-3.5 text-primary" />}
+                          {selectedType === "Appartement" && <Building2 className="w-3.5 h-3.5 text-primary" />}
+                          {selectedType === "Entreprise" && <Store className="w-3.5 h-3.5 text-primary" />}
+                          {selectedType === "Ferme" && <Warehouse className="w-3.5 h-3.5 text-primary" />}
+                          <span className="text-[11px] font-semibold text-primary">{selectedType}</span>
                         </div>
-                        <span className={`text-[10px] ${isActive || isDone ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{step}</span>
-                      </div>
-                    );
-                  })}
+                      )}
+                      {steps.map((step, i) => {
+                        const activeIndex = getStepIndex();
+                        const isDone = i < activeIndex;
+                        const isActive = i === activeIndex;
+                        return (
+                          <div key={step} className="flex flex-col items-center gap-0.5">
+                            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold transition-colors ${isDone ? "bg-success text-success-foreground" : isActive ? "bg-primary text-primary-foreground" : "border border-border text-muted-foreground"}`}>
+                              {isDone ? "✓" : i + 1}
+                            </div>
+                            <span className={`text-[10px] ${isActive || isDone ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{step}</span>
+                          </div>
+                        );
+                      })}
+                    </>
+                  )}
                   {screen === "type" && (
                     <span className="text-sm font-medium text-muted-foreground">Choisissez votre profil</span>
                   )}
