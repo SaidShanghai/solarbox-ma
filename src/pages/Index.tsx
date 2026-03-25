@@ -305,7 +305,58 @@ const Index = () => {
 
             </motion.div>
 
+/** Standard surface paliers (shared with Diagnostic) */
+const surfacesStandard = [
+  { m2: "22 m²", pan: "8 pan.", label: "M1" },
+  { m2: "44 m²", pan: "16 pan.", label: "M2" },
+  { m2: "66 m²", pan: "24 pan.", label: "M3/T1" },
+  { m2: "132 m²", pan: "48 pan.", label: "T2" },
+  { m2: "198 m²", pan: "72 pan.", label: "T3" },
+  { m2: "264 m²", pan: "96 pan.", label: "T4" },
+  { m2: "330 m²", pan: "120 pan.", label: "T5" },
+];
+const surfacesAIO = [
+  { m2: "450 m²", pan: "225 pan.", label: "A1" },
+  { m2: "900 m²", pan: "450 pan.", label: "A2" },
+  { m2: "1350 m²", pan: "675 pan.", label: "A3" },
+  { m2: "1800 m²", pan: "900 pan.", label: "A4" },
+];
+function getMockupSurfaces(type: string | null) {
+  if (type === "Entreprise" || type === "Ferme") return [...surfacesStandard, ...surfacesAIO];
+  return surfacesStandard;
+}
 
+const getUsagesMockup = (type: string | null) => {
+  if (type === "Maison") return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🏊", label: "Piscine" }, { icon: "🍳", label: "Cuisine élec." },
+    { icon: "🧺", label: "Lave-linge" }, { icon: "💻", label: "Informatique" },
+    { icon: "🧊", label: "Frigo/Congél." },
+  ];
+  if (type === "Appartement") return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🍳", label: "Cuisine élec." }, { icon: "🧺", label: "Lave-linge" },
+    { icon: "💻", label: "Informatique" }, { icon: "🧊", label: "Frigo/Congél." },
+  ];
+  if (type === "Entreprise") return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🍳", label: "Cuisine élec." }, { icon: "💻", label: "Informatique" },
+    { icon: "🧊", label: "Frigo/Congél." }, { icon: "❄️", label: "Chambre froide" },
+    { icon: "💨", label: "Compresseur air" }, { icon: "💡", label: "Éclairage indus." },
+    { icon: "⚙️", label: "Machines-outils" },
+  ];
+  return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🏊", label: "Piscine" }, { icon: "🍳", label: "Cuisine élec." },
+    { icon: "🧺", label: "Lave-linge" }, { icon: "💻", label: "Informatique" },
+    { icon: "🧊", label: "Frigo/Congél." }, { icon: "❄️", label: "Chambre froide" },
+    { icon: "💨", label: "Compresseur air" },
+  ];
+};
             {/* Phone mockup */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
