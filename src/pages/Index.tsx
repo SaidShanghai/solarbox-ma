@@ -408,9 +408,9 @@ const Index = () => {
                         <img src={solarboxLogoFull} alt="SOLARBOX" className="w-56 h-56 object-contain -mb-4" />
                         <div>
                          
-                          <p className="text-[10px] text-muted-foreground">Votre diagnostic solaire</p>
+                          <p className="text-[10px] text-muted-foreground">Dimensionnez votre kit solaire</p>
                           <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">
-                            Analysez votre consommation, découvrez<br />la solution solaire optimale
+                            Panneaux, batteries, installation —<br />tout est inclus dans votre SolarBox
                           </p>
                         </div>
 
