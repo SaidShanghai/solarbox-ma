@@ -1,55 +1,44 @@
 
 
-## Diagnostic du problème
+## Repositionner SOLARBOX comme vendeur de matériel — sans toucher les titres de pages
 
-La section "Pourquoi SOLARBOX ?" a plusieurs problèmes visuels :
+### Contrainte
+Les titres de navigation et URLs restent identiques (indexation Google en place).
 
-1. **L'image de fond `sky-clouds-bg.jpg`** contient probablement un soleil visible qui crée du bruit visuel et entre en compétition avec le contenu
-2. **L'overlay à 55%** ne suffit pas à neutraliser l'image — le soleil "perce" et distrait
-3. **La grille 3 colonnes** (facture | features | stats) sur fond chargé = trop d'éléments visuels en compétition
-4. **Manque de hiérarchie visuelle** — tout semble au même niveau d'importance
+### Stratégie
+Changer le **contenu interne** (sous-titres, descriptions, CTAs, badges) pour que le visiteur comprenne immédiatement qu'on vend du matériel + installation, pas un service de diagnostic.
 
-## Proposition : section épurée, fond neutre, layout recentré
+### Changements proposés
 
-Supprimer l'image de fond et adopter un design sobre et lisible.
+**1. Page Accueil (Index.tsx) — Hero section**
+- Sous-titre actuel type "diagnostic" → nouveau sous-titre orienté produit :
+  *"Panneaux, batteries, installation — votre kit solaire complet livré et installé au Maroc"*
+- CTA principal : garder ou remplacer par **"Dimensionner mon kit"** au lieu de "Lancer l'analyse"
 
-```text
-┌──────────────────────────────────────────────────────────────┐
-│  bg-muted/30 (fond neutre, pas d'image)                     │
-│                                                              │
-│  Pourquoi SOLARBOX ?  (text-5xl/6xl, aligné à gauche)       │
-│  subtitle                                                    │
-│                                                              │
-│  ┌─────────────────────────┐  ┌────────────────────────────┐ │
-│  │  Facture Avant/Après    │  │  4 feature cards           │ │
-│  │  + 25yr savings         │  │  en grille 2×2             │ │
-│  │  (sticky, glassmorphism)│  │  + double CTA en dessous   │ │
-│  └─────────────────────────┘  └────────────────────────────┘ │
-│                                                              │
-│  ── barre horizontale de 4 stats (inline, compact) ────────  │
-│                                                              │
-└──────────────────────────────────────────────────────────────┘
-```
+**2. Page Accueil — Mockup téléphone**
+- Header mockup : *"Votre diagnostic solaire"* → *"Dimensionnez votre kit solaire"*
+- Sous-texte mockup : mentionner matériel + pose inclus
+- CTA mockup : *"Configurer ma SolarBox"*
 
-### Changements clés
+**3. Page Diagnostic (Diagnostic.tsx)**
+- Badge : *"Diagnostic solaire gratuit"* → *"Configurateur solaire gratuit"*
+- Titre : *"Votre diagnostic en 3 minutes"* → *"Votre kit solaire en 3 minutes"*
+- Sous-titre : *"On dimensionne le matériel et l'installation adaptés à votre consommation"*
 
-**1. Supprimer l'image de fond `sky-clouds-bg.jpg`**
-- Remplacer par `bg-muted/30` (fond subtil, cohérent avec le reste du site)
-- Plus de soleil qui distrait, lecture fluide
+**4. Page Nos Solutions (NosSolutions.tsx)**
+- Sous-titre hero : insister sur **"livrée et installée"** plutôt que juste décrire la technologie
+- CTA bas de page : *"Lancer mon diagnostic"* → *"Dimensionner mon kit solaire"*
 
-**2. Passer de 3 colonnes à 2 colonnes**
-- Gauche : Facture Avant/Après + économies 25 ans (sticky)
-- Droite : Features en grille 2x2 + CTA double
+**5. Page À propos (About.tsx)**
+- Ajuster la description de SOLARBOX pour mentionner "fournisseur de solutions solaires clé en main" plutôt que "plateforme de diagnostic"
 
-**3. Stats en barre horizontale en bas**
-- Les 4 stats passent en une ligne horizontale (4 colonnes) sous le contenu principal
-- Plus compact, moins de bruit, sert de "footer" de section
+### Ce qui NE change PAS
+- Titres de navigation (Accueil, Diagnostic IA, Nos solutions, Blog, À propos, Contact)
+- URLs et routes
+- Balises `<title>` des pages (déjà indexées)
+- Logique du flow diagnostic
+- Pages légales
 
-**4. Feature cards plus grandes et lisibles**
-- Grille `grid-cols-2` au lieu de liste verticale
-- Cards avec plus de padding, icônes plus grosses
-- Hover avec `border-primary/30` pour l'interactivité
-
-### Fichier modifié
-- `src/pages/Index.tsx` (lignes 1517-1645) : restructuration de la section 2
+### Résumé
+On garde l'enveloppe (titres, URLs, SEO titles) mais on change le **discours intérieur** pour que chaque page dise "on vous vend et installe du matériel solaire", pas "on vous fait un diagnostic".
 
