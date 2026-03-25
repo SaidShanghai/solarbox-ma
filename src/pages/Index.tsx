@@ -53,6 +53,59 @@ import JsonLd from "@/components/seo/JsonLd";
 import { homepageSchema } from "@/config/seoSchemas";
 import { faqData } from "@/data/faq";
 
+/** Standard surface paliers (shared with Diagnostic) */
+const surfacesStandard = [
+  { m2: "22 m²", pan: "8 pan.", label: "M1" },
+  { m2: "44 m²", pan: "16 pan.", label: "M2" },
+  { m2: "66 m²", pan: "24 pan.", label: "M3/T1" },
+  { m2: "132 m²", pan: "48 pan.", label: "T2" },
+  { m2: "198 m²", pan: "72 pan.", label: "T3" },
+  { m2: "264 m²", pan: "96 pan.", label: "T4" },
+  { m2: "330 m²", pan: "120 pan.", label: "T5" },
+];
+const surfacesAIO = [
+  { m2: "450 m²", pan: "225 pan.", label: "A1" },
+  { m2: "900 m²", pan: "450 pan.", label: "A2" },
+  { m2: "1350 m²", pan: "675 pan.", label: "A3" },
+  { m2: "1800 m²", pan: "900 pan.", label: "A4" },
+];
+function getMockupSurfaces(type: string | null) {
+  if (type === "Entreprise" || type === "Ferme") return [...surfacesStandard, ...surfacesAIO];
+  return surfacesStandard;
+}
+
+const getUsagesMockup = (type: string | null) => {
+  if (type === "Maison") return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🏊", label: "Piscine" }, { icon: "🍳", label: "Cuisine élec." },
+    { icon: "🧺", label: "Lave-linge" }, { icon: "💻", label: "Informatique" },
+    { icon: "🧊", label: "Frigo/Congél." },
+  ];
+  if (type === "Appartement") return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🍳", label: "Cuisine élec." }, { icon: "🧺", label: "Lave-linge" },
+    { icon: "💻", label: "Informatique" }, { icon: "🧊", label: "Frigo/Congél." },
+  ];
+  if (type === "Entreprise") return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🍳", label: "Cuisine élec." }, { icon: "💻", label: "Informatique" },
+    { icon: "🧊", label: "Frigo/Congél." }, { icon: "❄️", label: "Chambre froide" },
+    { icon: "💨", label: "Compresseur air" }, { icon: "💡", label: "Éclairage indus." },
+    { icon: "⚙️", label: "Machines-outils" },
+  ];
+  return [
+    { icon: "❄️", label: "Climatisation" }, { icon: "🔥", label: "Chauffage" },
+    { icon: "🚿", label: "Chauffe-eau" }, { icon: "🚗", label: "Véhicule élec." },
+    { icon: "🏊", label: "Piscine" }, { icon: "🍳", label: "Cuisine élec." },
+    { icon: "🧺", label: "Lave-linge" }, { icon: "💻", label: "Informatique" },
+    { icon: "🧊", label: "Frigo/Congél." }, { icon: "❄️", label: "Chambre froide" },
+    { icon: "💨", label: "Compresseur air" },
+  ];
+};
+
 const features = [
   {
     icon: MapPin,
@@ -118,6 +171,7 @@ const Index = () => {
   const [tension, setTension] = useState<"220" | "380" | null>(null);
   const [conso, setConso] = useState("");
   const [facture, setFacture] = useState("");
+  const [periodeMode, setPeriodeMode] = useState<"mensuel" | "annuel">("mensuel");
   const [puissanceSouscrite, setPuissanceSouscrite] = useState("");
   const [typeAbonnement, setTypeAbonnement] = useState<"Basse Tension" | "Moyenne Tension" | "Haute Tension" | null>(null);
   const [ville, setVille] = useState("");
@@ -125,6 +179,8 @@ const Index = () => {
   const [villeSearch, setVilleSearch] = useState("");
   const [panelAccess, setPanelAccess] = useState<string[]>([]);
   const [selectedSurface, setSelectedSurface] = useState<string | null>(null);
+  const [customSurfaceOpen, setCustomSurfaceOpen] = useState(false);
+  const [customSurfaceInput, setCustomSurfaceInput] = useState("");
   const [selectedUsages, setSelectedUsages] = useState<string[]>([]);
   const [analyseProgress, setAnalyseProgress] = useState(0);
   const [analyseLabel, setAnalyseLabel] = useState("");
@@ -301,7 +357,6 @@ const Index = () => {
               </div>
 
             </motion.div>
-
 
             {/* Phone mockup */}
             <motion.div
@@ -650,26 +705,18 @@ const Index = () => {
                               </div>
                             </div>
 
-                            {/* Secteur d'activité — Entreprise uniquement */}
-                            <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Secteur d'activité</label>
-                              <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl bg-background">
-                                <select
-                                  className="text-[9px] bg-background outline-none w-full text-foreground appearance-none cursor-pointer"
-                                  defaultValue=""
-                                >
-                                  <option value="" disabled>Choisir un secteur...</option>
-                                  {["Agroalimentaire", "BTP & Construction", "Chimie & Pharma", "Commerce & Distribution", "Éducation", "Énergie", "Finance & Banque", "Hôtellerie & Tourisme", "Industrie Textile", "Logistique & Transport", "Métallurgie & Sidérurgie", "Plasturgie", "Santé & Médical", "Services & Conseil", "Télécommunications"].map(s => (
-                                    <option key={s} value={s}>{s}</option>
-                                  ))}
-                                </select>
-                                <ChevronDown className="w-2.5 h-2.5 text-muted-foreground shrink-0" />
-                              </div>
+                            {/* Toggle mensuel/annuel */}
+                            <div className="flex items-center gap-0.5 p-0.5 bg-muted rounded-lg w-fit">
+                              {(["mensuel", "annuel"] as const).map(m => (
+                                <button key={m} onClick={() => setPeriodeMode(m)} className={`px-2.5 py-1 rounded-md text-[8px] font-semibold transition-colors ${periodeMode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+                                  {m === "mensuel" ? "Mensuel" : "Annuel"}
+                                </button>
+                              ))}
                             </div>
 
-                            {/* Consommation annuelle — Entreprise */}
+                            {/* Consommation — Entreprise */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Consommation annuelle (kWh)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Consommation {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (kWh)</label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <Zap className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -680,15 +727,16 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setConso(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 480 000"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 40 000" : "Ex : 480 000"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && conso && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} kWh/an</p>}
                             </div>
 
-                            {/* Facture annuelle — Entreprise */}
+                            {/* Facture — Entreprise */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Facture annuelle (MAD)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Facture {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (MAD)</label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <FileText className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -699,10 +747,11 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setFacture(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 180 000"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 15 000" : "Ex : 180 000"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && facture && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} MAD/an</p>}
                             </div>
 
                             {/* Puissance souscrite — Entreprise */}
@@ -740,9 +789,18 @@ const Index = () => {
                           </>
                         ) : (
                           <>
-                            {/* Facture annuelle — Particulier / Ferme */}
+                            {/* Toggle mensuel/annuel */}
+                            <div className="flex items-center gap-0.5 p-0.5 bg-muted rounded-lg w-fit">
+                              {(["mensuel", "annuel"] as const).map(m => (
+                                <button key={m} onClick={() => setPeriodeMode(m)} className={`px-2.5 py-1 rounded-md text-[8px] font-semibold transition-colors ${periodeMode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+                                  {m === "mensuel" ? "Mensuel" : "Annuel"}
+                                </button>
+                              ))}
+                            </div>
+
+                            {/* Facture — Particulier / Ferme */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Facture annuelle (MAD)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Facture {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (MAD)</label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <FileText className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -753,15 +811,16 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setFacture(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 9 600"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 800" : "Ex : 9 600"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && facture && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} MAD/an</p>}
                             </div>
 
-                            {/* Consommation annuelle — Particulier / Ferme */}
+                            {/* Consommation — Particulier / Ferme */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Consommation annuelle (kWh)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Consommation {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (kWh) <span className="text-[7px] font-normal text-muted-foreground">(optionnel)</span></label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <Zap className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -772,10 +831,11 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setConso(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 350"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 30" : "Ex : 350"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && conso && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} kWh/an</p>}
                             </div>
 
                             {/* Ville — Particulier / Ferme */}
@@ -821,8 +881,8 @@ const Index = () => {
                       <div className="px-4 pb-2.5 pt-2 shrink-0">
                         {(() => {
                           const formValid = selectedType === "Entreprise"
-                            ? !!(typeBatiment && conso.trim() && facture.trim() && puissanceSouscrite.trim() && typeAbonnement)
-                            : !!(objectif && (facture.trim() || conso.trim()));
+                            ? !!(mockupConsentAccepted && typeBatiment && conso.trim() && facture.trim())
+                            : !!(mockupConsentAccepted && objectif && (facture.trim() || conso.trim()));
                           return (
                             <button
                               onClick={() => { if (formValid) setPhoneScreen(selectedType === "Entreprise" ? "informations" : "site"); }}
@@ -968,19 +1028,10 @@ const Index = () => {
                         <div className="space-y-1">
                           <label className="text-[9px] font-semibold text-foreground">Surface disponible (m²)</label>
                           <div className="grid grid-cols-4 gap-1">
-                            {[
-                              { m2: "22 m²", pan: "8 pan.", label: "M1" },
-                              { m2: "44 m²", pan: "16 pan.", label: "M2" },
-                              { m2: "66 m²", pan: "24 pan.", label: "M3/T1" },
-                              { m2: "132 m²", pan: "48 pan.", label: "T2" },
-                              { m2: "198 m²", pan: "72 pan.", label: "T3" },
-                              { m2: "264 m²", pan: "96 pan.", label: "T4" },
-                              { m2: "330 m²", pan: "120 pan.", label: "T5" },
-                              { m2: "396 m²", pan: "144 pan.", label: "T5+" },
-                            ].map((s) => (
+                            {getMockupSurfaces(selectedType).map((s) => (
                               <button
                                 key={s.label}
-                                onClick={() => setSelectedSurface(s.label)}
+                                onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }}
                                 className={`flex flex-col items-center p-1.5 rounded-xl border text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}
                               >
                                 <span className="text-[9px] font-bold text-foreground">{s.m2}</span>
@@ -988,7 +1039,17 @@ const Index = () => {
                                 <span className="text-[7px] font-medium text-primary">{s.label}</span>
                               </button>
                             ))}
+                            <button onClick={() => { setCustomSurfaceOpen(true); setSelectedSurface(null); }} className={`flex flex-col items-center justify-center p-1.5 rounded-xl border text-center transition-colors ${customSurfaceOpen || selectedSurface?.startsWith("CUSTOM:") ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
+                              <span className="text-base font-bold text-primary">+</span>
+                              <span className="text-[7px] text-muted-foreground">Autre</span>
+                            </button>
                           </div>
+                          {customSurfaceOpen && (
+                            <div className="flex items-center gap-1.5 mt-1">
+                              <input type="number" min="50" placeholder="Ex: 500" value={customSurfaceInput} onChange={e => { setCustomSurfaceInput(e.target.value); if (parseInt(e.target.value) >= 50) setSelectedSurface(`CUSTOM:${e.target.value}`); else setSelectedSurface(null); }} className="flex-1 text-[9px] bg-transparent outline-none border border-border rounded-lg px-2 py-1.5 text-foreground" />
+                              <span className="text-[9px] text-muted-foreground">m²</span>
+                            </div>
+                          )}
                         </div>
 
                         {/* Dates */}
@@ -1106,19 +1167,10 @@ const Index = () => {
                             <div className="space-y-1.5">
                               <label className="text-[9px] font-semibold text-foreground">Surface disponible (m²)</label>
                               <div className="grid grid-cols-4 gap-1">
-                                {[
-                                  { m2: "22 m²", pan: "8 pan.", label: "M1" },
-                                  { m2: "44 m²", pan: "16 pan.", label: "M2" },
-                                  { m2: "66 m²", pan: "24 pan.", label: "M3/T1" },
-                                  { m2: "132 m²", pan: "48 pan.", label: "T2" },
-                                  { m2: "198 m²", pan: "72 pan.", label: "T3" },
-                                  { m2: "264 m²", pan: "96 pan.", label: "T4" },
-                                  { m2: "330 m²", pan: "120 pan.", label: "T5" },
-                                  { m2: "396 m²", pan: "144 pan.", label: "T5+" },
-                                ].map((s) => (
+                                {getMockupSurfaces(selectedType).map((s) => (
                                   <button
                                     key={s.label}
-                                    onClick={() => setSelectedSurface(s.label)}
+                                    onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }}
                                     className={`flex flex-col items-center p-1.5 rounded-xl border text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}
                                   >
                                     <span className="text-[9px] font-bold text-foreground">{s.m2}</span>
@@ -1126,7 +1178,17 @@ const Index = () => {
                                     <span className="text-[7px] font-medium text-primary">{s.label}</span>
                                   </button>
                                 ))}
+                                <button onClick={() => { setCustomSurfaceOpen(true); setSelectedSurface(null); }} className={`flex flex-col items-center justify-center p-1.5 rounded-xl border text-center transition-colors ${customSurfaceOpen || selectedSurface?.startsWith("CUSTOM:") ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
+                                  <span className="text-base font-bold text-primary">+</span>
+                                  <span className="text-[7px] text-muted-foreground">Autre</span>
+                                </button>
                               </div>
+                              {customSurfaceOpen && (
+                                <div className="flex items-center gap-1.5 mt-1">
+                                  <input type="number" min="50" placeholder="Ex: 500" value={customSurfaceInput} onChange={e => { setCustomSurfaceInput(e.target.value); if (parseInt(e.target.value) >= 50) setSelectedSurface(`CUSTOM:${e.target.value}`); else setSelectedSurface(null); }} className="flex-1 text-[9px] bg-transparent outline-none border border-border rounded-lg px-2 py-1.5 text-foreground" />
+                                  <span className="text-[9px] text-muted-foreground">m²</span>
+                                </div>
+                              )}
                             </div>
                           </>
                         )}
@@ -1135,50 +1197,7 @@ const Index = () => {
                         <div className="space-y-1.5">
                           <label className="text-[10px] font-semibold text-foreground">Usages spécifiques</label>
                           <div className="grid grid-cols-3 gap-1.5">
-                            {(selectedType === "Maison" ? [
-                              { icon: "❄️", label: "Climatisation" },
-                              { icon: "🔥", label: "Chauffage" },
-                              { icon: "🚿", label: "Chauffe-eau" },
-                              { icon: "🚗", label: "Véhicule élec." },
-                              { icon: "🏊", label: "Piscine" },
-                              { icon: "🍳", label: "Cuisine élec." },
-                              { icon: "🧺", label: "Lave-linge" },
-                              { icon: "💻", label: "Informatique" },
-                              { icon: "🧊", label: "Frigo/Congél." },
-                            ] : selectedType === "Appartement" ? [
-                              { icon: "❄️", label: "Climatisation" },
-                              { icon: "🔥", label: "Chauffage" },
-                              { icon: "🚿", label: "Chauffe-eau" },
-                              { icon: "🚗", label: "Véhicule élec." },
-                              { icon: "🍳", label: "Cuisine élec." },
-                              { icon: "🧺", label: "Lave-linge" },
-                              { icon: "💻", label: "Informatique" },
-                              { icon: "🧊", label: "Frigo/Congél." },
-                            ] : selectedType === "Entreprise" ? [
-                              { icon: "❄️", label: "Climatisation" },
-                              { icon: "🔥", label: "Chauffage" },
-                              { icon: "🚿", label: "Chauffe-eau" },
-                              { icon: "🚗", label: "Véhicule élec." },
-                              { icon: "🍳", label: "Cuisine élec." },
-                              { icon: "💻", label: "Informatique" },
-                              { icon: "🧊", label: "Frigo/Congél." },
-                              { icon: "❄️", label: "Chambre froide" },
-                              { icon: "💨", label: "Compresseur air" },
-                              { icon: "💡", label: "Éclairage indus." },
-                              { icon: "⚙️", label: "Machines-outils" },
-                            ] : [
-                              { icon: "❄️", label: "Climatisation" },
-                              { icon: "🔥", label: "Chauffage" },
-                              { icon: "🚿", label: "Chauffe-eau" },
-                              { icon: "🚗", label: "Véhicule élec." },
-                              { icon: "🏊", label: "Piscine" },
-                              { icon: "🍳", label: "Cuisine élec." },
-                              { icon: "🧺", label: "Lave-linge" },
-                              { icon: "💻", label: "Informatique" },
-                              { icon: "🧊", label: "Frigo/Congél." },
-                              { icon: "❄️", label: "Chambre froide" },
-                              { icon: "💨", label: "Compresseur air" },
-                            ]).map((u) => {
+                            {getUsagesMockup(selectedType).map((u) => {
                               const isSelected = selectedUsages.includes(u.label);
                               return (
                                 <button
