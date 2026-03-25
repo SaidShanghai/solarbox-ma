@@ -134,7 +134,7 @@ const QuotePanel = ({ open, onOpenChange, installerName, onSuccess, diagnosticDa
     }, 400);
   };
 
-  return (
+  const panelContent = (
     <AnimatePresence>
       {open && (
         <>
