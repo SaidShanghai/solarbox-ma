@@ -308,6 +308,7 @@ const QuotePanel = ({ open, onOpenChange, installerName, onSuccess, diagnosticDa
       )}
     </AnimatePresence>
   );
-};
 
+  return createPortal(panelContent, document.body);
+};
 export default QuotePanel;
