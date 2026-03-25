@@ -147,12 +147,12 @@ const NosSolutions = () => {
             Prêt à passer à l'énergie solaire ?
           </h2>
           <p className="text-muted-foreground">
-            Faites votre diagnostic gratuit et découvrez la SolarBox adaptée à
-            votre consommation et votre budget.
+            Dimensionnez votre kit solaire en 3 minutes et recevez un devis
+            complet avec matériel et installation inclus.
           </p>
           <Link to="/diagnostic">
             <Button size="lg" className="gap-2">
-              Lancer mon diagnostic <ArrowRight className="w-4 h-4" />
+              Dimensionner mon kit solaire <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
         </div>

@@ -84,7 +84,7 @@ export default function About() {
                 <strong className="text-foreground">SOLARBOX</strong> a été créée pour lever ces barrières. Notre plateforme combine intelligence artificielle et expertise terrain pour dimensionner le kit solaire idéal, livrer et installer le matériel, et accompagner chaque Marocain dans l'accès aux aides disponibles (SR500, TATWIR, GEFF).
               </p>
               <p>
-                Notre ambition : faire du Maroc un leader de l'autoconsommation solaire en Afrique, en démocratisant l'accès à une énergie propre, économique et souveraine.
+                Notre ambition : équiper chaque foyer et entreprise marocaine d'une solution solaire performante, en démocratisant l'accès à une énergie propre, économique et souveraine.
               </p>
             </div>
           </div>

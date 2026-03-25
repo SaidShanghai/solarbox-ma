@@ -378,11 +378,11 @@ const Diagnostic = () => {
 
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-black leading-tight">
-                  Votre diagnostic<br />
+                  Votre kit solaire<br />
                   <span className="text-gradient">en 3 minutes</span>
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-xl mx-auto">
-                  Particulier ou entreprise, obtenez une analyse solaire sur mesure et des installateurs certifiés près de chez vous.
+                  On dimensionne le matériel et l'installation adaptés à votre consommation. Livré et installé par des techniciens certifiés.
                 </p>
               </div>
 
