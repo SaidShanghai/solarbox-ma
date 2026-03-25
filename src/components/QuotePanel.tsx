@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { z } from "zod";
 import { formatPhoneInput } from "@/lib/formatPhone";
 import { X, ArrowRight, CheckCircle, FileText } from "lucide-react";
@@ -133,7 +134,7 @@ const QuotePanel = ({ open, onOpenChange, installerName, onSuccess, diagnosticDa
     }, 400);
   };
 
-  return (
+  const panelContent = (
     <AnimatePresence>
       {open && (
         <>
@@ -307,6 +308,7 @@ const QuotePanel = ({ open, onOpenChange, installerName, onSuccess, diagnosticDa
       )}
     </AnimatePresence>
   );
-};
 
+  return createPortal(panelContent, document.body);
+};
 export default QuotePanel;
