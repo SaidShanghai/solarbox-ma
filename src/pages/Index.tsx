@@ -118,6 +118,7 @@ const Index = () => {
   const [tension, setTension] = useState<"220" | "380" | null>(null);
   const [conso, setConso] = useState("");
   const [facture, setFacture] = useState("");
+  const [periodeMode, setPeriodeMode] = useState<"mensuel" | "annuel">("mensuel");
   const [puissanceSouscrite, setPuissanceSouscrite] = useState("");
   const [typeAbonnement, setTypeAbonnement] = useState<"Basse Tension" | "Moyenne Tension" | "Haute Tension" | null>(null);
   const [ville, setVille] = useState("");
