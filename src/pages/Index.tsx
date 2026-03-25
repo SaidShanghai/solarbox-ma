@@ -326,11 +326,15 @@ const Index = () => {
                         </button>
                       )}
                       <span className="font-black text-sm tracking-tight"><span className="text-foreground">SOLAR</span><span className="text-[hsl(24,95%,53%)]">BOX</span></span>
-                      <span className="text-[8px] text-muted-foreground font-normal leading-none">
-                          {selectedType && phoneScreen !== "intro" && phoneScreen !== "type"
-                            ? (selectedType === "Maison" || selectedType === "Appartement" ? "Particulier" : selectedType === "Ferme" ? "Agriculteur" : selectedType)
-                            : ""}
+                      {selectedType && phoneScreen !== "intro" && phoneScreen !== "type" && (
+                        <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-[7px] font-semibold text-primary">
+                          {selectedType === "Maison" && <Home className="w-2.5 h-2.5" />}
+                          {selectedType === "Appartement" && <Building2 className="w-2.5 h-2.5" />}
+                          {selectedType === "Entreprise" && <Store className="w-2.5 h-2.5" />}
+                          {selectedType === "Ferme" && <Warehouse className="w-2.5 h-2.5" />}
+                          {selectedType}
                         </span>
+                      )}
                     </div>
                     
                   </div>
