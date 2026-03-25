@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { z } from "zod";
 import { formatPhoneInput } from "@/lib/formatPhone";
 import { X, ArrowRight, CheckCircle, FileText } from "lucide-react";
