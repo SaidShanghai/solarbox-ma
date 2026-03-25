@@ -466,7 +466,7 @@ const Diagnostic = () => {
               {screen === "type" && (
                 <motion.div key="type" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.25 }} className="space-y-8">
                   <div>
-                    <h2 className="text-3xl font-black">Vous êtes…</h2>
+                    <h2 className="text-3xl font-black">Votre projet concerne...</h2>
                     <p className="text-muted-foreground mt-1">Sélectionnez votre profil pour un diagnostic personnalisé</p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
