@@ -1028,19 +1028,10 @@ const Index = () => {
                         <div className="space-y-1">
                           <label className="text-[9px] font-semibold text-foreground">Surface disponible (m²)</label>
                           <div className="grid grid-cols-4 gap-1">
-                            {[
-                              { m2: "22 m²", pan: "8 pan.", label: "M1" },
-                              { m2: "44 m²", pan: "16 pan.", label: "M2" },
-                              { m2: "66 m²", pan: "24 pan.", label: "M3/T1" },
-                              { m2: "132 m²", pan: "48 pan.", label: "T2" },
-                              { m2: "198 m²", pan: "72 pan.", label: "T3" },
-                              { m2: "264 m²", pan: "96 pan.", label: "T4" },
-                              { m2: "330 m²", pan: "120 pan.", label: "T5" },
-                              { m2: "396 m²", pan: "144 pan.", label: "T5+" },
-                            ].map((s) => (
+                            {getMockupSurfaces(selectedType).map((s) => (
                               <button
                                 key={s.label}
-                                onClick={() => setSelectedSurface(s.label)}
+                                onClick={() => { setSelectedSurface(s.label); setCustomSurfaceOpen(false); }}
                                 className={`flex flex-col items-center p-1.5 rounded-xl border text-center transition-colors ${selectedSurface === s.label ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}
                               >
                                 <span className="text-[9px] font-bold text-foreground">{s.m2}</span>
@@ -1048,7 +1039,17 @@ const Index = () => {
                                 <span className="text-[7px] font-medium text-primary">{s.label}</span>
                               </button>
                             ))}
+                            <button onClick={() => { setCustomSurfaceOpen(true); setSelectedSurface(null); }} className={`flex flex-col items-center justify-center p-1.5 rounded-xl border text-center transition-colors ${customSurfaceOpen || selectedSurface?.startsWith("CUSTOM:") ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}>
+                              <span className="text-base font-bold text-primary">+</span>
+                              <span className="text-[7px] text-muted-foreground">Autre</span>
+                            </button>
                           </div>
+                          {customSurfaceOpen && (
+                            <div className="flex items-center gap-1.5 mt-1">
+                              <input type="number" min="50" placeholder="Ex: 500" value={customSurfaceInput} onChange={e => { setCustomSurfaceInput(e.target.value); if (parseInt(e.target.value) >= 50) setSelectedSurface(`CUSTOM:${e.target.value}`); else setSelectedSurface(null); }} className="flex-1 text-[9px] bg-transparent outline-none border border-border rounded-lg px-2 py-1.5 text-foreground" />
+                              <span className="text-[9px] text-muted-foreground">m²</span>
+                            </div>
+                          )}
                         </div>
 
                         {/* Dates */}
