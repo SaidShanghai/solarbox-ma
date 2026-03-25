@@ -1822,6 +1822,7 @@ const Index = () => {
         </div>
       </div>{/* end horizontal slider */}
 
+      {/* Portals — rendered outside overflow-hidden slider */}
       <CallbackModal open={callbackOpen} onOpenChange={setCallbackOpen} />
       <QuotePanel open={quoteOpen} onOpenChange={setQuoteOpen} onSuccess={(id, name, email) => { setQuoteRef(id); setContactNom(name); setContactEmail(email); setPhoneScreen("merci"); }} />
     </>
