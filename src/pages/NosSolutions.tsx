@@ -71,8 +71,8 @@ const NosSolutions = () => {
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground max-w-xl mx-auto"
           >
-            Station solaire tout-en-un avec batteries intégrées. Du panneau à la
-            prise, l'électricité circule sans interruption dans votre maison.
+            Station solaire tout-en-un livrée et installée chez vous. Panneaux,
+            batteries, onduleur — tout est inclus, de la commande à la mise en service.
           </motion.p>
         </div>
       </section>
