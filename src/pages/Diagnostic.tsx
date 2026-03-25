@@ -373,7 +373,7 @@ const Diagnostic = () => {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-primary">Diagnostic solaire gratuit</span>
+                <span className="text-sm font-medium text-primary">Configurateur solaire gratuit</span>
               </div>
 
               <div className="space-y-4">
