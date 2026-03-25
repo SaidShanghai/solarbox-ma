@@ -650,26 +650,18 @@ const Index = () => {
                               </div>
                             </div>
 
-                            {/* Secteur d'activité — Entreprise uniquement */}
-                            <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Secteur d'activité</label>
-                              <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl bg-background">
-                                <select
-                                  className="text-[9px] bg-background outline-none w-full text-foreground appearance-none cursor-pointer"
-                                  defaultValue=""
-                                >
-                                  <option value="" disabled>Choisir un secteur...</option>
-                                  {["Agroalimentaire", "BTP & Construction", "Chimie & Pharma", "Commerce & Distribution", "Éducation", "Énergie", "Finance & Banque", "Hôtellerie & Tourisme", "Industrie Textile", "Logistique & Transport", "Métallurgie & Sidérurgie", "Plasturgie", "Santé & Médical", "Services & Conseil", "Télécommunications"].map(s => (
-                                    <option key={s} value={s}>{s}</option>
-                                  ))}
-                                </select>
-                                <ChevronDown className="w-2.5 h-2.5 text-muted-foreground shrink-0" />
-                              </div>
+                            {/* Toggle mensuel/annuel */}
+                            <div className="flex items-center gap-0.5 p-0.5 bg-muted rounded-lg w-fit">
+                              {(["mensuel", "annuel"] as const).map(m => (
+                                <button key={m} onClick={() => setPeriodeMode(m)} className={`px-2.5 py-1 rounded-md text-[8px] font-semibold transition-colors ${periodeMode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+                                  {m === "mensuel" ? "Mensuel" : "Annuel"}
+                                </button>
+                              ))}
                             </div>
 
-                            {/* Consommation annuelle — Entreprise */}
+                            {/* Consommation — Entreprise */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Consommation annuelle (kWh)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Consommation {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (kWh)</label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <Zap className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -680,15 +672,16 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setConso(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 480 000"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 40 000" : "Ex : 480 000"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && conso && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} kWh/an</p>}
                             </div>
 
-                            {/* Facture annuelle — Entreprise */}
+                            {/* Facture — Entreprise */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Facture annuelle (MAD)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Facture {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (MAD)</label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <FileText className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -699,10 +692,11 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setFacture(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 180 000"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 15 000" : "Ex : 180 000"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && facture && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} MAD/an</p>}
                             </div>
 
                             {/* Puissance souscrite — Entreprise */}
@@ -740,9 +734,18 @@ const Index = () => {
                           </>
                         ) : (
                           <>
-                            {/* Facture annuelle — Particulier / Ferme */}
+                            {/* Toggle mensuel/annuel */}
+                            <div className="flex items-center gap-0.5 p-0.5 bg-muted rounded-lg w-fit">
+                              {(["mensuel", "annuel"] as const).map(m => (
+                                <button key={m} onClick={() => setPeriodeMode(m)} className={`px-2.5 py-1 rounded-md text-[8px] font-semibold transition-colors ${periodeMode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+                                  {m === "mensuel" ? "Mensuel" : "Annuel"}
+                                </button>
+                              ))}
+                            </div>
+
+                            {/* Facture — Particulier / Ferme */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Facture annuelle (MAD)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Facture {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (MAD)</label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <FileText className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -753,15 +756,16 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setFacture(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 9 600"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 800" : "Ex : 9 600"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && facture && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(facture.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} MAD/an</p>}
                             </div>
 
-                            {/* Consommation annuelle — Particulier / Ferme */}
+                            {/* Consommation — Particulier / Ferme */}
                             <div className="space-y-1.5">
-                              <label className="text-[9px] font-semibold text-foreground">Consommation annuelle (kWh)</label>
+                              <label className="text-[9px] font-semibold text-foreground">Consommation {periodeMode === "mensuel" ? "mensuelle" : "annuelle"} (kWh) <span className="text-[7px] font-normal text-muted-foreground">(optionnel)</span></label>
                               <div className="flex items-center gap-1.5 px-2.5 py-2 border border-border rounded-xl">
                                 <Zap className="w-3 h-3 text-muted-foreground shrink-0" />
                                 <input
@@ -772,10 +776,11 @@ const Index = () => {
                                     const raw = e.target.value.replace(/\s/g, "").replace(/\D/g, "");
                                     setConso(raw ? Number(raw).toLocaleString("fr-FR") : "");
                                   }}
-                                  placeholder="Ex : 350"
+                                  placeholder={periodeMode === "mensuel" ? "Ex : 30" : "Ex : 350"}
                                   className="text-[9px] bg-transparent outline-none w-full text-foreground placeholder:text-muted-foreground"
                                 />
                               </div>
+                              {periodeMode === "mensuel" && conso && <p className="text-[7px] text-muted-foreground">≈ {Math.round(Number(conso.replace(/\s/g, "")) * 12).toLocaleString("fr-FR")} kWh/an</p>}
                             </div>
 
                             {/* Ville — Particulier / Ferme */}
