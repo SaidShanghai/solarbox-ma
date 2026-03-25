@@ -176,7 +176,7 @@ export default function BlogPost() {
                 size="lg"
                 className="bg-white text-primary hover:bg-white/90 font-semibold"
               >
-                <Link to="/">Lancer mon diagnostic →</Link>
+                <Link to="/diagnostic">Dimensionner mon kit solaire →</Link>
               </Button>
             </div>
           </motion.div>
