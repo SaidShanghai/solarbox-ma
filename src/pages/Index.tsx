@@ -427,7 +427,7 @@ const Index = () => {
                         transition={{ duration: 0.25 }}
                         className="px-5 py-8 flex flex-col items-center text-center gap-6"
                       >
-                        <h3 className="text-sm font-bold">Vous êtes…</h3>
+                        <h3 className="text-sm font-bold">Votre projet concerne...</h3>
                         <div className="w-full grid grid-cols-2 gap-3">
                           {[
                             { icon: Home, label: "Maison" },
