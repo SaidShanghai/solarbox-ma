@@ -419,7 +419,7 @@ const Index = () => {
                             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                               <Zap className="w-4 h-4 text-primary" />
                             </div>
-                            <span className="text-[10px] leading-snug">Dimensionnement intelligent basé sur votre consommation</span>
+                            <span className="text-[10px] leading-snug">Kit complet dimensionné selon votre consommation</span>
                           </div>
                           <div className="flex items-center gap-2.5 p-3 bg-background border border-border/80 rounded-xl text-left shadow-sm">
                             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
