@@ -373,16 +373,16 @@ const Diagnostic = () => {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-primary">Diagnostic solaire gratuit</span>
+                <span className="text-sm font-medium text-primary">Configurateur solaire gratuit</span>
               </div>
 
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-black leading-tight">
-                  Votre diagnostic<br />
+                  Votre kit solaire<br />
                   <span className="text-gradient">en 3 minutes</span>
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-xl mx-auto">
-                  Particulier ou entreprise, obtenez une analyse solaire sur mesure et des installateurs certifiés près de chez vous.
+                  On dimensionne le matériel et l'installation adaptés à votre consommation. Livré et installé par des techniciens certifiés.
                 </p>
               </div>
 

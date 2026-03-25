@@ -124,8 +124,8 @@ const features = [
   },
   {
     icon: Zap,
-    title: "Diagnostic Express",
-    description: "En 2 minutes, obtenez une estimation personnalisée de votre potentiel.",
+    title: "Kit en 2 minutes",
+    description: "Dimensionnez votre installation solaire et recevez un devis complet.",
   },
 ];
 
@@ -332,7 +332,7 @@ const Index = () => {
 
               <div className="max-w-xl text-center space-y-3">
                 <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
-                  Uploadez votre facture. Notre IA analyse votre consommation et génère votre plan solaire personnalisé&nbsp;: puissance idéale, économies estimées et retour sur investissement.
+                  Panneaux, batteries, installation — votre kit solaire complet livré et installé au Maroc. Notre IA dimensionne le matériel idéal selon votre consommation.
                 </p>
                 <p className="text-lg md:text-xl font-bold text-foreground">
                   En moins de 2 minutes. Gratuit. Sans engagement.
@@ -408,9 +408,9 @@ const Index = () => {
                         <img src={solarboxLogoFull} alt="SOLARBOX" className="w-56 h-56 object-contain -mb-4" />
                         <div>
                          
-                          <p className="text-[10px] text-muted-foreground">Votre diagnostic solaire</p>
+                          <p className="text-[10px] text-muted-foreground">Dimensionnez votre kit solaire</p>
                           <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">
-                            Analysez votre consommation, découvrez<br />la solution solaire optimale
+                            Panneaux, batteries, installation —<br />tout est inclus dans votre SolarBox
                           </p>
                         </div>
 
@@ -419,19 +419,19 @@ const Index = () => {
                             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                               <Zap className="w-4 h-4 text-primary" />
                             </div>
-                            <span className="text-[10px] leading-snug">Dimensionnement intelligent basé sur votre consommation</span>
+                            <span className="text-[10px] leading-snug">Kit complet dimensionné selon votre consommation</span>
                           </div>
                           <div className="flex items-center gap-2.5 p-3 bg-background border border-border/80 rounded-xl text-left shadow-sm">
                             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                               <Shield className="w-4 h-4 text-primary" />
                             </div>
-                            <span className="text-[10px] leading-snug">Matching intelligent avec les installateurs certifiés près de chez vous</span>
+                            <span className="text-[10px] leading-snug">Installation par des techniciens certifiés près de chez vous</span>
                           </div>
                           <div className="flex items-center gap-2.5 p-3 bg-background border border-border/80 rounded-xl text-left shadow-sm">
                             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                               <Sun className="w-4 h-4 text-primary" />
                             </div>
-                            <span className="text-[10px] leading-snug">Devis personnalisé en quelques minutes</span>
+                            <span className="text-[10px] leading-snug">Devis gratuit avec matériel et pose inclus</span>
                           </div>
                         </div>
 
@@ -440,7 +440,7 @@ const Index = () => {
                             onClick={() => setPhoneScreen("type")}
                             className={`w-full bg-primary text-primary-foreground rounded-full py-3 text-xs font-semibold flex items-center justify-center gap-1.5 mt-1 hover:bg-primary/90 transition-colors ${ctaBlink ? "animate-[pulse_0.4s_ease-in-out_infinite]" : ""}`}
                           >
-                            Lancer l'analyse solaire <ArrowRight className="w-3.5 h-3.5" />
+                            Configurer ma SolarBox <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                           {/* Fake animated cursor */}
                           <motion.svg

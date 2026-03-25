@@ -71,8 +71,8 @@ const NosSolutions = () => {
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground max-w-xl mx-auto"
           >
-            Station solaire tout-en-un avec batteries intégrées. Du panneau à la
-            prise, l'électricité circule sans interruption dans votre maison.
+            Station solaire tout-en-un livrée et installée chez vous. Panneaux,
+            batteries, onduleur — tout est inclus, de la commande à la mise en service.
           </motion.p>
         </div>
       </section>
@@ -147,12 +147,12 @@ const NosSolutions = () => {
             Prêt à passer à l'énergie solaire ?
           </h2>
           <p className="text-muted-foreground">
-            Faites votre diagnostic gratuit et découvrez la SolarBox adaptée à
-            votre consommation et votre budget.
+            Dimensionnez votre kit solaire en 3 minutes et recevez un devis
+            complet avec matériel et installation inclus.
           </p>
           <Link to="/diagnostic">
             <Button size="lg" className="gap-2">
-              Lancer mon diagnostic <ArrowRight className="w-4 h-4" />
+              Dimensionner mon kit solaire <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
         </div>
