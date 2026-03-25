@@ -881,8 +881,8 @@ const Index = () => {
                       <div className="px-4 pb-2.5 pt-2 shrink-0">
                         {(() => {
                           const formValid = selectedType === "Entreprise"
-                            ? !!(typeBatiment && conso.trim() && facture.trim() && puissanceSouscrite.trim() && typeAbonnement)
-                            : !!(objectif && (facture.trim() || conso.trim()));
+                            ? !!(mockupConsentAccepted && typeBatiment && conso.trim() && facture.trim())
+                            : !!(mockupConsentAccepted && objectif && (facture.trim() || conso.trim()));
                           return (
                             <button
                               onClick={() => { if (formValid) setPhoneScreen(selectedType === "Entreprise" ? "informations" : "site"); }}
