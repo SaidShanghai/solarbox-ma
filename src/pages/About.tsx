@@ -63,7 +63,7 @@ export default function About() {
             SOLARBOX – Pionniers du <span className="text-primary">diagnostic solaire</span> au Maroc
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Fondée à Casablanca, nous aidons les Marocains à passer au solaire avec des données fiables, une technologie de pointe et un réseau d'installateurs certifiés.
+            Fondée à Casablanca, nous fournissons des solutions solaires clé en main — du dimensionnement à l'installation — avec du matériel de qualité et un réseau de techniciens certifiés.
           </p>
         </motion.div>
       </section>
