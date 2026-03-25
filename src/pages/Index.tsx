@@ -124,8 +124,8 @@ const features = [
   },
   {
     icon: Zap,
-    title: "Diagnostic Express",
-    description: "En 2 minutes, obtenez une estimation personnalisée de votre potentiel.",
+    title: "Kit en 2 minutes",
+    description: "Dimensionnez votre installation solaire et recevez un devis complet.",
   },
 ];
 
