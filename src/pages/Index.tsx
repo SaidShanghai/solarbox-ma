@@ -335,7 +335,7 @@ const Index = () => {
                   Panneaux, batteries, installation — votre kit solaire complet livré et installé au Maroc. Nous dimensionnons le matériel idéal selon votre consommation.
                 </p>
                 <p className="text-lg md:text-xl font-bold text-foreground">
-                  En moins de 2 minutes. Gratuit. Sans engagement.
+                  En moins de 2 minutes. Gratuit.<br />Sans engagement.
                 </p>
               </div>
               {/* Mobile CTAs — visible only below lg */}
