@@ -1582,7 +1582,7 @@ const Index = () => {
             <button
               onClick={() => setHeroSlide(1)}
               className="absolute right-0 top-1/2 z-20 flex items-center justify-center w-10 h-10 lg:w-20 lg:h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
-              style={{ transform: "translateY(calc(-50% + 130px))" }}
+              style={{ transform: "translateY(calc(-50% + 120px))" }}
               aria-label="Voir la suite"
             >
               {/* Sun rays */}
@@ -1622,7 +1622,7 @@ const Index = () => {
         <button
           onClick={() => setHeroSlide(0)}
           className="absolute left-0 top-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-r-full bg-foreground/70 shadow-md hover:bg-foreground/80 transition-colors"
-          style={{ transform: "translateY(calc(-50% + 130px))" }}
+          style={{ transform: "translateY(calc(-50% + 120px))" }}
           aria-label="Retour"
         >
           <div className="absolute inset-0 rounded-r-full overflow-hidden">
@@ -1651,7 +1651,7 @@ const Index = () => {
         <button
           onClick={() => setHeroSlide(2)}
           className="absolute right-0 top-1/2 z-20 flex items-center justify-center w-10 h-10 lg:w-20 lg:h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
-          style={{ transform: "translateY(calc(-50% + 130px))" }}
+          style={{ transform: "translateY(calc(-50% + 120px))" }}
           aria-label="Voir la FAQ"
         >
           <div className="absolute inset-0 rounded-l-full overflow-hidden">
@@ -1802,7 +1802,7 @@ const Index = () => {
         <button
           onClick={() => setHeroSlide(1)}
           className="absolute left-0 top-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-r-full bg-foreground/70 shadow-md hover:bg-foreground/80 transition-colors"
-          style={{ transform: "translateY(calc(-50% + 130px))" }}
+          style={{ transform: "translateY(calc(-50% + 120px))" }}
           aria-label="Retour"
         >
           <div className="absolute inset-0 rounded-r-full overflow-hidden">
