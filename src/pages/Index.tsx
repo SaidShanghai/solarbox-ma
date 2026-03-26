@@ -338,26 +338,25 @@ const Index = () => {
                   En moins de 2 minutes. Gratuit. Sans engagement.
                 </p>
               </div>
-              {/* Trust indicators */}
-              <div className="flex items-start gap-8 pt-8 mt-[60px] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
-                <div className="text-center">
-                  <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold text-background" />
-                  <div className="text-sm font-medium text-background/90">{STATS.diagnostics.label}</div>
-                </div>
-                <div className="text-center">
-                  <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold text-background" />
-                  <div className="text-sm font-medium text-background/90">{STATS.installateurs.label}</div>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-1">
-                    <Star className="w-5 h-5 text-warning fill-warning" />
-                    <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold text-background" />
-                  </div>
-                </div>
-              </div>
-
               {/* Mobile CTAs — visible only below lg */}
               <div className="flex flex-col gap-3 lg:hidden pt-4">
+                {/* Trust indicators — mobile (just above CTA) */}
+                <div className="flex items-start justify-center gap-8 pb-2 [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
+                  <div className="text-center">
+                    <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold text-background" />
+                    <div className="text-sm font-medium text-background/90">{STATS.diagnostics.label}</div>
+                  </div>
+                  <div className="text-center">
+                    <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold text-background" />
+                    <div className="text-sm font-medium text-background/90">{STATS.installateurs.label}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <Star className="w-5 h-5 text-warning fill-warning" />
+                      <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold text-background" />
+                    </div>
+                  </div>
+                </div>
                 <Button
                   asChild
                   size="lg"
@@ -386,6 +385,24 @@ const Index = () => {
                     Comment ça marche ?
                   </Link>
                 </Button>
+              </div>
+
+              {/* Trust indicators — desktop only */}
+              <div className="hidden lg:flex items-start gap-8 pt-8 mt-[60px] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
+                <div className="text-center">
+                  <AnimatedCounter end={STATS.diagnostics.value} suffix={STATS.diagnostics.suffix} className="text-3xl font-bold text-background" />
+                  <div className="text-sm font-medium text-background/90">{STATS.diagnostics.label}</div>
+                </div>
+                <div className="text-center">
+                  <AnimatedCounter end={STATS.installateurs.value} suffix={STATS.installateurs.suffix} className="text-3xl font-bold text-background" />
+                  <div className="text-sm font-medium text-background/90">{STATS.installateurs.label}</div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-1">
+                    <Star className="w-5 h-5 text-warning fill-warning" />
+                    <AnimatedCounter end={STATS.rating.value} decimals={STATS.rating.decimals} suffix={STATS.rating.suffix} className="text-3xl font-bold text-background" />
+                  </div>
+                </div>
               </div>
             </motion.div>
 
