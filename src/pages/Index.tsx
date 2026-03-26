@@ -1581,7 +1581,7 @@ const Index = () => {
           {heroSlide === 0 && (
             <button
               onClick={() => setHeroSlide(1)}
-              className="absolute right-0 top-1/2 z-20 flex items-center justify-center w-20 h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
+              className="absolute right-0 top-1/2 z-20 flex items-center justify-center w-10 h-10 lg:w-20 lg:h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
               style={{ transform: "translateY(calc(-50% + 90px))" }}
               aria-label="Voir la suite"
             >
@@ -1650,7 +1650,7 @@ const Index = () => {
         {/* Forward chevron → FAQ (half-sun style) */}
         <button
           onClick={() => setHeroSlide(2)}
-          className="absolute right-0 top-1/2 z-20 flex items-center justify-center w-20 h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
+          className="absolute right-0 top-1/2 z-20 flex items-center justify-center w-10 h-10 lg:w-20 lg:h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
           style={{ transform: "translateY(calc(-50% + 90px))" }}
           aria-label="Voir la FAQ"
         >
