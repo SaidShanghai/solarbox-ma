@@ -1565,7 +1565,7 @@ const Index = () => {
             <button
               onClick={() => setHeroSlide(1)}
               className="absolute right-0 top-1/2 z-20 flex items-center justify-center w-20 h-20 rounded-l-full bg-primary/90 shadow-lg shadow-primary/30 hover:bg-primary transition-colors group"
-              style={{ transform: "translateY(calc(-50% + 120px))" }}
+              style={{ transform: "translateY(calc(-50% + 90px))" }}
               aria-label="Voir la suite"
             >
               {/* Sun rays */}
