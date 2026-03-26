@@ -356,6 +356,37 @@ const Index = () => {
                 </div>
               </div>
 
+              {/* Mobile CTAs — visible only below lg */}
+              <div className="flex flex-col gap-3 lg:hidden pt-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="group h-12 px-6 text-sm text-black animate-[pulse_1.5s_ease-in-out_infinite] hover:animate-none w-full"
+                >
+                  <Link to="/diagnostic">
+                    VOIR MES ÉCONOMIES
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <div className="flex gap-2">
+                  <Button asChild size="sm" className="flex-1 h-10 bg-foreground text-background hover:bg-foreground/90">
+                    <Link to="/diagnostic">
+                      PARTICULIERS
+                    </Link>
+                  </Button>
+                  <button
+                    onClick={handleAideCTA}
+                    className="flex items-center gap-1.5 h-10 px-4 text-xs font-semibold bg-foreground text-background rounded-md hover:scale-105 transition-transform flex-1 justify-center"
+                  >
+                    ENTREPRISES
+                  </button>
+                </div>
+                <Button asChild variant="outline" size="sm" className="h-10 w-full bg-background/80 backdrop-blur-sm text-xs">
+                  <Link to="/diagnostic">
+                    Comment ça marche ?
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
 
             {/* Phone mockup */}
