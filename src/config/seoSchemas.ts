@@ -4,13 +4,13 @@ const SITE_URL = "https://solarbox.ma";
 const BRAND = "SOLARBOX";
 
 /**
- * Homepage: @graph with Organization + WebSite + WebPage + FAQPage (top 6)
+ * Homepage: @graph with a single LocalBusiness entity + WebSite + WebPage + FAQPage (top 6)
  */
 export const homepageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["Organization", "LocalBusiness"],
+      "@type": "LocalBusiness",
       "@id": `${SITE_URL}/#organization`,
       name: BRAND,
       alternateName: BRAND,
