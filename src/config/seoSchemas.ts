@@ -105,7 +105,7 @@ export const homepageSchema = {
     {
       "@type": "FAQPage",
       "@id": `${SITE_URL}/#faq`,
-      mainEntity: faqData.slice(0, 6).map((item) => ({
+      mainEntity: faqData.slice(0, 7).map((item) => ({
         "@type": "Question",
         name: item.question,
         acceptedAnswer: {

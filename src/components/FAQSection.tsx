@@ -28,14 +28,11 @@ export default function FAQSection({
         )}
 
         {/* FAQ accordion – answers always in DOM for crawlers */}
-        <div className="space-y-3 ml-[10px]" itemScope itemType="https://schema.org/FAQPage">
+        <div className="space-y-3 ml-[10px]">
           {items.map((item, i) => (
             <div
               key={i}
               className="group rounded-2xl px-6 bg-background/60 backdrop-blur-md border border-primary/15 hover:border-primary/40 transition-colors duration-200"
-              itemScope
-              itemType="https://schema.org/Question"
-              itemProp="mainEntity"
             >
               <button
                 type="button"
@@ -58,7 +55,7 @@ export default function FAQSection({
                 }}
                 aria-expanded="false"
               >
-                <span itemProp="name">{item.question}</span>
+                <span>{item.question}</span>
                 <svg
                   className="w-5 h-5 shrink-0 ml-4 text-primary transition-transform duration-200"
                   xmlns="http://www.w3.org/2000/svg"
@@ -75,11 +72,8 @@ export default function FAQSection({
               <div
                 className="overflow-hidden transition-all duration-300 ease-in-out"
                 style={{ maxHeight: "0px", opacity: 0 }}
-                itemScope
-                itemType="https://schema.org/Answer"
-                itemProp="acceptedAnswer"
               >
-                <p className="text-muted-foreground leading-relaxed pb-5" itemProp="text">
+                <p className="text-muted-foreground leading-relaxed pb-5">
                   {item.answer}
                 </p>
               </div>
